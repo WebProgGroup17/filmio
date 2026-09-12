@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getNowInCinemas } from "../api/movies";
 import MovieCard from "../components/MovieCard";
+import Header from "../components/Header";
 
 export default function NowInCinemas() {
   const [movies, setMovies] = useState([]);
@@ -18,6 +19,8 @@ export default function NowInCinemas() {
   if (loading) return <p>Loading...</p>;
 
   return (
+    <>
+      <Header />
     <div className="now-in-cinemas">
       <h1>NOW IN CINEMAS</h1>
       <div className="movie-grid">
@@ -26,5 +29,6 @@ export default function NowInCinemas() {
         ))}
       </div>
     </div>
+    </>
   );
 }
