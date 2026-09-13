@@ -2,9 +2,11 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import moviesRouter from './routes/movies.js' 
+import fs from 'fs'
 
-dotenv.config({ path: '../.env' }) //.env from root of the main folder
-
+if (fs.existsSync('../.env')) {
+  dotenv.config({ path: '../.env' }) //.env from root of the main folder
+}
 const app = express()
 const port = process.env.PORT || 3001
 
