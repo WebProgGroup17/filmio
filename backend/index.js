@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Filmio backend is running" });
 });
 app.use('/movies', moviesRouter)
-
+app.use('/users', userRouter)
 
 
 
