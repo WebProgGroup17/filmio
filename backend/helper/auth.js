@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import ApiError from './ApiError.js'
+import { ApiError } from './ApiError.js'
 
 const { verify } = jwt
 const auth = (req, _res, next) => {
