@@ -20,7 +20,17 @@ app.get("/", (req, res) => {
 app.use('/movies', moviesRouter)
 app.use('/users', userRouter)
 
-
+// Error middleware
+app.use((err,req,res,next) => {
+  console.error(err)
+  const statusCode = err.status || 500
+  res.status(statusCode).json({
+   error: {
+   message: err.message,
+   status: statusCode
+   }
+ })
+})
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
