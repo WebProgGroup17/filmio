@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getMovieDetails } from "../api/movies";
 import Header from "../components/Header";
 
-export default function MovieDetails() {
+export default function OneMovieData() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);

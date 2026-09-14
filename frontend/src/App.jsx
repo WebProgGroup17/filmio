@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<NowInCinemas />} />
         <Route path="/search" element={<SearchResults />} />
-        <Route path="/movies/:id" element={<MovieDetails />} />
+        <Route path="/movies/:id" element={<OneMovieData />} />
       </Routes>
     </BrowserRouter>
   );
