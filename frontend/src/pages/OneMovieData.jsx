@@ -41,6 +41,11 @@ export default function OneMovieData() {
 
           <h2>Description:</h2>
           <p className="movie-description">{movie.description}</p>
+
+          <h2>Reviews:</h2>
+          <p className="movie-reviews"></p>
+          <button className="add-review">ADD REVIEW</button>
+
         </div>
       </div>
     </>
