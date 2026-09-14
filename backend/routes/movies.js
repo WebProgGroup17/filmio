@@ -145,4 +145,41 @@ router.get('/search', async (req, res) => {
   }
 })
 
+//one movie
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const response = await fetch(
+      `${TMDB_BASE_URL}/movie/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+          accept: 'application/json',
+        },
+      }
+    )
+
+    if (!response.ok) {
+      throw new Error(`TMDB responded with ${response.status}`)
+    }
+
+    const movie = await response.json()
+
+    res.json({
+      id: movie.id,
+      title: movie.title,
+      releaseYear: movie.release_date?.slice(0, 4),
+      genres: movie.genres.map((genre) => genre.name),
+      description: movie.overview,
+      posterUrl: movie.poster_path
+        ? `${TMDB_IMAGE_BASE}${movie.poster_path}`
+        : null,
+    })
+  } catch (error) {
+    console.error('Failed to fetch movie details:', error)
+    res.status(500).json({ error: 'Failed to fetch movie details' })
+  }
+})
+
 export default router
