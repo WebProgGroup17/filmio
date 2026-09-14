@@ -25,7 +25,7 @@ export default function NowInCinemas() {
       <h1>NOW IN CINEMAS</h1>
       <div className="movie-grid">
         {movies.map((movie) => (
-          <MovieCard key={movie.id} title={movie.title} posterUrl={movie.posterUrl} />
+          <MovieCard key={movie.id} id={movie.id} title={movie.title} posterUrl={movie.posterUrl} />
         ))}
       </div>
     </div>

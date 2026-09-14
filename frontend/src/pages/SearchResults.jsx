@@ -98,6 +98,7 @@ export default function SearchResults() {
             {movies.map((movie) => (
               <MovieCard
                 key={movie.id}
+                id={movie.id}
                 title={movie.title}
                 posterUrl={movie.posterUrl}
               />
