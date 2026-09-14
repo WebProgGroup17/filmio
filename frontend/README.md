@@ -1,16 +1,45 @@
-# React + Vite
+#Frontend
+##Getting started
+###Prerequisites
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Make sure you have the following installed:
+- Node.js
+- npm
 
-Currently, two official plugins are available:
+## 1. Install dependencies
+Open a terminal in the frontend directory and run:
+npm install
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Install react-router-dom separately:
+npm install react-router-dom
 
-## React Compiler
+The application uses react-router-dom for routing between pages.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 2. Start the Frontend
+Use command: npm run dev
 
-## Expanding the ESLint configuration
+The terminal will show the local URL where the frontend is running.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Open this URL in your browser.
+
+## 3. Start the backend
+The backend must also be running for the application to work correctly.
+
+Open a separate terminal and navigate to the backend directory.
+
+Install the backend dependencies:
+npm install
+And start the backend with:
+npm run dev
+
+Keep both terminals running while using the application.
+
+## 4. Run the application
+You should have two terminals open:
+Frontend: npm run dev
+Backennd: npm run dev
+
+Once both are running, open the frontend URL shown in the frontend terminal in your browser.
+
+## 5. Stopping the application
+To stop the frontend or backend server, press: Ctrl + C
