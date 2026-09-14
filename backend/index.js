@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import moviesRouter from './routes/movies.js' 
+import userRouter from './routes/userRouter.js' 
 import fs from 'fs'
 
 if (fs.existsSync('../.env')) {
