@@ -23,14 +23,15 @@ export default function OneMovieData() {
   return (
     <>
       <Header />
-      <div className="movie-details">
-        <div className="movie-details-poster">
-          {movie.posterUrl ? (
-            <img src={movie.posterUrl} alt={movie.title} />
-          ) : (
-            <div className="poster-placeholder" />
-          )}
-        </div>
+      <div className="movie-page">
+        <div className="movie-top">
+            <div className="movie-details-poster">
+                {movie.posterUrl ? (
+                    <img src={movie.posterUrl} alt={movie.title} />
+                ) : (
+                    <div className="poster-placeholder" />
+                )}
+            </div>
 
         <div className="movie-details-info">
           <h1>{movie.title}</h1>
@@ -38,14 +39,15 @@ export default function OneMovieData() {
           <p className="movie-genres">{movie.genres.join(", ")}</p>
 
           <button className="add-to-favorites">ADD TO FAVORITES</button>
-
+        </div>
+      </div>
+        <div className="movie-down">
           <h2>Description:</h2>
           <p className="movie-description">{movie.description}</p>
 
           <h2>Reviews:</h2>
           <p className="movie-reviews"></p>
           <button className="add-review">ADD REVIEW</button>
-
         </div>
       </div>
     </>

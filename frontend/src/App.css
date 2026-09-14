@@ -47,6 +47,14 @@
   object-fit: cover;
 }
 
+.movie-details-poster img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
 .header {
   height: 80px;
   background: #f4eafa;
@@ -145,65 +153,85 @@
 }
 
 /* movie details*/
-.movie-details {
+.movie-page {
+  margin: 40px auto;
+  padding: 0 60px;
+}
+
+.movie-top {
   display: flex;
-  gap: 2.5rem;
-  max-width: 900px;
-  margin: 2.5rem auto;
-  padding: 0 3rem;
+  gap: 40px;
 }
 
 .movie-details-poster {
-  width: 280px;
-  flex-shrink: 0;
+  width: 220px;
 }
 
-.movie-details-poster img,
-.movie-details-poster .poster-placeholder {
-  width: 100%;
-  border-radius: 12px;
+.movie-details-info {
+  flex: 1;
+}
+
+.movie-down {
+  margin-top: 30px;
 }
 
 .movie-details-info h1 {
   color: #7c3aed;
-  font-weight: 800;
-  margin: 0 0 0.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 40px;
 }
 
-.movie-year,
+.movie-year {
+  color: black;
+  margin: 5px 0;
+  font-size: 20px;
+}
+
 .movie-genres {
-  color: #7c3aed;
-  margin: 0.25rem 0;
+  color: black;
+  margin: 5px 0;
+  font-size: 20px;
 }
 
-.add-to-favorites,
-.add-review {
-  background: #7c3aed;
+.add-to-favorites {
+  background-color: #7c3aed;
   color: white;
   border: none;
-  border-radius: 999px;
-  padding: 0.6rem 1.5rem;
-  font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.03em;
+  border-radius: 20px;
+  padding: 10px 25px;
+  font-weight: bold;
   cursor: pointer;
-  margin-top: 0.5rem;
+  margin-top: 10px;
 }
 
-.add-to-favorites:hover,
+.add-review {
+  background-color: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 25px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.add-to-favorites:hover {
+  background-color: #6b21d3;
+}
+
 .add-review:hover {
-  background: #6b21d3;
+  background-color: #6b21d3;
 }
 
-.movie-details-info h2 {
+.movie-down h2 {
   color: #7c3aed;
-  font-size: 1.1rem;
-  margin: 1.5rem 0 0.5rem;
+  margin-top: 25px;
+  margin-bottom: 10px;
 }
 
 .movie-description {
   color: #333;
-  line-height: 1.5;
 }
 
 .movie-reviews {
