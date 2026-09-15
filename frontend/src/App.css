@@ -4,6 +4,7 @@
   font-weight: 800;
   letter-spacing: 0.05em;
   margin: 2rem 0 2.5rem;
+  font-size: 70px;
 }
 
 .movie-grid {
@@ -34,12 +35,21 @@
   color: #7c3aed;
   font-weight: 600;
   text-decoration: underline;
+  font-size: 18px;
 }
 .movie-poster {
   width: 100%;
 }
 
 .movie-poster img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.movie-details-poster img {
   width: 100%;
   height: auto;
   display: block;
@@ -57,23 +67,38 @@
 }
 
 .logo {
-  color: #8e24aa;
-  font-size: 22px;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
   text-decoration: none;
+  margin-left: -45px;
+}
+
+.logo img {
+  width: 230px;
+  height: 85px;
+  display: block;
 }
 
 .header-nav {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 2px;
 }
 
 .header-icon {
-  font-size: 28px;
-  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
   text-decoration: none;
   cursor: pointer;
+}
+
+.header-icon img {
+  width: 64px;
+  height: 64px;
+  display: block;
 }
 
 .year-picker {
@@ -142,4 +167,90 @@
 
 .year-option:hover {
   background: #f4eafa;
+}
+
+/* movie details*/
+.movie-page {
+  margin: 40px auto;
+  padding: 0 60px;
+}
+
+.movie-top {
+  display: flex;
+  gap: 40px;
+}
+
+.movie-details-poster {
+  width: 220px;
+}
+
+.movie-details-info {
+  flex: 1;
+}
+
+.movie-down {
+  margin-top: 30px;
+}
+
+.movie-details-info h1 {
+  color: #7c3aed;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 40px;
+}
+
+.movie-year {
+  color: black;
+  margin: 5px 0;
+  font-size: 20px;
+}
+
+.movie-genres {
+  color: black;
+  margin: 5px 0;
+  font-size: 20px;
+}
+
+.add-to-favorites {
+  background-color: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 25px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.add-review {
+  background-color: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 25px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.add-to-favorites:hover {
+  background-color: #6b21d3;
+}
+
+.add-review:hover {
+  background-color: #6b21d3;
+}
+
+.movie-down h2 {
+  color: #7c3aed;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.movie-description {
+  color: #333;
+}
+
+.movie-reviews {
+  color: #666;
 }

@@ -51,3 +51,21 @@ export async function searchMovies({ title, genre, year }) {
     return [];
   }
 }
+
+//movie details
+export async function getMovieDetails(id) {
+  try {
+    const response = await fetch(`${API_URL}/movies/${id}`);
+
+    if (!response.ok) {
+      throw new Error(`Server responded with ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    console.error("Failed to load movie details:", error);
+    return null;
+  }
+}
