@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NowInCinemas from "./pages/NowInCinemas";
 import SearchResults from "./pages/SearchResults";
 import OneMovieData from "./pages/OneMovieData";
+import Login from "./pages/Login";
 import "./App.css";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<NowInCinemas />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/movies/:id" element={<OneMovieData />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
