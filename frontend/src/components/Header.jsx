@@ -23,9 +23,9 @@ export default function Header() {
         <span className="header-icon">
           <img src={favoritesIcon} alt="Favorites" />
         </span>
-        <span className="header-icon">
+        <Link to="/login" className="header-icon">
           <img src={profileIcon} alt="Profile" />
-        </span>
+        </Link>
       </nav>
     </header>
   );

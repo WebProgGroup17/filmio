@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
 
   // Login
   const login = async (email, password) => {
-    const res = await fetch(`${API_URL}/user/login`, {
+    const res = await fetch(`${API_URL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export function AuthProvider({ children }) {
   // Logout
   const logout = async () => {
     if (accessToken) {
-      await fetch(`${API_URL}/user/logout`, {
+      await fetch(`${API_URL}/users/logout`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${accessToken}`,
