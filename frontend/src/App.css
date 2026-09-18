@@ -254,3 +254,41 @@
 .movie-reviews {
   color: #666;
 }
+
+.password-requirements {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 10px 14px;
+  background: #f4eafa;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.password-requirement {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #888;
+  transition: color 0.15s ease;
+}
+
+.password-requirement--met {
+  color: #2e7d32;
+}
+
+.password-requirement-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  font-size: 13px;
+  color: #b0b0b0;
+}
+
+.password-requirement--met .password-requirement-icon {
+  color: #2e7d32;
+}
