@@ -4,6 +4,7 @@ import SearchResults from "./pages/SearchResults";
 import OneMovieData from "./pages/OneMovieData";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import MyAccount from "./pages/MyAccount";
 import "./App.css";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/movies/:id" element={<OneMovieData />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/account" element={<MyAccount />} />
       </Routes>
     </BrowserRouter>
   );
