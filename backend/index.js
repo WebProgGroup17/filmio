@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import moviesRouter from './routes/movies.js' 
 import userRouter from './routes/userRouter.js' 
 import fs from 'fs'
+import groupRouter from './routes/groupRouter.js'
 
 if (fs.existsSync('../.env')) {
   dotenv.config({ path: '../.env' }) //.env from root of the main folder
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 });
 app.use('/movies', moviesRouter)
 app.use('/users', userRouter)
+app.use('/groups', groupRouter)
 
 // Error middleware
 app.use((err,req,res,next) => {
