@@ -8,27 +8,23 @@
 
 .movie-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2.5rem;
   padding: 0 3rem;
   max-width: 900px;
   margin: 0 auto;
 }
 
-@media (max-width: 700px) {
-  .movie-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .movie-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 .movie-card {
   text-align: center;
+  min-width: 0;
+}
+
+.movie-poster img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
 }
 
 .poster-placeholder {
@@ -44,4 +40,31 @@
   color: #7c3aed;
   font-weight: 600;
   text-decoration: underline;
+}
+
+/* Tablet devices */
+@media (max-width: 700px) {
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 480px) {
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .now-in-cinemas h1 {
+    font-size: 1.5rem;
+    margin: 1.5rem 0 2rem;
+  }
+
+  .movie-title {
+    font-size: 0.9rem;
+  }
 }
