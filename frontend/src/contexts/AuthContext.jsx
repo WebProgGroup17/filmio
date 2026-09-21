@@ -66,7 +66,7 @@ export function AuthProvider({ children }) {
 
     if (!res.ok) {
       const error = await res.json();
-      throw new Error(error.error || "Failed to delete account");
+      throw new Error(error.error?.message || "Failed to delete account");
     }
 
     setUser(null);
