@@ -55,6 +55,24 @@ export function AuthProvider({ children }) {
     setAccessToken(null);
   };
 
+  // Delete account
+  const deleteAccount = async () => {
+    const res = await fetch(`${API_URL}/users/me`, {
+      method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+  });
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.error || "Failed to delete account");
+    }
+
+    setUser(null);
+    setAccessToken(null);
+  };
+
   const value = {
     user,
     accessToken,
@@ -74,20 +92,3 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-// Delete account
-const deleteAccount = async () => {
-  const res = await fetch(`${API_URL}/users/me`, {
-    method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-  });
-
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.error || "Failed to delete account");
-  }
-
-  setUser(null);
-  setAccessToken(null);
-};
