@@ -7,12 +7,12 @@ const router = Router()
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p/w500'
 
-//POST=add a movie to favorites
+//POST=add a movie to favourites
 router.post('/', auth, async (req, res, next) => {
   try {
     const tmdbMovieId = req.body.tmdbMovieId
     const userId = req.user.userId
-    //if frontend sendы tmdbMovieId=0, ->error
+    //if frontend sends tmdbMovieId=0 ->error
     if (!tmdbMovieId) {
       const error = new Error('tmdbMovieId is required')
       error.status = 400
@@ -26,7 +26,7 @@ router.post('/', auth, async (req, res, next) => {
     )
     //if the movie is already in the list->error message
     if (existing.rows.length > 0) {
-      return res.status(200).json({ message: 'Movie is already in favorites' })
+      return res.status(200).json({ message: 'Movie is already in favourites' })
     }
     //if the movie is not in the list, add it to the list
     await pool.query(
@@ -40,7 +40,7 @@ router.post('/', auth, async (req, res, next) => {
   }
 })
 
-//GET=get user's favorite movies
+//GET=get user's favourite movies
 router.get('/', auth, async (req, res, next) => {
   try {
     const userId = req.user.userId
@@ -81,7 +81,7 @@ router.get('/', auth, async (req, res, next) => {
   }
 })
 
-//DELETE=remove a movie from favorites
+//DELETE=remove a movie from favourites
 router.delete('/:movieId', auth, async (req, res, next) => {
   try {
     //get the user id and movie id
@@ -93,14 +93,14 @@ router.delete('/:movieId', auth, async (req, res, next) => {
       'DELETE FROM favorites WHERE user_id = $1 AND tmdb_movie_id = $2 RETURNING favorite_id',
       [userId, movieId]
     )
-    //if the movie is not found in user's favorites ->error
+    //if the movie is not found in user's favourites ->error
     if (result.rowCount === 0) {
-      const error = new Error('Favorite not found')
+      const error = new Error('Favourite not found')
       error.status = 404
       return next(error)
     }
     //if successful, return a success message: response ok
-    return res.status(200).json({ message: 'Movie removed from favorites' })
+    return res.status(200).json({ message: 'Movie removed from favourites' })
   } catch (error) {
     return next(error)
   }

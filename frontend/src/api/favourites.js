@@ -1,8 +1,8 @@
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-//add a movie to favorites =POST
-export async function addFavorite(tmdbMovieId, token) {
-  const response = await fetch(`${API_URL}/favorites`, {
+//add a movie to favourites =POST
+export async function addFavourite(tmdbMovieId, token) {
+  const response = await fetch(`${API_URL}/favourites`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -14,18 +14,18 @@ export async function addFavorite(tmdbMovieId, token) {
   return response.json();
 }
 
-//get current user's favorite movies
-export async function getFavorites(token) {
-  const response = await fetch(`${API_URL}/favorites`, {
+//get current user's favourite movies
+export async function getFavourites(token) {
+  const response = await fetch(`${API_URL}/favourites`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
   return response.json();
 }
 
-//remove a movie from favorites
-export async function removeFavorite(tmdbMovieId, token) {
-  const response = await fetch(`${API_URL}/favorites/${tmdbMovieId}`, {
+//remove a movie from favourites
+export async function removeFavourite(tmdbMovieId, token) {
+  const response = await fetch(`${API_URL}/favourites/${tmdbMovieId}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
