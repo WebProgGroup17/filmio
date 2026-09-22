@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext(null);
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -36,6 +36,8 @@ export function AuthProvider({ children }) {
     });
 
     setAccessToken(data.token);
+  // Save the authentication token to localStorage
+    localStorage.setItem('token', data.token);
 
     return data;
   };
@@ -53,6 +55,8 @@ export function AuthProvider({ children }) {
 
     setUser(null);
     setAccessToken(null);
+    // Remove the authentication token from localStorage
+      localStorage.removeItem('token');
   };
 
   // Delete account
