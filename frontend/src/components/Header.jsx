@@ -24,8 +24,8 @@ export default function Header() {
         <span className="header-icon">
           <img src={groupIcon} alt="Group" />
         </span>
-        <Link to={user ? "/favorites" : "/login"} className="header-icon">
-          <img src={favoritesIcon} alt="Favorites" />
+        <Link to={user ? "/favourites" : "/login"} className="header-icon">
+          <img src={favouritesIcon} alt="Favourites" />
         </Link>
         <Link to={user ? "/account" : "/login"} className="header-icon">
           <img src={profileIcon} alt="Profile" />
