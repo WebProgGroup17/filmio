@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 app.use('/movies', moviesRouter)
 app.use('/users', userRouter)
 app.use('/groups', groupRouter)
-app.use('/favorites', favouritesRouter)
+app.use('/favourites', favouritesRouter)
 
 // Error middleware
 app.use((err,req,res,next) => {
