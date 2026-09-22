@@ -1,4 +1,6 @@
 import express from 'express'
+import { pool } from '../helper/db.js'
+import { auth } from '../helper/auth.js'
 
 const router = express.Router()
 
@@ -181,5 +183,83 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch movie details' })
   }
 })
+
+// Get reviews for one movie
+router.get('/:id/reviews', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const result = await pool.query(
+      `
+      SELECT
+        r.review_id,
+        r.review_text,
+        r.stars,
+        r.created_at,
+        u.username
+      FROM reviews r
+      JOIN users u
+        ON r.user_id = u.user_id
+      WHERE r.tmdb_movie_id = $1
+      ORDER BY r.created_at DESC
+      `,
+      [id]
+    )
+
+    res.status(200).json(result.rows)
+  } catch (error) {
+    console.error('Failed to fetch reviews:', error)
+    res.status(500).json({
+      error: 'Failed to fetch reviews',
+    })
+  }
+})
+
+// Add review for one movie
+router.post('/:id/reviews', auth, async (req, res) => {
+  try {
+    const { id } = req.params
+    const { review_text, stars } = req.body
+
+    if (!review_text?.trim()) {
+      return res.status(400).json({
+        error: 'Review text is required',
+      })
+    }
+
+    if (!Number.isInteger(stars) || stars < 1 || stars > 5) {
+      return res.status(400).json({
+        error: 'Stars must be between 1 and 5',
+      })
+    }
+
+    const result = await pool.query(
+      `
+      INSERT INTO reviews (
+        user_id,
+        tmdb_movie_id,
+        review_text,
+        stars
+      )
+      VALUES ($1, $2, $3, $4)
+      RETURNING *
+      `,
+      [
+        req.user.userId,
+        id,
+        review_text,
+        stars,
+      ]
+    )
+
+    res.status(201).json(result.rows[0])
+  } catch (error) {
+    console.error('Failed to create review:', error)
+    res.status(500).json({
+      error: 'Failed to create review',
+    })
+  }
+})
+
 
 export default router
