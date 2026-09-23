@@ -12,7 +12,7 @@ const ReviewList = ({ reviews }) => {
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' ,timeZone: 'Europe/Helsinki'};
-    return new Date(dateString).toLocaleDateString('fi-FI', options);
+    return new Date(dateString).toLocaleDateString('en-GB', options);
   };
 
   // empty state if no reviews
