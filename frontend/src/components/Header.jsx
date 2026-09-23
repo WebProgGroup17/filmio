@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import groupIcon from "../assets/groupIcon.png";
-import favoritesIcon from "../assets/favoritesIcon.png";
+import favouritesIcon from "../assets/favouritesIcon.png";
 import profileIcon from "../assets/profileIcon.png";
 import searchIcon from "../assets/searchIcon.png";
 import mainIcon from "../assets/mainIcon.png";
@@ -24,9 +24,9 @@ export default function Header() {
         <span className="header-icon">
           <img src={groupIcon} alt="Group" />
         </span>
-        <span className="header-icon">
-          <img src={favoritesIcon} alt="Favorites" />
-        </span>
+        <Link to={user ? "/favourites" : "/login"} className="header-icon">
+          <img src={favouritesIcon} alt="Favourites" />
+        </Link>
         <Link to={user ? "/account" : "/login"} className="header-icon">
           <img src={profileIcon} alt="Profile" />
         </Link>

@@ -5,6 +5,7 @@ import OneMovieData from "./pages/OneMovieData";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MyAccount from "./pages/MyAccount";
+import MyFavourites from "./pages/MyFavourites";
 import "./App.css";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/account" element={<MyAccount />} />
+        <Route path="/favourites" element={<MyFavourites />} />
       </Routes>
     </BrowserRouter>
   );
