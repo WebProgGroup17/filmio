@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext.jsx";
-import { getFavourites, removeFavourite } from "../api/favourites";
+import { getFavourites, removeFavourite, createFavouriteShare } from "../api/favourites";
 import Header from "../components/Header";
 
 export default function MyFavourites() {
@@ -30,7 +30,20 @@ export default function MyFavourites() {
     const updatedMovies = movies.filter((movie) => movie.id !== movieId);/////----
     setMovies(updatedMovies);
   }
+async function handleShare() {
+  try {
+    const data = await createFavouriteShare(accessToken);
 
+    console.log("Share response:", data);
+
+    const shareUrl = `${window.location.origin}/shared-favourites/${data.shareToken}`;
+
+    alert(shareUrl);
+  } catch (error) {
+    console.error("Share failed:", error);
+    alert("Sharing failed.");
+  }
+}
   //if user is not logged in->this message
   if (!user) {
     return (
@@ -54,8 +67,17 @@ export default function MyFavourites() {
     <>
       <Header />
       <div className="favourites-page">
-        <h1>MY FAVOURITE MOVIES:</h1>
+        <div className="favourites-header">
+          <h1>MY FAVOURITE MOVIES:</h1>
         
+        <button
+        className="share-favourites-button"
+        onClick={handleShare}
+        >
+        SHARE
+        </button>
+      </div>
+
         <div className="movie-grid">
           {movies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} onRemove={handleRemove}/>

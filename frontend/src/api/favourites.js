@@ -13,6 +13,17 @@ export async function addFavourite(tmdbMovieId, token) {
 
   return response.json();
 }
+// create a share link for the user's favourites
+export async function createFavouriteShare(token) {
+  const response = await fetch(`${API_URL}/favourites/share`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.json();
+}
 
 //get current user's favourite movies
 export async function getFavourites(token) {

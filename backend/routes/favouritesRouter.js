@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import crypto from 'crypto'
 import { pool } from '../helper/db.js'
 import { auth } from '../helper/auth.js'
 
@@ -101,6 +102,39 @@ router.delete('/:movieId', auth, async (req, res, next) => {
     }
     //if successful, return a success message: response ok
     return res.status(200).json({ message: 'Movie removed from favourites' })
+  } catch (error) {
+    return next(error)
+  }
+})
+// POST = create a share link for user's favourites
+router.post('/share', auth, async (req, res, next) => {
+  try {
+    const userId = req.user.userId
+
+    // Check if user already has a share link
+    const existing = await pool.query(
+      'SELECT share_token FROM favorite_shares WHERE user_id = $1',
+      [userId]
+    )
+
+    if (existing.rows.length > 0) {
+      return res.status(200).json({
+        shareToken: existing.rows[0].share_token,
+      })
+    }
+
+    // Create a new random share token
+    const shareToken = crypto.randomUUID()
+
+    // Save the share token
+    await pool.query(
+      'INSERT INTO favorite_shares (user_id, share_token) VALUES ($1, $2)',
+      [userId, shareToken]
+    )
+
+    return res.status(201).json({
+      shareToken,
+    })
   } catch (error) {
     return next(error)
   }
