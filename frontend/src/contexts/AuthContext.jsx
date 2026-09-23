@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext(null);
 
@@ -7,6 +7,15 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('user');
+    if (token && userData) {
+      setAccessToken(token);
+      setUser(JSON.parse(userData));
+    }
+  }, []);
 
   // Login
   const login = async (email, password) => {
@@ -36,8 +45,9 @@ export function AuthProvider({ children }) {
     });
 
     setAccessToken(data.token);
-  // Save the authentication token to localStorage
+    // Save the authentication token to localStorage
     localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify({ id: data.id, email: data.email}));
 
     return data;
   };
@@ -56,7 +66,8 @@ export function AuthProvider({ children }) {
     setUser(null);
     setAccessToken(null);
     // Remove the authentication token from localStorage
-      localStorage.removeItem('token');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   };
 
   // Delete account
@@ -75,6 +86,8 @@ export function AuthProvider({ children }) {
 
     setUser(null);
     setAccessToken(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
 
   const value = {
