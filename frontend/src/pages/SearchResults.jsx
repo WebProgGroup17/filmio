@@ -119,6 +119,7 @@ export default function SearchResults() {
               title={movie.title}
               posterUrl={movie.posterUrl}
               releaseDate={movie.releaseDate}
+              genres={movie.genres}
               showYear={true}
 />
             ))}
