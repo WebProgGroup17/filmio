@@ -5,6 +5,7 @@ export default function MovieCard({
   title,
   posterUrl,
   releaseDate,
+  genres,
   showYear = false,
 }) {
   return (
@@ -29,6 +30,12 @@ export default function MovieCard({
             Year: {releaseDate.slice(0, 4)}
           </p>
         )}
+        {genres?.length > 0 && ( /*protection for empty list */
+          <p className="movie-genres">
+          {genres.join(", ")}
+          </p>
+        )}
+        
       </div>
     </div>
   );
