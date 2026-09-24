@@ -64,6 +64,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
+  border-bottom: 1px solid #d9c2ea;
+  
 }
 
 .logo {
