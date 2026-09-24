@@ -7,6 +7,28 @@ const router = express.Router()
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p/w500'
 
+const GENRE_NAMES = {
+  28: 'Action',
+  12: 'Adventure',
+  16: 'Animation',
+  35: 'Comedy',
+  80: 'Crime',
+  99: 'Documentary',
+  18: 'Drama',
+  10751: 'Family',
+  14: 'Fantasy',
+  36: 'History',
+  27: 'Horror',
+  10402: 'Music',
+  9648: 'Mystery',
+  10749: 'Romance',
+  878: 'Science Fiction',
+  10770: 'TV Movie',
+  53: 'Thriller',
+  10752: 'War',
+  37: 'Western',
+}
+
 router.get('/now-playing', async (req, res) => {
   try {
     const response = await fetch(
@@ -131,14 +153,27 @@ router.get('/search', async (req, res) => {
       movies = data.results
     }
 
-    const searchResults = movies.map((movie) => ({
+  const searchResults = movies.map((movie) => {
+    const genres = []
+
+    for (const genreId of movie.genre_ids || []) { //protection if id is undefined
+      const name = GENRE_NAMES[genreId]
+      if (name) {
+        genres.push(name)
+      }
+    }
+
+    return {
       id: movie.id,
       title: movie.title,
       releaseDate: movie.release_date,
+      genres: genres,
       posterUrl: movie.poster_path
         ? `${TMDB_IMAGE_BASE}${movie.poster_path}`
         : null,
-    }))
+    }
+  })
+
 
     res.json(searchResults)
   } catch (error) {
