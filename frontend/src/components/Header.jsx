@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 import groupIcon from "../assets/groupIcon.png";
 import favouritesIcon from "../assets/favouritesIcon.png";
 import profileIcon from "../assets/profileIcon.png";
