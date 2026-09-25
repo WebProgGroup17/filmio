@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 .now-in-cinemas h1 {
   text-align: center;
   color: #7c3aed;
@@ -71,11 +75,16 @@
 /* Search page */
 
 .search-page {
-  max-width: 900px;
-  margin: 0;
   padding: 4rem 3rem 3rem;
+  background-image: url('./assets/backgroundSearch.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
   font-family: inherit;
+  background-attachment: fixed;
+  
 }
+
 
 .search-form {
   display: flex;
@@ -163,7 +172,7 @@
 }
 
 .search-page .movie-card {
-  width: 500px;
+  width: 700px;
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -184,10 +193,17 @@
 
 .search-page .movie-title {
   margin-top: 0;
+  font-size: 1.6rem;
 }
 
 .search-page .movie-year {
   margin: 0.5rem 0 0;
-  color: #555;
-  font-size: 0.9rem;
+  color: #642168;
+  font-size: 1.4rem;
+}
+
+.search-page .movie-genres {
+  margin: 0.5rem 0 0;
+  color: #323131;
+  font-size: 1.2rem;
 }
