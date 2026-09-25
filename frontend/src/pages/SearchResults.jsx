@@ -40,18 +40,23 @@ export default function SearchResults() {
       <Header />
 
       <div className="search-page">
-        <h1>SEARCH MOVIES</h1>
-
         <form onSubmit={handleSearch} className="search-form">
-          <input
-            type="text"
-            placeholder="Movie title"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
 
-          <div className="search-filters">
+          <div className="search-bar">
+            <input
+              type="text"
+              placeholder="Search movie"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+            />
+
+            <button type="submit">FIND</button>
+          </div>
+
+          <div className="search-filter">
+
             <select
+              id="year"
               value={year}
               onChange={(event) => setYear(event.target.value)}
             >
@@ -63,8 +68,12 @@ export default function SearchResults() {
                 </option>
               ))}
             </select>
+          </div>
+
+          <div className="search-filter">
 
             <select
+              id="genre"
               value={genre}
               onChange={(event) => setGenre(event.target.value)}
             >
@@ -76,16 +85,24 @@ export default function SearchResults() {
               <option value="80">Crime</option>
               <option value="99">Documentary</option>
               <option value="18">Drama</option>
+              <option value="10751">Family</option>
               <option value="14">Fantasy</option>
+              <option value="36">History</option>
               <option value="27">Horror</option>
+              <option value="10402">Music</option>
+              <option value="9648">Mystery</option>
               <option value="10749">Romance</option>
               <option value="878">Science Fiction</option>
               <option value="53">Thriller</option>
+              <option value="10770">TV Movie</option>
+              <option value="10752">War</option>
+              <option value="37">Western</option>
+              
             </select>
           </div>
-
-          <button type="submit">Search</button>
         </form>
+
+        <h2>RESULTS:</h2>
 
         {loading && <p>Loading...</p>}
 
@@ -97,11 +114,14 @@ export default function SearchResults() {
           <div className="movie-grid">
             {movies.map((movie) => (
               <MovieCard
-                key={movie.id}
-                id={movie.id}
-                title={movie.title}
-                posterUrl={movie.posterUrl}
-              />
+              key={movie.id}
+              id={movie.id}
+              title={movie.title}
+              posterUrl={movie.posterUrl}
+              releaseDate={movie.releaseDate}
+              genres={movie.genres}
+              showYear={true}
+/>
             ))}
           </div>
         )}
