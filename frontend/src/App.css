@@ -213,7 +213,7 @@
   font-size: 20px;
 }
 
-.add-to-favorites {
+.add-to-favourites {
   background-color: #7c3aed;
   color: white;
   border: none;
@@ -235,7 +235,7 @@
   margin-top: 10px;
 }
 
-.add-to-favorites:hover {
+.add-to-favourites:hover {
   background-color: #6b21d3;
 }
 
