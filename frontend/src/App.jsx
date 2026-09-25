@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MyAccount from "./pages/MyAccount";
 import MyFavourites from "./pages/MyFavourites";
+import SharedFavourites from "./pages/SharedFavourites";
 import "./App.css";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/account" element={<MyAccount />} />
         <Route path="/favourites" element={<MyFavourites />} />
+        <Route path="/shared-favourites/:shareToken" element={<SharedFavourites />} />
       </Routes>
     </BrowserRouter>
   );

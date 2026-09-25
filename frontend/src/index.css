@@ -68,6 +68,27 @@
     font-size: 0.9rem;
   }
 }
+.favourites-header {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  width: 100%;
+}
+
+.favourites-header h1 {
+  margin: 0;
+}
+
+.share-favourites-button {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #7c3aed;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 /* Search page */
 
 .search-page {
@@ -123,7 +144,6 @@
   background-color: white;
   color: #555;
   cursor: pointer;
-
   appearance: none;
   -webkit-appearance: none;
 }
@@ -135,15 +155,12 @@
   bottom: 0;
   width: 40px;
   height: 42px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background-color: #eeeeee;
   color: #555;
   border-radius: 0 8px 8px 0;
-
   pointer-events: none;
   font-size: 0.7rem;
 }
