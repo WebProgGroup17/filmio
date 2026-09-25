@@ -62,7 +62,6 @@ async function handleShare() {
     return <p>Loading...</p>;
   }
 
-  //working page:
   return (
     <>
       <Header />
@@ -87,7 +86,7 @@ async function handleShare() {
     </>
   );
 }
-//one movie is a component
+
 function MovieCard({ movie, onRemove }) {
   return (
     <div className="movie-card">

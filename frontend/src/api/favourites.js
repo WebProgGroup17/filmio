@@ -24,6 +24,14 @@ export async function createFavouriteShare(token) {
 
   return response.json();
 }
+// Get favourite movies from a shared link
+export async function getSharedFavourites(shareToken) {
+  const response = await fetch(
+    `${API_URL}/favourites/share/${shareToken}`
+  );
+
+  return response.json();
+}
 
 //get current user's favourite movies
 export async function getFavourites(token) {

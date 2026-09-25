@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { getMovieDetails } from "../api/movies";
 import Header from "../components/Header";
 import { useAuth } from "../contexts/AuthContext.jsx";
@@ -16,6 +16,8 @@ export default function OneMovieData() {
   const [reviews, setReviews] = useState([]);
   const { user, accessToken } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const fromSharedFavourites = location.state?.fromSharedFavourites;
   const [favouriteMessage, setFavouriteMessage] = useState("");
 
   useEffect(() => {
@@ -72,8 +74,18 @@ export default function OneMovieData() {
           <p className="movie-year">{movie.releaseYear}</p>
           <p className="movie-genres">{movie.genres.join(", ")}</p>
 
-          <button className="add-to-favourites" onClick={handleAddToFavourites}>ADD TO FAVOURITES</button>
-          <p className="favourite-message">{favouriteMessage}</p>
+          {!fromSharedFavourites && (
+  <>
+    <button
+      className="add-to-favourites"
+      onClick={handleAddToFavourites}
+    >
+      ADD TO FAVOURITES
+    </button>
+
+    <p className="favourite-message">{favouriteMessage}</p>
+  </>
+)}
         </div>
       </div>
         <div className="movie-down">
