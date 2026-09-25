@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { getMovieDetails } from "../api/movies";
 import Header from "../components/Header";
 import { useAuth } from "../contexts/AuthContext.jsx";
 import ReviewList from "../components/ReviewList";
 import ReviewForm from "../components/ReviewForm";
+import { addFavourite } from "../api/favourites";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -13,7 +14,9 @@ export default function OneMovieData() {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
-  const {accessToken } = useAuth();
+  const { user, accessToken } = useAuth();
+  const navigate = useNavigate();
+  const [favouriteMessage, setFavouriteMessage] = useState("");
 
   useEffect(() => {
     async function loadMovie() {
@@ -39,6 +42,18 @@ export default function OneMovieData() {
   if (loading) return <p>Loading...</p>;
   if (!movie) return <p>Movie not found.</p>;
 
+  //favourites button-logic
+
+  const handleAddToFavourites = async () => {
+  if (!user) {
+    navigate("/login"); //if not sign in->login page
+    return;
+  }
+
+  const result = await addFavourite(movie.id, accessToken); //send current movie's id, token to backend
+  setFavouriteMessage(result.message); //result from backend
+};
+
   return (
     <>
       <Header />
@@ -57,7 +72,8 @@ export default function OneMovieData() {
           <p className="movie-year">{movie.releaseYear}</p>
           <p className="movie-genres">{movie.genres.join(", ")}</p>
 
-          <button className="add-to-favorites">ADD TO FAVORITES</button>
+          <button className="add-to-favourites" onClick={handleAddToFavourites}>ADD TO FAVOURITES</button>
+          <p className="favourite-message">{favouriteMessage}</p>
         </div>
       </div>
         <div className="movie-down">

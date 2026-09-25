@@ -287,7 +287,12 @@ router.post('/:id/reviews', auth, async (req, res) => {
       ]
     )
 
-    res.status(201).json(result.rows[0])
+    const review = result.rows[0]
+
+    res.status(201).json({
+      ...review,
+      username: req.user.email.split('@')[0]
+    })
   } catch (error) {
     console.error('Failed to create review:', error)
     res.status(500).json({
