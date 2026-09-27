@@ -93,7 +93,7 @@ export default function OneMovieData() {
           <p className="movie-description">{movie.description}</p>
 
           <h2>Reviews:</h2>
-          <ReviewList reviews={reviews} />
+         
           <div className="review-section">
             {accessToken ? (
               <ReviewForm id={id} onReviewAdded={handleReviewAdded} />
@@ -101,6 +101,7 @@ export default function OneMovieData() {
               <p className="login-prompt">Please <Link to="/login">log in</Link> to submit a review.</p>
             )}
           </div>
+           <ReviewList reviews={reviews} />
         </div>
       </div>
     </>
