@@ -20,9 +20,9 @@ export default function Header() {
         <Link to="/search" className="header-icon">
           <img src={searchIcon} alt="Search" />
         </Link>
-        <span className="header-icon">
+        <Link to="/groups" className="header-icon">
           <img src={groupIcon} alt="Group" />
-        </span>
+        </Link>
         <Link to={user ? "/favourites" : "/login"} className="header-icon">
           <img src={favouritesIcon} alt="Favourites" />
         </Link>
