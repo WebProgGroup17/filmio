@@ -64,6 +64,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
+  border-bottom: 1px solid #d9c2ea;
+  
 }
 
 .logo {
@@ -211,7 +213,7 @@
   font-size: 20px;
 }
 
-.add-to-favorites {
+.add-to-favourites {
   background-color: #7c3aed;
   color: white;
   border: none;
@@ -233,7 +235,7 @@
   margin-top: 10px;
 }
 
-.add-to-favorites:hover {
+.add-to-favourites:hover {
   background-color: #6b21d3;
 }
 
