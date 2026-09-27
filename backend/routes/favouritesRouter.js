@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import crypto from 'crypto'
 import { pool } from '../helper/db.js'
 import { auth } from '../helper/auth.js'
 
@@ -105,5 +106,94 @@ router.delete('/:movieId', auth, async (req, res, next) => {
     return next(error)
   }
 })
+// POST = create a share link for user's favourites
+router.post('/share', auth, async (req, res, next) => {
+  try {
+    const userId = req.user.userId
 
+    // Check if user already has a share link
+    const existing = await pool.query(
+      'SELECT share_token FROM favorite_shares WHERE user_id = $1',
+      [userId]
+    )
+
+    if (existing.rows.length > 0) {
+      return res.status(200).json({
+        shareToken: existing.rows[0].share_token,
+      })
+    }
+
+    // Create a new random share token
+    const shareToken = crypto.randomUUID()
+
+    // Save the share token
+    await pool.query(
+      'INSERT INTO favorite_shares (user_id, share_token) VALUES ($1, $2)',
+      [userId, shareToken]
+    )
+
+    return res.status(201).json({
+      shareToken,
+    })
+  } catch (error) {
+    return next(error)
+  }
+})
+// GET = get favourite movies using a share token
+router.get('/share/:shareToken', async (req, res, next) => {
+  try {
+    const { shareToken } = req.params
+
+    // Find the user who owns this share link
+    const shareResult = await pool.query(
+      'SELECT user_id FROM favorite_shares WHERE share_token = $1',
+      [shareToken]
+    )
+
+    // If the share link does not exist
+    if (shareResult.rows.length === 0) {
+      const error = new Error('Share link not found')
+      error.status = 404
+      return next(error)
+    }
+
+    const userId = shareResult.rows[0].user_id
+
+    // Get the user's favourite movie IDs
+    const result = await pool.query(
+      'SELECT tmdb_movie_id FROM favorites WHERE user_id = $1',
+      [userId]
+    )
+
+    const movies = []
+
+    // Get movie information from TMDB
+    for (const row of result.rows) {
+      const movieId = row.tmdb_movie_id
+
+      const response = await fetch(`${TMDB_BASE_URL}/movie/${movieId}`, {
+        headers: {
+          Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+          accept: 'application/json',
+        },
+      })
+
+      if (response.ok) {
+        const movie = await response.json()
+
+        movies.push({
+          id: movie.id,
+          title: movie.title,
+          posterUrl: movie.poster_path
+            ? `${TMDB_IMAGE_BASE}${movie.poster_path}`
+            : null,
+        })
+      }
+    }
+
+    return res.status(200).json(movies)
+  } catch (error) {
+    return next(error)
+  }
+})
 export default router

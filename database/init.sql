@@ -79,6 +79,16 @@ CREATE TABLE favorites (
     UNIQUE (user_id, tmdb_movie_id)
 );
 
+CREATE TABLE favorite_shares (
+    share_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    share_token VARCHAR(100) UNIQUE NOT NULL,
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
+);
+
 
 CREATE TABLE group_movies (
     group_movie_id SERIAL PRIMARY KEY,
