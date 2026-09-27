@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 .now-in-cinemas h1 {
   text-align: center;
   color: #7c3aed;
@@ -68,14 +72,40 @@
     font-size: 0.9rem;
   }
 }
+.favourites-header {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  width: 100%;
+}
+
+.favourites-header h1 {
+  margin: 0;
+}
+
+.share-favourites-button {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #7c3aed;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 /* Search page */
 
 .search-page {
-  max-width: 900px;
-  margin: 0;
   padding: 4rem 3rem 3rem;
+  background-image: url('./assets/backgroundSearch.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
   font-family: inherit;
+  background-attachment: fixed;
+  
 }
+
 
 .search-form {
   display: flex;
@@ -123,7 +153,6 @@
   background-color: white;
   color: #555;
   cursor: pointer;
-
   appearance: none;
   -webkit-appearance: none;
 }
@@ -135,15 +164,12 @@
   bottom: 0;
   width: 40px;
   height: 42px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background-color: #eeeeee;
   color: #555;
   border-radius: 0 8px 8px 0;
-
   pointer-events: none;
   font-size: 0.7rem;
 }
@@ -163,7 +189,7 @@
 }
 
 .search-page .movie-card {
-  width: 500px;
+  width: 700px;
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -184,10 +210,17 @@
 
 .search-page .movie-title {
   margin-top: 0;
+  font-size: 1.6rem;
 }
 
 .search-page .movie-year {
   margin: 0.5rem 0 0;
-  color: #555;
-  font-size: 0.9rem;
+  color: #642168;
+  font-size: 1.4rem;
+}
+
+.search-page .movie-genres {
+  margin: 0.5rem 0 0;
+  color: #323131;
+  font-size: 1.2rem;
 }
