@@ -95,11 +95,17 @@ export default function OneMovieData() {
           <h2>Reviews:</h2>
           <ReviewList reviews={reviews} />
           <div className="review-section">
-            {accessToken ? (
-              <ReviewForm id={id} onReviewAdded={handleReviewAdded} />
-            ) : (
-              <p className="login-prompt">Please <Link to="/login">log in</Link> to submit a review.</p>
-            )}
+            {fromSharedFavourites ? (
+          <p className="login-prompt">
+          This is a shared movie. You can only view the movie and reviews.
+          </p>
+          ) : accessToken ? (
+        <ReviewForm id={id} onReviewAdded={handleReviewAdded} />
+        ) : (
+          <p className="login-prompt">
+        Please <Link to="/login">log in</Link> to submit a review.
+        </p>
+        )}
           </div>
         </div>
       </div>
