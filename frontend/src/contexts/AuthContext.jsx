@@ -45,12 +45,9 @@ export function AuthProvider({ children }) {
     });
 
     setAccessToken(data.token);
-<<<<<<< HEAD
-=======
     // Save the authentication token to localStorage
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify({ id: data.id, email: data.email}));
->>>>>>> dev
 
     return data;
   };

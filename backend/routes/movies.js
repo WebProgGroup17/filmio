@@ -153,14 +153,6 @@ router.get('/search', async (req, res) => {
       movies = data.results
     }
 
-    const searchResults = movies.map((movie) => ({
-      id: movie.id,
-      title: movie.title,
-      releaseDate: movie.release_date,
-      posterUrl: movie.poster_path
-        ? `${TMDB_IMAGE_BASE}${movie.poster_path}`
-        : null,
-    }))
   const searchResults = movies.map((movie) => {
     const genres = []
 
