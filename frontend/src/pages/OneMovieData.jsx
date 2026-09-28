@@ -93,7 +93,7 @@ export default function OneMovieData() {
           <p className="movie-description">{movie.description}</p>
 
           <h2>Reviews:</h2>
-          <ReviewList reviews={reviews} />
+         
           <div className="review-section">
             {fromSharedFavourites ? (
           <p className="login-prompt">
@@ -107,6 +107,7 @@ export default function OneMovieData() {
         </p>
         )}
           </div>
+           <ReviewList reviews={reviews} />
         </div>
       </div>
     </>
