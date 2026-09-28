@@ -64,6 +64,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
+  border-bottom: 1px solid #d9c2ea;
+  
 }
 
 .logo {
@@ -211,7 +213,7 @@
   font-size: 20px;
 }
 
-.add-to-favorites {
+.add-to-favourites {
   background-color: #7c3aed;
   color: white;
   border: none;
@@ -233,7 +235,7 @@
   margin-top: 10px;
 }
 
-.add-to-favorites:hover {
+.add-to-favourites:hover {
   background-color: #6b21d3;
 }
 
@@ -253,6 +255,52 @@
 
 .movie-reviews {
   color: #666;
+}
+
+
+/* MY ACCOUNT */
+
+.account-page {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.account-page h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.logout-button {
+  margin-top: 120px;
+  width: 220px;
+  padding: 14px 20px;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-account-button {
+  margin-top: auto;
+  width: 220px;
+  padding: 14px 20px;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  background-color: #b3261e;
+  color: white;
 }
 
 .password-requirements {
@@ -291,4 +339,219 @@
 
 .password-requirement--met .password-requirement-icon {
   color: #2e7d32;
+
+}
+
+/* review list and form styles */
+.review-list-container {
+  margin-top: 30px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.review-list-container h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.review-list-empty {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.review-card {
+  background: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: box-shadow 0.2s ease;
+}
+
+.review-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.review-username {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.review-date {
+  font-size: 0.85rem;
+  color: #8c9ba5;
+}
+
+.review-stars {
+  color: #f39c12; 
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.review-text {
+  font-size: 0.95rem;
+  color: #4a5568;
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-line; 
+}
+
+.review-form-container {
+  background: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 30px;
+  max-width: 800px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.review-form-container h4 {
+  font-size: 1.25rem;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.review-error-message {
+  background-color: #ffe6e6;
+  color: #d63031;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.review-form .form-group {
+  margin-bottom: 15px;
+}
+
+.review-form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.review-form select,
+.review-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.review-form select:focus,
+.review-form textarea:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.review-form textarea {
+  resize: vertical;
+}
+
+.submit-review-btn {
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-review-btn:hover:not(:disabled) {
+  background-color: #2b6cb0;
+}
+
+.submit-review-btn:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.review-section {
+  margin-top: 20px;
+}
+
+.login-prompt {
+  background-color: #f7fafc;
+  border: 1px dashed #cbd5e0;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  color: #4a5568;
+  font-size: 0.95rem;
+  max-width: 800px;
+}
+
+.login-prompt a {
+  color: #3182ce;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-prompt a:hover {
+  text-decoration: underline;
+}
+
+/* GROUPS PAGE */
+
+.Groups-page {
+  padding: 40px 60px;
+}
+
+.groups-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Groups-page h1,
+.Groups-page h2 {
+  color: #6c4ccf;
+}
+
+.create-group-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 20px;
+  background-color: #6c4ccf;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.my-groups {
+  min-height: 180px;
+}
+
+.all-groups {
+  min-height: 180px;
 }

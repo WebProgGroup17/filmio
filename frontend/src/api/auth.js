@@ -49,3 +49,19 @@ export async function logout(token) {
 
   return data;
 }
+
+// delete
+export async function deleteAccount(token) {
+  const response = await fetch(`${API_URL}/users/me`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error?.message || `Server responded with ${response.status}`);
+  }
+
+  return data;
+}

@@ -74,4 +74,20 @@ router.post('/logout', auth, (req, res) => {
   return res.status(200).json({ message: 'Logged out successfully' })
 })
 
+//users/me -> deleting
+router.delete('/me', auth, async (req, res, next) => {
+  try {
+    const userId = req.user.userId
+
+    const result = await pool.query(
+      'DELETE FROM users WHERE user_id = $1 RETURNING user_id',
+      [userId],
+    )
+
+    return res.status(200).json({ message: 'Account deleted successfully' })
+  } catch (error) {
+    return next(error)
+  }
+})
+
 export default router
