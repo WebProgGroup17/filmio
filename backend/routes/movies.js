@@ -231,7 +231,7 @@ router.get('/:id/reviews', async (req, res) => {
         r.review_text,
         r.stars,
         r.created_at,
-        u.username
+        split_part(u.email,'@',1) AS username
       FROM reviews r
       JOIN users u
         ON r.user_id = u.user_id
@@ -291,7 +291,7 @@ router.post('/:id/reviews', auth, async (req, res) => {
 
     res.status(201).json({
       ...review,
-      username: req.user.email.split('@')[0]
+      username: req.user.email ? req.user.email.split('@')[0] :'Unknown User'
     })
   } catch (error) {
     console.error('Failed to create review:', error)
