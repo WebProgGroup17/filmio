@@ -5,7 +5,6 @@ import { signup } from "../api/auth.js";
 function Signup() {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -15,7 +14,7 @@ function Signup() {
     setError("");
 
     try {
-      await signup({ username, email, password });
+      await signup({ email, password });
 
       navigate("/login");
     } catch (error) {
@@ -28,17 +27,7 @@ function Signup() {
       <h1>Sign Up</h1>
 
       <form onSubmit={handleSignup}>
-        <div>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-            required
-          />
-        </div>
-
+      
         <div>
           <label htmlFor="email">Email</label>
           <input
