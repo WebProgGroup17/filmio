@@ -10,11 +10,10 @@ const router = Router()
 //users/signup
 router.post('/signup', async (req, res, next) => {
   try {
-    const username = req.body?.user?.username
     const email = req.body.user?.email?.trim().toLowerCase()
     const password = req.body.user?.password
-    if (!username || !email || !password) {
-      const error = new Error('Username, email and password are required')
+    if (!email || !password) {
+      const error = new Error('Email and password are required')
       error.status = 400
       return next(error)
     }
@@ -28,8 +27,8 @@ router.post('/signup', async (req, res, next) => {
    }
     const hashedPassword = await hash(password, 10)
     const result = await pool.query(
-      `INSERT INTO users (email, username, password_hash) VALUES ($1, $2, $3) RETURNING user_id, email,username`,
-      [email, username, hashedPassword]
+      `INSERT INTO users (email, password_hash) VALUES ($1, $2, $3) RETURNING user_id, email`,
+      [email, hashedPassword]
     )
 
     return res.status(201).json(result.rows[0])
