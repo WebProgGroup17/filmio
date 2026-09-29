@@ -27,7 +27,7 @@ router.post('/signup', async (req, res, next) => {
    }
     const hashedPassword = await hash(password, 10)
     const result = await pool.query(
-      `INSERT INTO users (email, password_hash) VALUES ($1, $2, $3) RETURNING user_id, email`,
+      `INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING user_id, email`,
       [email, hashedPassword]
     )
 
