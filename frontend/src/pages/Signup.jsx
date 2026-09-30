@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../api/auth.js";
+import Header from "../components/Header";
 
 function Signup() {
   const navigate = useNavigate();
@@ -23,8 +24,10 @@ function Signup() {
   };
 
   return (
-    <div>
-      <h1>Sign Up</h1>
+    <>
+      <Header />
+      <div className="singup-page">
+        <h1>Sign Up</h1>
 
       <form onSubmit={handleSignup}>
       
@@ -39,28 +42,29 @@ function Signup() {
           />
         </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-          />
-        </div>
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
+          </div>
 
-        {error && <p>{error}</p>}
+          {error && <p>{error}</p>}
 
-        <button type="submit">
-          Sign Up
-        </button>
-      </form>
+          <button type="submit">
+            Sign Up
+          </button>
+        </form>
 
-      <p>
-        Already have an account? <Link to="/login">Log in</Link>
-      </p>
-    </div>
+        <p>
+          Already have an account? <Link to="/login">Log in</Link>
+        </p>
+      </div>
+    </>
   );
 }
 
