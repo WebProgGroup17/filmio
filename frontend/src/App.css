@@ -520,3 +520,38 @@
 .login-prompt a:hover {
   text-decoration: underline;
 }
+
+/* GROUPS PAGE */
+
+.Groups-page {
+  padding: 40px 60px;
+}
+
+.groups-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Groups-page h1,
+.Groups-page h2 {
+  color: #6c4ccf;
+}
+
+.create-group-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 20px;
+  background-color: #6c4ccf;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.my-groups {
+  min-height: 180px;
+}
+
+.all-groups {
+  min-height: 180px;
+}
