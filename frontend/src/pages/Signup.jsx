@@ -26,7 +26,7 @@ function Signup() {
   return (
     <>
       <Header />
-      <div className="singup-page">
+      <div className="signup-page">
         <h1>Sign Up</h1>
 
       <form onSubmit={handleSignup}>
