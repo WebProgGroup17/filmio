@@ -242,7 +242,7 @@ router.get('/:groupId/members', auth, async (req, res, next) => {
       }
     }
     const membersResult = await pool.query(
-      `SELECT u.user_id, u.username
+      `SELECT u.user_id, u.email
        FROM group_members gm
        JOIN users u ON u.user_id = gm.user_id
        WHERE gm.group_id = $1`,
