@@ -204,17 +204,19 @@ export default function OneGroup() {
                         <h2>Members:</h2>
                         {members.map((member) => (
                             <div key={member.user_id} className="member-row">
-                                <span>{member.email}</span>
-                                {member.user_id === group.owner_id ? (
-                                    <span title="Owner">👑</span>
-                                ) : (
-                                    isOwner && (
-                                        <button
-                                            className="small-button"
-                                            onClick={() => handleRemoveMember(member.user_id)}>
-                                            REMOVE
-                                        </button>
-                                    )
+                                <span className="member-name">
+                                    {member.email}
+                                    {member.user_id === group.owner_id && (
+                                        <span title="Owner"> 👑</span>
+                                    )}
+                                </span>
+                                {member.user_id !== group.owner_id && isOwner && (
+                                    <button
+                                        className="small-button"
+                                        onClick={() => handleRemoveMember(member.user_id)}
+                                    >
+                                        REMOVE
+                                    </button>
                                 )}
                             </div>
                         ))}
