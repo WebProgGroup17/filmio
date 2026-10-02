@@ -355,65 +355,6 @@ router.post('/:groupId/join', auth, async (req, res, next) => {
   }
 });
 
-// DELETE /groups/:groupId/leave
 
-router.delete('/:groupId/leave', auth, async (req, res, next) => {
-  try {
-    const { groupId } = req.params
-    const userId = req.user.userId
-
-    // Check group exists
-    const groupResult = await pool.query(
-      `SELECT owner_id
-       FROM groups
-       WHERE group_id = $1`,
-      [groupId]
-    )
-
-    if (groupResult.rows.length === 0) {
-      const error = new Error('Group not found')
-      error.status = 404
-      return next(error)
-    }
-
-    const group = groupResult.rows[0]
-
-    // Owner cannot leave
-    if (group.owner_id === userId) {
-      const error = new Error('Group owner cannot leave the group. Delete the group instead.')
-      error.status = 403
-      return next(error)
-    }
-
-    // Check membership
-    const memberResult = await pool.query(
-      `SELECT *
-       FROM group_members
-       WHERE group_id = $1
-       AND user_id = $2`,
-      [groupId, userId]
-    )
-
-    if (memberResult.rows.length === 0) {
-      const error = new Error('You are not a member of this group')
-      error.status = 403
-      return next(error)
-    }
-
-    // Remove member
-    await pool.query(
-      `DELETE FROM group_members
-       WHERE group_id = $1
-       AND user_id = $2`,
-      [groupId, userId]
-    )
-
-    return res.status(200).json({
-      message: "Successfully left the group"
-    })
-  } catch (error) {
-    return next(error)
-  }
-})
 
 export default router
