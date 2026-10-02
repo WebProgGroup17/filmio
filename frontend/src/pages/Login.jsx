@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext.jsx";
+import Header from "../components/Header";
+
 
 function Login() {
   const { login } = useAuth();
@@ -24,8 +26,10 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <>
+      <Header />
+      <div className="login-page">
+        <h1>Login</h1>
 
       <form onSubmit={handleLogin}>
         <div>
@@ -61,6 +65,7 @@ function Login() {
         Don&apos;t have an account? <Link to="/signup">Sign up</Link>
       </p>
     </div>
+    </>
   );
 }
 
