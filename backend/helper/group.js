@@ -1,7 +1,7 @@
 import { pool } from './db.js'
 
 //check if groupId is a number
-export function checkGroupIdIsNumber(_req, _res, next, groupId) {
+export function checkGroupId(_req, _res, next, groupId) {
   if (!/^\d+$/.test(groupId)) {
     const error = new Error('Invalid group id')
     error.status = 400
