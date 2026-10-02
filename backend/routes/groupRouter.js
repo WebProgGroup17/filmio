@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { pool } from '../helper/db.js'
 import { auth } from '../helper/auth.js'
-import { checkGroupId } from '../helper/groupHelper.js'
+import { checkGroupId } from '../helper/group.js'
 
 const router = Router()
 
