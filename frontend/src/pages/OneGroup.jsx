@@ -9,7 +9,7 @@ import {
 } from "../api/groups";
 
 
-export default function GroupPage() {
+export default function OneGroup() {
     // groupId is taken from address line
     const { groupId } = useParams();
     const navigate = useNavigate();
