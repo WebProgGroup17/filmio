@@ -427,3 +427,35 @@ body {
   text-align: left;
   font-size: 14px;
 }
+
+/* Movie page on smaller screens */
+
+@media (max-width: 700px) {
+  .movie-page {
+    margin: 20px auto;
+    padding: 0 20px;
+  }
+
+  .movie-top {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .movie-details-poster {
+    width: 200px;
+  }
+
+  .movie-details-info {
+    width: 100%;
+    text-align: center;
+  }
+
+  .movie-details-info h1 {
+    font-size: 30px;
+  }
+
+  .movie-down {
+    margin-top: 30px;
+  }
+}
