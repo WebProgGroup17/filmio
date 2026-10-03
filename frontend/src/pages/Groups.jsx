@@ -174,7 +174,7 @@ const handleJoinGroup = async (groupId) => {
   <>
     <Header />
 
-    <div className="Groups-page">
+    <div className="groups-page">
       <div className="groups-header">
         <h1>MY GROUPS:</h1>
 
