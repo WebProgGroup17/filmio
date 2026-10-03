@@ -245,7 +245,8 @@ router.patch('/join-requests/:requestId/accept', auth, async (req, res, next) =>
        JOIN groups g ON g.group_id = jr.group_id
        WHERE jr.request_id = $1
        AND g.owner_id = $2
-       AND jr.status = 'pending'`,
+       AND jr.status = 'pending'
+       AND jr.type = 'request'`,
             [requestId, ownerId]
         );
 
@@ -304,6 +305,7 @@ router.patch('/join-requests/:requestId/reject', auth, async (req, res, next) =>
        AND jr.group_id = g.group_id
        AND g.owner_id = $2
        AND jr.status = 'pending'
+       AND jr.type = 'request'
        RETURNING jr.request_id,
                  jr.group_id,
                  jr.user_id,
