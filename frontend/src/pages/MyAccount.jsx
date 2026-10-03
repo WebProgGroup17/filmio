@@ -26,88 +26,48 @@ export default function MyAccount() {
     }
   };
 
-const handleAcceptRequest = async (requestId) => {
-  try {
-    const response = await fetch(
-      `http://localhost:3001/groups/join-requests/${requestId}/accept`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to accept join request");
-    }
-
-    setJoinRequests((previousRequests) =>
-      previousRequests.filter(
-        (request) => request.request_id !== requestId
-      )
-    );
-
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const handleDeclineRequest = async (requestId) => {
-  try {
-    const response = await fetch(
-      `http://localhost:3001/groups/join-requests/${requestId}/reject`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to decline join request");
-    }
-
-    setJoinRequests((previousRequests) =>
-      previousRequests.filter(
-        (request) => request.request_id !== requestId
-      )
-    );
-
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-  const [joinRequests, setJoinRequests] = useState([]);
-    useEffect(() => {
-  const fetchJoinRequests = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:3001/groups/my/received-join-requests",
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch received join requests");
-      }
-
+  //load invintations when a page appears
+  useEffect(() => {
+    async function loadInvites() {
+      const response = await fetch("http://localhost:3001/groups/my/invites", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
       const data = await response.json();
-      setJoinRequests(data);
-    } catch (error) {
-      console.error(error);
+      setInvites(data);
     }
-  };
+    //check token
+    if (accessToken) {
+      loadInvites();
+    }
+  }, [accessToken]);
 
-  if (accessToken) {
-    fetchJoinRequests();
+  //intinvation->ACCEPT
+  async function handleAcceptInvite(inviteId) {
+    await fetch(`http://localhost:3001/groups/invites/${inviteId}/accept`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    if (!response.ok) {
+      alert("Something went wrong. Invitation is not accepted.");
+      return;
+    }
+    //remove this invintation from invintations
+    setInvites(invites.filter((invite) => invite.invite_id !== inviteId));
   }
-}, [accessToken]);
+
+  //intinvation->DECLINE
+  async function handleDeclineInvite(inviteId) {
+    await fetch(`http://localhost:3001/groups/invites/${inviteId}/reject`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    if (!response.ok) {
+      alert("Something went wrong. Invitation is not declined.");
+      return;
+    }
+    //remove this invintation from invintations
+    setInvites(invites.filter((invite) => invite.invite_id !== inviteId));
+  }
 
   return (
     <>
@@ -129,14 +89,14 @@ const handleDeclineRequest = async (requestId) => {
       <div className="join-request-actions">
         <button 
           className="accept-request-button"
-          onClick={() => handleAcceptRequest(request.request_id)}
+          onClick={() => handleAcceptInvite(request.request_id)}
           >
           ACCEPT
         </button>
 
         <button 
           className="decline-request-button"
-          onClick={() => handleDeclineRequest(request.request_id)}
+          onClick={() => handleDeclineInvite(request.request_id)}
           >
           DECLINE
         </button>
