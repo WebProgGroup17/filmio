@@ -8,6 +8,7 @@ import MyAccount from "./pages/MyAccount";
 import MyFavourites from "./pages/MyFavourites";
 import Groups from "./pages/Groups";
 import SharedFavourites from "./pages/SharedFavourites";
+import OneGroup from "./pages/OneGroup";
 import "./App.css";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/account" element={<MyAccount />} />
         <Route path="/favourites" element={<MyFavourites />} />
         <Route path="/groups" element={<Groups />} />
+        <Route path="/groups/:groupId" element={<OneGroup />} />
         <Route path="/shared-favourites/:shareToken" element={<SharedFavourites />} />
       </Routes>
     </BrowserRouter>
