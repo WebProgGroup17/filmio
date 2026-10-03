@@ -523,7 +523,7 @@
 
 /* GROUPS PAGE */
 
-.Groups-page {
+.groups-page {
   padding: 40px 60px;
 }
 
@@ -533,8 +533,8 @@
   align-items: center;
 }
 
-.Groups-page h1,
-.Groups-page h2 {
+.groups-page h1,
+.groups-page h2 {
   color: #6c4ccf;
 }
 
@@ -602,7 +602,100 @@
   color: white;
 }
 
+/* GROUP PAGE FOR ONE GROUP */
+.group-page {
+  padding: 10px;
+  color: #7b1fa2;
+}
+
+.group-top {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.group-title {
+  margin: 0;
+  padding: 30px 40px;
+  background: #e8dcf5;
+  color: #7b1fa2;
+}
+
+.group-main-button {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 25px;
+  background: #7b1fa2;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+.group-leave-button {
+  margin-left: auto;
+  margin-right: 60px;
+}
+
+.group-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  margin-top: 30px;
+}
+
+.group-left {
+  flex: 1;
+}
+
+.group-right {
+  width: 400px;
+}
+
+.group-page h2 {
+  color: #7b1fa2;
+}
+
+.group-movies-title {
+  margin-top: 50px;
+}
+
+.member-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  max-width: 400px;
+  margin: 12px 0;
+}
+
+.small-button {
+  padding: 2px 12px;
+  margin-left: 6px;
+  border: 1px solid #b388d6;
+  border-radius: 12px;
+  background: #e8dcf5;
+  color: #7b1fa2;
+  cursor: pointer;
+}
+
+.big-light-button {
+  display: block;
+  margin: 20px 0;
+  padding: 18px 28px;
+  border: none;
+  border-radius: 25px;
+  background: #e8dcf5;
+  color: #7b1fa2;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.member-name {
+  color: rgb(77, 71, 78);
+}
 /* Responsive header */
+
 
 @media (max-width: 900px) {
   .header {

@@ -215,7 +215,7 @@ const handleJoinGroup = async (groupId) => {
       <div className="my-groups">
         {myGroups.map((group) => (
           <div key={group.group_id} className="group-item">
-            {group.name}
+             <Link to={`/groups/${group.group_id}`}>{group.name}</Link>
           </div>
         ))}  
       </div>
@@ -235,7 +235,7 @@ const handleJoinGroup = async (groupId) => {
 
             return (
             <div key={group.group_id} className="group-item">
-                <span>{group.name}</span>
+                 <Link to={`/groups/${group.group_id}`}>{group.name}</Link>
 
                 {!isMember && (
                   <>
