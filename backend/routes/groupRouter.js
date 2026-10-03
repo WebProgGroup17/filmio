@@ -77,7 +77,7 @@ router.get('/my/join-requests', auth, async (req, res, next) => {
     const result = await pool.query(
       `SELECT request_id, group_id, status
        FROM join_requests
-       WHERE user_id = $1`,
+       WHERE user_id = $1 AND type = 'request'`,
       [userId]
     );
 
