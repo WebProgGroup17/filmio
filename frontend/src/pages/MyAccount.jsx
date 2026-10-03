@@ -10,6 +10,7 @@ export default function MyAccount() {
 
   const [showConfirm, setShowConfirm] = useState(false);
   const [error, setError] = useState("");
+  const [invites, setInvites] = useState([]);
 
   const handleLogout = async () => {
     await logout();
@@ -43,7 +44,7 @@ export default function MyAccount() {
 
   //intinvation->ACCEPT
   async function handleAcceptInvite(inviteId) {
-    await fetch(`http://localhost:3001/groups/invites/${inviteId}/accept`, {
+    const response = await fetch(`http://localhost:3001/groups/invites/${inviteId}/accept`, {
       method: "PATCH",
       headers: { Authorization: `Bearer ${accessToken}` },
     });
@@ -57,7 +58,7 @@ export default function MyAccount() {
 
   //intinvation->DECLINE
   async function handleDeclineInvite(inviteId) {
-    await fetch(`http://localhost:3001/groups/invites/${inviteId}/reject`, {
+    const response = await fetch(`http://localhost:3001/groups/invites/${inviteId}/reject`, {
       method: "PATCH",
       headers: { Authorization: `Bearer ${accessToken}` },
     });
