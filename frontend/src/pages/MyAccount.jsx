@@ -78,33 +78,33 @@ export default function MyAccount() {
         <h1>MY ACCOUNT</h1>
 
         <div className="account-join-requests">
-  {joinRequests.map((request) => (
-    <div
-      key={request.request_id}
-      className="account-join-request"
-    >
-      <span>
-        {request.email} wants to join {request.group_name}
-      </span>
+          {invites.map((invite) => (
+            <div
+              key={invite.invite_id}
+              className="account-join-request"
+            >
+              <span>
+                {request.email} You are invited to join {invite.group_name}
+              </span>
 
-      <div className="join-request-actions">
-        <button 
-          className="accept-request-button"
-          onClick={() => handleAcceptInvite(request.request_id)}
-          >
-          ACCEPT
-        </button>
+              <div className="join-request-actions">
+                <button
+                  className="accept-request-button"
+                  onClick={() => handleAcceptInvite(invite.invite_id)}
+                >
+                  ACCEPT
+                </button>
 
-        <button 
-          className="decline-request-button"
-          onClick={() => handleDeclineInvite(request.request_id)}
-          >
-          DECLINE
-        </button>
-      </div>
-    </div>
-  ))}
-</div>
+                <button
+                  className="decline-request-button"
+                  onClick={() => handleDeclineInvite(invite.invite_id)}
+                >
+                  DECLINE
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
 
         {error && <p className="account-error">{error}</p>}
 
@@ -115,7 +115,7 @@ export default function MyAccount() {
         <button className="delete-account-button" onClick={() => setShowConfirm(true)}>
           DELETE MY ACCOUNT
         </button>
-        
+
         {showConfirm && (
           <div className="modal-overlay">
             <div className="delete-modal">
