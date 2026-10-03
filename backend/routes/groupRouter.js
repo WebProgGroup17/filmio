@@ -145,7 +145,7 @@ router.post('/:groupId/join', auth, async (req, res, next) => {
     );
 
     if (requestResult.rows.length > 0) {
-      const error = new Error('Join request already sent');
+      const error = new Error('You already have a pending request or invitation for this group');
       error.status = 400;
       return next(error);
     }
