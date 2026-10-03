@@ -47,7 +47,7 @@ CREATE TABLE join_requests (
         REFERENCES users(user_id)
         ON DELETE CASCADE,
 
-    CHECK (status IN ('pending', 'accepted', 'rejected'))
+    CHECK (status IN ('pending', 'accepted', 'rejected')),
     CHECK (type IN ('request', 'invite'))
 );
 
