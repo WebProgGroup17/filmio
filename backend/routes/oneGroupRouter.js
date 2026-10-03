@@ -215,7 +215,7 @@ router.get('/:groupId/join-requests', auth, async (req, res, next) => {
             `SELECT jr.request_id, jr.user_id, u.email
        FROM join_requests jr
        JOIN users u ON u.user_id = jr.user_id
-       WHERE jr.group_id = $1 AND jr.status = 'pending'
+       WHERE jr.group_id = $1 AND jr.status = 'pending' AND jr.type = 'request'
        ORDER BY jr.request_id DESC`,
             [groupId]
         )
