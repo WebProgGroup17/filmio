@@ -33,6 +33,10 @@ export default function MyAccount() {
       const response = await fetch("http://localhost:3001/groups/my/invites", {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
+      if (!response.ok) {
+        console.log("Could not load invitations");
+        return;
+      }
       const data = await response.json();
       setInvites(data);
     }
@@ -79,12 +83,12 @@ export default function MyAccount() {
 
         <div className="account-join-requests">
           {invites.map((invite) => (
-            <div
-              key={invite.invite_id}
-              className="account-join-request"
+            <div 
+            key={invite.invite_id} 
+            className="account-join-request"
             >
               <span>
-                {request.email} You are invited to join {invite.group_name}
+                You are invited to join {invite.group_name}
               </span>
 
               <div className="join-request-actions">
