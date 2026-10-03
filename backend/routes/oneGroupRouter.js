@@ -104,21 +104,38 @@ router.post('/:groupId/members', auth, async (req, res, next) => {
         const newUser = userResult.rows[0]
 
         //add a new member
-        const insertResult = await pool.query(
-            `INSERT INTO group_members (group_id, user_id)
-       VALUES ($1, $2)
-       ON CONFLICT DO NOTHING
-       RETURNING user_id`,
+        //check if a user is a member
+        const isMember = await pool.query(
+            'SELECT 1 FROM group_members WHERE group_id = $1 AND user_id = $2',
             [groupId, newUser.user_id]
         )
-        //if db answers with 0 rows affected
-        //a user is already in group
-        if (insertResult.rows.length === 0) {
+        //if is a member, error
+        if (isMember.rows.length > 0) {
             const error = new Error('This user is already in the group')
             error.status = 400
             return next(error)
         }
-        return res.status(201).json(newUser)
+
+        //check if there is already a pending request or invitation
+        const pending = await pool.query(
+            `SELECT 1 FROM join_requests
+             WHERE group_id = $1 AND user_id = $2 AND status = 'pending'`,
+            [groupId, newUser.user_id]
+        )
+        //user is already invited/requested
+        if (pending.rows.length > 0) {
+            const error = new Error('This user already has a pending request or invitation')
+            error.status = 400
+            return next(error)
+        }
+
+        //create an invitation to user from group
+        await pool.query(
+            `INSERT INTO join_requests (group_id, user_id, type)
+             VALUES ($1, $2, 'invite')`,
+            [groupId, newUser.user_id]
+        )
+        return res.status(201).json({ message: 'Invitation sent' })
     } catch (error) {
         return next(error)
     }
