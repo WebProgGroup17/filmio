@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext.jsx";
 import Header from "../components/Header";
+import Chat from "../components/Chat";
 import { getMovieDetails } from "../api/movies";
 import {
     getGroup, getGroupMembers, addGroupMember, removeGroupMember, getGroupJoinRequests, acceptJoinRequest,
@@ -300,6 +301,8 @@ export default function OneGroup() {
                         </div>
                     )}
                 </div>
+
+                <Chat groupId={groupId} />
             </div>
         </>
     );
