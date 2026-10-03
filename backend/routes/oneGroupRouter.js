@@ -104,21 +104,38 @@ router.post('/:groupId/members', auth, async (req, res, next) => {
         const newUser = userResult.rows[0]
 
         //add a new member
-        const insertResult = await pool.query(
-            `INSERT INTO group_members (group_id, user_id)
-       VALUES ($1, $2)
-       ON CONFLICT DO NOTHING
-       RETURNING user_id`,
+        //check if a user is a member
+        const isMember = await pool.query(
+            'SELECT 1 FROM group_members WHERE group_id = $1 AND user_id = $2',
             [groupId, newUser.user_id]
         )
-        //if db answers with 0 rows affected
-        //a user is already in group
-        if (insertResult.rows.length === 0) {
+        //if is a member, error
+        if (isMember.rows.length > 0) {
             const error = new Error('This user is already in the group')
             error.status = 400
             return next(error)
         }
-        return res.status(201).json(newUser)
+
+        //check if there is already a pending request or invitation
+        const pending = await pool.query(
+            `SELECT 1 FROM join_requests
+             WHERE group_id = $1 AND user_id = $2 AND status = 'pending'`,
+            [groupId, newUser.user_id]
+        )
+        //user is already invited/requested
+        if (pending.rows.length > 0) {
+            const error = new Error('This user already has a pending request or invitation')
+            error.status = 400
+            return next(error)
+        }
+
+        //create an invitation to user from group
+        await pool.query(
+            `INSERT INTO join_requests (group_id, user_id, type)
+             VALUES ($1, $2, 'invite')`,
+            [groupId, newUser.user_id]
+        )
+        return res.status(201).json({ message: 'Invitation sent' })
     } catch (error) {
         return next(error)
     }
@@ -198,7 +215,7 @@ router.get('/:groupId/join-requests', auth, async (req, res, next) => {
             `SELECT jr.request_id, jr.user_id, u.email
        FROM join_requests jr
        JOIN users u ON u.user_id = jr.user_id
-       WHERE jr.group_id = $1 AND jr.status = 'pending'
+       WHERE jr.group_id = $1 AND jr.status = 'pending' AND jr.type = 'request'
        ORDER BY jr.request_id DESC`,
             [groupId]
         )
@@ -228,7 +245,8 @@ router.patch('/join-requests/:requestId/accept', auth, async (req, res, next) =>
        JOIN groups g ON g.group_id = jr.group_id
        WHERE jr.request_id = $1
        AND g.owner_id = $2
-       AND jr.status = 'pending'`,
+       AND jr.status = 'pending'
+       AND jr.type = 'request'`,
             [requestId, ownerId]
         );
 
@@ -287,6 +305,7 @@ router.patch('/join-requests/:requestId/reject', auth, async (req, res, next) =>
        AND jr.group_id = g.group_id
        AND g.owner_id = $2
        AND jr.status = 'pending'
+       AND jr.type = 'request'
        RETURNING jr.request_id,
                  jr.group_id,
                  jr.user_id,
