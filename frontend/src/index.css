@@ -224,3 +224,267 @@ body {
   color: #323131;
   font-size: 1.2rem;
 }
+
+/* log in page */
+
+.login-page {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 40px;
+  background: #ffffff;
+  border: 1px solid #d9c2ea;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.08);
+}
+
+.login-page h1 {
+  text-align: center;
+  color: #7c3aed;
+  font-weight: 800;
+  font-size: 32px;
+  margin-bottom: 24px;
+  letter-spacing: 0.03em;
+}
+
+.login-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-page form div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-page label {
+  color: #4b5563;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.login-page input {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border: 1px solid #c77bdb;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333333;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-page input:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.login-page button[type="submit"] {
+  background-color: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 12px 25px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+.login-page button[type="submit"]:hover {
+  background-color: #6b21d3;
+}
+
+.login-page p {
+  text-align: center;
+  margin-top: 20px;
+  color: #666666;
+  font-size: 14px;
+}
+
+.login-page p a {
+  color: #7c3aed;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-page p a:hover {
+  text-decoration: underline;
+}
+
+/* error message styles */
+.login-page form > p {
+  color: #ef4444;
+  font-weight: 500;
+  margin: 0;
+  text-align: left;
+}
+
+/* sign up page */
+.signup-page {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 40px;
+  background: #ffffff;
+  border: 1px solid #d9c2ea;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.08);
+}
+
+.signup-page h1 {
+  text-align: center;
+  color: #7c3aed;
+  font-weight: 800;
+  font-size: 32px;
+  margin-bottom: 24px;
+  letter-spacing: 0.03em;
+}
+
+.signup-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.signup-page form div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.signup-page label {
+  color: #4b5563;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.signup-page input {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border: 1px solid #c77bdb;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333333;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.signup-page input:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.password-hint {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.signup-page button[type="submit"] {
+  background-color: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 12px 25px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+.signup-page button[type="submit"]:hover {
+  background-color: #6b21d3;
+}
+
+.signup-page p {
+  text-align: center;
+  margin-top: 20px;
+  color: #666666;
+  font-size: 14px;
+}
+
+.signup-page p a {
+  color: #7c3aed;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.signup-page p a:hover {
+  text-decoration: underline;
+}
+
+.signup-page .error-message {
+  color: #ef4444;
+  font-weight: 500;
+  margin: 0;
+  text-align: left;
+  font-size: 14px;
+}
+
+/* Movie page on smaller screens */
+
+@media (max-width: 700px) {
+  .movie-page {
+    margin: 20px auto;
+    padding: 0 20px;
+  }
+
+  .movie-top {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .movie-details-poster {
+    width: 200px;
+  }
+
+  .movie-details-info {
+    width: 100%;
+    text-align: center;
+  }
+
+  .movie-details-info h1 {
+    font-size: 30px;
+  }
+
+  .movie-down {
+    margin-top: 30px;
+  }
+}
+
+/* chat styles */
+.chat-box {
+  height: 300px;
+  overflow-y: auto;
+
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.chat-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.chat-message small {
+  color: gray;
+  min-width: 140px;
+}
+
+.chat-text {
+  flex: 1;
+  word-break: break-word;
+}

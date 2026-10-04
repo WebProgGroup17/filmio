@@ -5,6 +5,7 @@ import moviesRouter from './routes/movies.js'
 import userRouter from './routes/userRouter.js' 
 import fs from 'fs'
 import groupRouter from './routes/groupRouter.js'
+import oneGroupRouter from './routes/oneGroupRouter.js'
 import favouritesRouter from './routes/favouritesRouter.js'
 
 if (fs.existsSync('../.env')) {
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 app.use('/movies', moviesRouter)
 app.use('/users', userRouter)
 app.use('/groups', groupRouter)
+app.use('/groups', oneGroupRouter)
 app.use('/favourites', favouritesRouter)
 
 // Error middleware
