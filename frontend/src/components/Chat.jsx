@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext.jsx';
+import '../App.css';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
@@ -82,23 +83,21 @@ function ChatComponent({ groupId }) {
     <div>
       <h3>Group Chat</h3>
 
-      <div>
+      <div className="chat-box">
         {messages.length === 0 ? (
           <p>No messages yet.</p>
         ) : (
           messages.map((msg) => (
-            <div key={msg.message_id}>
+            <div key={msg.message_id} className="chat-message">
               <strong>
                 {msg.email.split('@')[0]}
               </strong>
-
-              <p>{msg.text}</p>
-
               <small>
                 {formatDate(msg.created_at)}
               </small>
-
-              <hr />
+              <span className="chat-text">
+                {msg.text}
+              </span>
             </div>
           ))
         )}

@@ -459,3 +459,32 @@ body {
     margin-top: 30px;
   }
 }
+
+/* chat styles */
+.chat-box {
+  height: 300px;
+  overflow-y: auto;
+
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.chat-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.chat-message small {
+  color: gray;
+  min-width: 140px;
+}
+
+.chat-text {
+  flex: 1;
+  word-break: break-word;
+}
