@@ -66,6 +66,14 @@ export function rejectJoinRequest(requestId, token) {
 export function getGroupMovies(groupId, token) {
   return request(`/groups/${groupId}/movies`, token);
 }
+
+//add a movie to group
+export function addGroupMovie(groupId, tmdbMovieId, token) {
+  return request(`/groups/${groupId}/movies`, token, {
+    method: "POST",
+    body: JSON.stringify({ tmdbMovieId }),
+  });
+}
 //delete a movie
 export function removeGroupMovie(groupId, tmdbMovieId, token) {
   return request(`/groups/${groupId}/movies/${tmdbMovieId}`, token, {
