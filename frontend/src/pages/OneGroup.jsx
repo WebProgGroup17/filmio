@@ -93,8 +93,8 @@ export default function OneGroup() {
     //add
     async function handleAddMember() {
         try {
-            const newMember = await addGroupMember(groupId, newMemberEmail, accessToken);
-            setMembers([...members, newMember]);
+            await addGroupMember(groupId, newMemberEmail, accessToken);
+            alert("Invitation sent");
             setNewMemberEmail("");
             setShowAddMember(false);
         } catch (err) {

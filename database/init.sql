@@ -37,6 +37,7 @@ CREATE TABLE join_requests (
     group_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     status VARCHAR(20) DEFAULT 'pending',
+    type VARCHAR(20) NOT NULL DEFAULT 'request',
 
     FOREIGN KEY (group_id)
         REFERENCES groups(group_id)
@@ -46,7 +47,8 @@ CREATE TABLE join_requests (
         REFERENCES users(user_id)
         ON DELETE CASCADE,
 
-    CHECK (status IN ('pending', 'accepted', 'rejected'))
+    CHECK (status IN ('pending', 'accepted', 'rejected')),
+    CHECK (type IN ('request', 'invite'))
 );
 
 

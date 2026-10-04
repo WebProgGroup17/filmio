@@ -10,6 +10,7 @@ export default function MyAccount() {
 
   const [showConfirm, setShowConfirm] = useState(false);
   const [error, setError] = useState("");
+  const [invites, setInvites] = useState([]);
 
   const handleLogout = async () => {
     await logout();
@@ -26,88 +27,52 @@ export default function MyAccount() {
     }
   };
 
-const handleAcceptRequest = async (requestId) => {
-  try {
-    const response = await fetch(
-      `http://localhost:3001/groups/join-requests/${requestId}/accept`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to accept join request");
-    }
-
-    setJoinRequests((previousRequests) =>
-      previousRequests.filter(
-        (request) => request.request_id !== requestId
-      )
-    );
-
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const handleDeclineRequest = async (requestId) => {
-  try {
-    const response = await fetch(
-      `http://localhost:3001/groups/join-requests/${requestId}/reject`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to decline join request");
-    }
-
-    setJoinRequests((previousRequests) =>
-      previousRequests.filter(
-        (request) => request.request_id !== requestId
-      )
-    );
-
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-  const [joinRequests, setJoinRequests] = useState([]);
-    useEffect(() => {
-  const fetchJoinRequests = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:3001/groups/my/received-join-requests",
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
+  //load invintations when a page appears
+  useEffect(() => {
+    async function loadInvites() {
+      const response = await fetch("http://localhost:3001/groups/my/invites", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
       if (!response.ok) {
-        throw new Error("Failed to fetch received join requests");
+        console.log("Could not load invitations");
+        return;
       }
-
       const data = await response.json();
-      setJoinRequests(data);
-    } catch (error) {
-      console.error(error);
+      setInvites(data);
     }
-  };
+    //check token
+    if (accessToken) {
+      loadInvites();
+    }
+  }, [accessToken]);
 
-  if (accessToken) {
-    fetchJoinRequests();
+  //intinvation->ACCEPT
+  async function handleAcceptInvite(inviteId) {
+    const response = await fetch(`http://localhost:3001/groups/invites/${inviteId}/accept`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    if (!response.ok) {
+      alert("Something went wrong. Invitation is not accepted.");
+      return;
+    }
+    //remove this invintation from invintations
+    setInvites(invites.filter((invite) => invite.invite_id !== inviteId));
   }
-}, [accessToken]);
+
+  //intinvation->DECLINE
+  async function handleDeclineInvite(inviteId) {
+    const response = await fetch(`http://localhost:3001/groups/invites/${inviteId}/reject`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    if (!response.ok) {
+      alert("Something went wrong. Invitation is not declined.");
+      return;
+    }
+    //remove this invintation from invintations
+    setInvites(invites.filter((invite) => invite.invite_id !== inviteId));
+  }
 
   return (
     <>
@@ -117,33 +82,33 @@ const handleDeclineRequest = async (requestId) => {
         <h1>MY ACCOUNT</h1>
 
         <div className="account-join-requests">
-  {joinRequests.map((request) => (
-    <div
-      key={request.request_id}
-      className="account-join-request"
-    >
-      <span>
-        {request.email} wants to join {request.group_name}
-      </span>
+          {invites.map((invite) => (
+            <div 
+            key={invite.invite_id} 
+            className="account-join-request"
+            >
+              <span>
+                You are invited to join {invite.group_name}
+              </span>
 
-      <div className="join-request-actions">
-        <button 
-          className="accept-request-button"
-          onClick={() => handleAcceptRequest(request.request_id)}
-          >
-          ACCEPT
-        </button>
+              <div className="join-request-actions">
+                <button
+                  className="accept-request-button"
+                  onClick={() => handleAcceptInvite(invite.invite_id)}
+                >
+                  ACCEPT
+                </button>
 
-        <button 
-          className="decline-request-button"
-          onClick={() => handleDeclineRequest(request.request_id)}
-          >
-          DECLINE
-        </button>
-      </div>
-    </div>
-  ))}
-</div>
+                <button
+                  className="decline-request-button"
+                  onClick={() => handleDeclineInvite(invite.invite_id)}
+                >
+                  DECLINE
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
 
         {error && <p className="account-error">{error}</p>}
 
@@ -154,7 +119,7 @@ const handleDeclineRequest = async (requestId) => {
         <button className="delete-account-button" onClick={() => setShowConfirm(true)}>
           DELETE MY ACCOUNT
         </button>
-        
+
         {showConfirm && (
           <div className="modal-overlay">
             <div className="delete-modal">

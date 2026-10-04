@@ -77,7 +77,7 @@ router.get('/my/join-requests', auth, async (req, res, next) => {
     const result = await pool.query(
       `SELECT request_id, group_id, status
        FROM join_requests
-       WHERE user_id = $1`,
+       WHERE user_id = $1 AND type = 'request'`,
       [userId]
     );
 
@@ -145,7 +145,7 @@ router.post('/:groupId/join', auth, async (req, res, next) => {
     );
 
     if (requestResult.rows.length > 0) {
-      const error = new Error('Join request already sent');
+      const error = new Error('You already have a pending request or invitation for this group');
       error.status = 400;
       return next(error);
     }
@@ -164,6 +164,165 @@ router.post('/:groupId/join', auth, async (req, res, next) => {
     return next(error);
   }
 });
+
+//show invitations that a user received from groups
+router.get('/my/invites', auth, async (req, res, next) => {
+  try {
+    const result = await pool.query(
+      `SELECT jr.request_id AS invite_id, jr.group_id, g.name AS group_name
+       FROM join_requests jr
+       JOIN groups g ON g.group_id = jr.group_id
+       WHERE jr.user_id = $1 AND jr.type = 'invite' AND jr.status = 'pending'
+       ORDER BY jr.request_id DESC`,
+      [req.user.userId]
+    );
+    return res.status(200).json(result.rows);
+  } catch (error) {
+    return next(error);
+  }
+});
+
+//user accepts invitation from a group
+//tietokannan transaktio tässä
+router.patch('/invites/:inviteId/accept', auth, async (req, res, next) => {
+  const acceptInvite = await pool.connect();
+  try {
+    await acceptInvite.query('BEGIN');
+    const found = await acceptInvite.query(
+      `SELECT group_id FROM join_requests
+       WHERE request_id = $1 AND user_id = $2
+       AND type = 'invite' AND status = 'pending'`,
+      [req.params.inviteId, req.user.userId]
+    );
+    if (found.rows.length === 0) {
+      const error = new Error('Invitation not found');
+      error.status = 404;
+      throw error;
+    }
+    await acceptInvite.query(
+      `INSERT INTO group_members (group_id, user_id)
+       VALUES ($1, $2) ON CONFLICT DO NOTHING`,
+      [found.rows[0].group_id, req.user.userId]
+    );
+    await acceptInvite.query(
+      `UPDATE join_requests SET status = 'accepted' WHERE request_id = $1`,
+      [req.params.inviteId]
+    );
+    await acceptInvite.query('COMMIT');
+    return res.status(200).json({ message: 'Invitation accepted' });
+  } catch (error) {
+    await acceptInvite.query('ROLLBACK');
+    return next(error);
+  } finally {
+    acceptInvite.release();
+  }
+});
+
+//decline invitation
+router.patch('/invites/:inviteId/reject', auth, async (req, res, next) => {
+  try {
+    const result = await pool.query(
+      `UPDATE join_requests SET status = 'rejected'
+       WHERE request_id = $1 AND user_id = $2
+       AND type = 'invite' AND status = 'pending'
+       RETURNING request_id`,
+      [req.params.inviteId, req.user.userId]
+    );
+    if (result.rows.length === 0) {
+      const error = new Error('Invitation not found');
+      error.status = 404;
+      return next(error);
+    }
+    return res.status(200).json({ message: 'Invitation declined' });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+
+  // create a chat message
+  router.post('/:groupId/chat', auth,async (req,res,next) => {
+    try {
+      const { groupId} =req.params;
+      const { text } =req.body;
+      const userId = req.user.userId;
+
+      if (!text?.trim()) {
+      const error = new Error('Message cannot be empty');
+      error.status = 400;
+      return next(error);
+      } 
+      
+      // Check membership
+      const memberResult = await pool.query(
+      `SELECT *
+       FROM group_members
+       WHERE group_id = $1
+       AND user_id = $2`,
+      [groupId, userId]
+      );
+
+      if (memberResult.rows.length === 0) {
+      const error = new Error('You are not a member of this group')
+      error.status = 403
+      return next(error)
+      }
+
+      const messageResult = await pool.query(
+        `INSERT INTO chat
+         (group_id, user_id, text, created_at)
+         VALUES ($1, $2, $3, NOW())
+         RETURNING *`,
+         [groupId, userId, text]
+      );
+      res.status(201).json(messageResult.rows[0]);
+    }catch(error){
+      next(error);
+    }
+})
+
+//get a message 
+router.get('/:groupId/chat', auth, async (req, res, next) => {
+  try {
+    const { groupId } = req.params;
+    const userId = req.user.userId;
+
+    // Check membership
+    const memberResult = await pool.query(
+      `SELECT *
+       FROM group_members
+       WHERE group_id = $1
+       AND user_id = $2`,
+      [groupId, userId]
+    );
+
+    if (memberResult.rows.length === 0) {
+      const error = new Error('You are not a member of this group');
+      error.status = 403;
+      return next(error);
+    }
+
+    const messageResult = await pool.query(
+      `SELECT
+          c.message_id,
+          c.text,
+          c.created_at,
+          u.user_id,
+          u.email
+       FROM chat c
+       JOIN users u
+         ON c.user_id = u.user_id
+       WHERE c.group_id = $1
+       ORDER BY c.created_at ASC`,
+      [groupId]
+    );
+
+    res.json(messageResult.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 
 
