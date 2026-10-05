@@ -31,6 +31,10 @@ const io = new Server(server, {
 // Handle socket connections
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id)
+  socket.on('joinGroup', (groupId) => {
+    socket.join(`group-${groupId}`);
+    console.log(`${socket.id} joined group-${groupId}`);
+  });
   socket.on('disconnect', () => {
   console.log('User disconnected:', socket.id)
 })

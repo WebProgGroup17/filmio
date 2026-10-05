@@ -51,6 +51,7 @@ function ChatComponent({ groupId }) {
         'Socket connected:',
         socketRef.current.id
       );
+      socketRef.current.emit('joinGroup', groupId);
     });
     socketRef.current.on('disconnect', () => {
       console.log('Socket disconnected');
