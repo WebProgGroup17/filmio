@@ -45,17 +45,18 @@ export default function MyFavourites() {
 
   //if user is not logged in->this message
   if (!user) {
-    return (
-      <>
-        <Header />
-        <div className="favourites-page">
-          <p>
-            You need to <Link to="/login">log in</Link> to see your favourites page.
-          </p>
-        </div>
-      </>
-    );
-  }
+  return (
+    <>
+      <Header />
+      <div className="signin-required">
+        <h1>You need to sign in to see this page</h1>
+        <Link to="/login" className="singin-required-button">
+          Sign in
+        </Link>
+      </div>
+    </>
+  );
+}
 
   //when data is loading->this message
   if (loading) {
