@@ -268,14 +268,19 @@ router.patch('/invites/:inviteId/reject', auth, async (req, res, next) => {
       return next(error)
       }
 
+      // Insert and join users in one query so the message includes the sender's email
       const messageResult = await pool.query(
-        `INSERT INTO chat
-         (group_id, user_id, text, created_at)
-         VALUES ($1, $2, $3, NOW())
-         RETURNING *`,
+        `WITH inserted AS (
+           INSERT INTO chat (group_id, user_id, text, created_at)
+           VALUES ($1, $2, $3, NOW())
+           RETURNING *
+         )
+         SELECT i.message_id, i.group_id, i.text, i.created_at, u.user_id, u.email
+         FROM inserted i
+         JOIN users u ON u.user_id = i.user_id`,
          [groupId, userId, text]
       );
-      
+
       const io =req.app.get('io');
       io.to(`group-${groupId}`).emit('newMessage', messageResult.rows[0]);
       res.status(201).json(messageResult.rows[0]);
