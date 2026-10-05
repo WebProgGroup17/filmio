@@ -257,50 +257,236 @@
   color: #666;
 }
 
-
 /* MY ACCOUNT */
 
 .account-page {
   min-height: calc(100vh - 100px);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 40px 20px;
 }
 
-.account-page h1 {
-  margin: 0;
-  font-size: 32px;
-  font-weight: bold;
+/* Group invitations */
+
+.account-join-requests {
+  width: 100%;
+  max-width: 750px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
+.account-join-request {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 20px;
+  box-sizing: border-box;
+  background: #f4eafa;
+  border: 1px solid #d9c2ea;
+  border-radius: 12px;
+}
+
+.account-join-request span {
+  color: #666;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.join-request-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.accept-request-button,
+.decline-request-button {
+  padding: 9px 16px;
+  border-radius: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.accept-request-button {
+  border: none;
+  background: #e9d5ff;
+  color: #7c3aed;
+}
+
+.decline-request-button {
+  border: none;
+  background: #7c3aed;
+  color: white;
+}
+
+/* Message when there are no invitations */
+
+.no-invitations {
+  margin: 0;
+  color: #666;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Error message */
+
+.account-error {
+  margin: 20px 0 0;
+  color: #b3261e;
+  text-align: center;
+}
+
+/* Account buttons */
+
 .logout-button {
-  margin-top: 120px;
+  margin-top: 70px;
   width: 220px;
   padding: 14px 20px;
-
+  border: none;
+  border-radius: 20px;
+  background: #e9d5ff;
+  color: #7c3aed !important;
   font-size: 16px;
   font-weight: bold;
-
-  border: none;
-  border-radius: 4px;
   cursor: pointer;
 }
 
 .delete-account-button {
-  margin-top: auto;
+  margin-top: 20px;
   width: 220px;
   padding: 14px 20px;
-
+  border: none;
+  border-radius: 20px;
+  background: #ff0000;
+  color: white;
   font-size: 16px;
   font-weight: bold;
-
-  border: none;
-  border-radius: 4px;
   cursor: pointer;
+}
 
-  background-color: #b3261e;
+/* Delete account modal */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+}
+
+.delete-modal {
+  width: 100%;
+  max-width: 450px;
+  box-sizing: border-box;
+  padding: 30px;
+  background: white;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.delete-modal-title {
+  margin: 0 0 10px;
+  color: #333;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.delete-modal-subtitle {
+  margin: 0;
+  color: #666;
+  font-size: 15px;
+}
+
+.delete-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.modal-yes,
+.modal-no {
+  min-width: 90px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-yes {
+  border: none;
+  background: #b3261e;
   color: white;
+}
+
+.modal-no {
+  border: 1px solid #7c3aed;
+  background: white;
+  color: #7c3aed;
+}
+
+/* Responsive layout */
+
+@media (max-width: 700px) {
+  .account-page {
+    padding: 25px 15px;
+  }
+
+  .account-join-request {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .join-request-actions {
+    justify-content: center;
+  }
+
+  .logout-button {
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .account-join-request {
+    padding: 16px;
+  }
+
+  .account-join-request span {
+    font-size: 16px;
+  }
+
+  .no-invitations {
+    font-size: 16px;
+  }
+
+  .logout-button,
+  .delete-account-button {
+    width: 200px;
+  }
+
+  .delete-modal {
+    padding: 25px 20px;
+  }
+
+  .delete-modal-actions {
+    gap: 10px;
+  }
+
+  .modal-yes,
+  .modal-no {
+    flex: 1;
+  }
 }
 
 .password-requirements {
