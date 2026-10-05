@@ -51,13 +51,18 @@ function ChatComponent({ groupId }) {
         'Socket connected:',
         socketRef.current.id
       );
+      console.log(`Joining group-${groupId}`);
       socketRef.current.emit('joinGroup', groupId);
+    });
+    socketRef.current.on('newMessage', (message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
     });
     socketRef.current.on('disconnect', () => {
       console.log('Socket disconnected');
     });
+
     return () => {socketRef.current.disconnect();};
-  }, []);
+  }, [groupId]);
 
   useEffect(() => {
     if (!accessToken) return;

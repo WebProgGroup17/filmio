@@ -275,6 +275,9 @@ router.patch('/invites/:inviteId/reject', auth, async (req, res, next) => {
          RETURNING *`,
          [groupId, userId, text]
       );
+      
+      const io =req.app.get('io');
+      io.to(`group-${groupId}`).emit('newMessage', messageResult.rows[0]);
       res.status(201).json(messageResult.rows[0]);
     }catch(error){
       next(error);

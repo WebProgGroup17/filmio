@@ -26,7 +26,8 @@ const io = new Server(server, {
   origin: 'http://localhost:3000', 
   methods: ['GET', 'POST']
 }
-})
+});
+app.set('io', io);
 
 // Handle socket connections
 io.on('connection', (socket) => {
