@@ -767,6 +767,57 @@
 .member-name {
   color: rgb(77, 71, 78);
 }
+
+.group-movie-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 25px;
+}
+
+.group-movie-card {
+  width: 180px;
+  text-align: center;
+}
+
+.group-movie-poster {
+  width: 100%;
+}
+
+.group-movie-poster img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.group-movie-title {
+  margin-top: 12px;
+  margin-bottom: 10px;
+  color: #7c3aed;
+  font-weight: 600;
+}
+
+.group-movie-search-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 25px;
+}
+
+.group-movie-search-card {
+  width: 150px;
+  text-align: center;
+}
+
+.group-movie-search-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
 /* Responsive header */
 
 
