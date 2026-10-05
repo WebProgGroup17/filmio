@@ -202,13 +202,13 @@
 }
 
 .movie-year {
-  color: black;
+  color: #7c3aed;
   margin: 5px 0;
   font-size: 20px;
 }
 
 .movie-genres {
-  color: black;
+  color: #7c3aed;
   margin: 5px 0;
   font-size: 20px;
 }
@@ -250,7 +250,7 @@
 }
 
 .movie-description {
-  color: #333;
+  color: #666;
 }
 
 .movie-reviews {
@@ -662,7 +662,7 @@
 }
 
 .submit-review-btn {
-  background-color: #3182ce;
+  background-color: #7c3aed;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -674,7 +674,7 @@
 }
 
 .submit-review-btn:hover:not(:disabled) {
-  background-color: #2b6cb0;
+  background-color: #6b21d3;
 }
 
 .submit-review-btn:disabled {
