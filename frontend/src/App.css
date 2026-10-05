@@ -821,7 +821,7 @@
 /* Responsive header */
 
 
-@media (max-width: 900px) {
+@media (max-width: 700px) {
   .header {
     box-sizing: border-box;
     width: 100%;
@@ -856,7 +856,7 @@
 
 /* Very small mobile screens */
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
   .header {
     padding: 0 5px;
   }

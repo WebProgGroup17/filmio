@@ -72,6 +72,7 @@ body {
     font-size: 0.9rem;
   }
 }
+
 .favourites-header {
   display: flex;
   align-items: center;
@@ -103,7 +104,7 @@ body {
   min-height: 100vh;
   font-family: inherit;
   background-attachment: fixed;
-  
+
 }
 
 
@@ -428,6 +429,7 @@ body {
   font-size: 14px;
 }
 
+
 /* Movie page on smaller screens */
 
 @media (max-width: 700px) {
@@ -487,4 +489,33 @@ body {
 .chat-text {
   flex: 1;
   word-break: break-word;
+}
+
+/* responsiveness log in, sign up*/
+
+@media (max-width: 700px) {
+  .login-page,
+  .signup-page {
+    box-sizing: border-box;
+    width: 90%;
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-page,
+  .signup-page {
+    margin: 24px auto;
+    padding: 24px 16px;
+  }
+
+  .login-page h1,
+  .signup-page h1 {
+    font-size: 1.5rem;
+  }
+
+  .login-page button,
+  .signup-page button{
+    width: 100%;
+  }
 }
