@@ -318,7 +318,7 @@ body {
 }
 
 /* error message styles */
-.login-page form>p {
+.login-page form > p {
   color: #ef4444;
   font-weight: 500;
   margin: 0;
