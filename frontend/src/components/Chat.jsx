@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import '../App.css';
+import {io} from 'socket.io-client';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
@@ -16,6 +17,8 @@ function ChatComponent({ groupId }) {
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(true);
+  // Socket reference
+  const socketRef = useRef(null);
 
   const fetchMessages = async () => {
     try {
@@ -39,6 +42,21 @@ function ChatComponent({ groupId }) {
       setLoading(false);
     }
   };
+
+  // Socket connection
+  useEffect(() => {
+    socketRef.current = io(API_URL);
+    socketRef.current.on('connect', () => {
+      console.log(
+        'Socket connected:',
+        socketRef.current.id
+      );
+    });
+    socketRef.current.on('disconnect', () => {
+      console.log('Socket disconnected');
+    });
+    return () => {socketRef.current.disconnect();};
+  }, []);
 
   useEffect(() => {
     if (!accessToken) return;
