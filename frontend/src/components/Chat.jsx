@@ -44,25 +44,34 @@ function ChatComponent({ groupId }) {
   };
 
   // Socket connection
+  // One authenticated socket per group; disconnecting on cleanup also leaves the old room
   useEffect(() => {
-    socketRef.current = io(API_URL);
-    socketRef.current.on('connect', () => {
-      console.log(
-        'Socket connected:',
-        socketRef.current.id
-      );
-      console.log(`Joining group-${groupId}`);
-      socketRef.current.emit('joinGroup', groupId);
+    if (!accessToken) return;
+
+    const socket = io(API_URL, { auth: { token: accessToken } });
+    socketRef.current = socket;
+
+    // 'connect' fires again after a reconnect, so the room is re-joined too
+    socket.on('connect', () => {
+      socket.emit('joinGroup', groupId, (res) => {
+        if (!res?.ok) console.error('Could not join group:', res?.error);
+      });
     });
-    socketRef.current.on('newMessage', (message) => {
+    socket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error.message);
+    });
+    socket.on('newMessage', (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
-    socketRef.current.on('disconnect', () => {
+    socket.on('disconnect', () => {
       console.log('Socket disconnected');
     });
 
-    return () => {socketRef.current.disconnect();};
-  }, [groupId]);
+    return () => {
+      socket.disconnect();
+      socketRef.current = null;
+    };
+  }, [groupId, accessToken]);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -93,7 +102,7 @@ function ChatComponent({ groupId }) {
 
       setText('');
 
-      fetchMessages();
+      //fetchMessages();
     } catch (error) {
       console.error('Error sending message:', error);
     }
@@ -114,7 +123,7 @@ function ChatComponent({ groupId }) {
           messages.map((msg) => (
             <div key={msg.message_id} className="chat-message">
               <strong>
-                {msg.email.split('@')[0]}
+                {msg.email?.split('@')[0]|| 'Unknown'}
               </strong>
               <small>
                 {formatDate(msg.created_at)}
