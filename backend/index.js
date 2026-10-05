@@ -1,6 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import http from 'http'
+import {Server} from 'socket.io'
 import moviesRouter from './routes/movies.js' 
 import userRouter from './routes/userRouter.js' 
 import fs from 'fs'
@@ -12,10 +14,28 @@ if (fs.existsSync('../.env')) {
   dotenv.config({ path: '../.env' }) //.env from root of the main folder
 }
 const app = express()
+const server = http.createServer(app)
 const port = process.env.PORT || 3001
 
 app.use(cors())
 app.use(express.json())
+
+//Set up Socket.io
+const io = new Server(server, {
+  cors: {
+  origin: 'http://localhost:3000', 
+  methods: ['GET', 'POST']
+}
+})
+
+// Handle socket connections
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id)
+  socket.on('disconnect', () => {
+  console.log('User disconnected:', socket.id)
+})
+})
+
 
 app.get("/", (req, res) => {
   res.json({ message: "Filmio backend is running" });
@@ -38,6 +58,6 @@ app.use((err,req,res,next) => {
  })
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
