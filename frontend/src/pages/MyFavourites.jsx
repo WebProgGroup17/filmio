@@ -50,7 +50,7 @@ export default function MyFavourites() {
         <Header />
         <div className="favourites-page">
           <p>
-            You need to <Link to="/login">log in</Link> to see your favourite movies.
+            You need to <Link to="/login">log in</Link> to see your favourites page.
           </p>
         </div>
       </>
