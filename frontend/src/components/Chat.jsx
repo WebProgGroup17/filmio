@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import '../App.css';
+import {io} from 'socket.io-client';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
@@ -16,6 +17,8 @@ function ChatComponent({ groupId }) {
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(true);
+  // Socket reference
+  const socketRef = useRef(null);
 
   const fetchMessages = async () => {
     try {
@@ -39,6 +42,36 @@ function ChatComponent({ groupId }) {
       setLoading(false);
     }
   };
+
+  // Socket connection
+  // One authenticated socket per group; disconnecting on cleanup also leaves the old room
+  useEffect(() => {
+    if (!accessToken) return;
+
+    const socket = io(API_URL, { auth: { token: accessToken } });
+    socketRef.current = socket;
+
+    // 'connect' fires again after a reconnect, so the room is re-joined too
+    socket.on('connect', () => {
+      socket.emit('joinGroup', groupId, (res) => {
+        if (!res?.ok) console.error('Could not join group:', res?.error);
+      });
+    });
+    socket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error.message);
+    });
+    socket.on('newMessage', (message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+    socket.on('disconnect', () => {
+      console.log('Socket disconnected');
+    });
+
+    return () => {
+      socket.disconnect();
+      socketRef.current = null;
+    };
+  }, [groupId, accessToken]);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -69,7 +102,7 @@ function ChatComponent({ groupId }) {
 
       setText('');
 
-      fetchMessages();
+      //fetchMessages();
     } catch (error) {
       console.error('Error sending message:', error);
     }
@@ -90,7 +123,7 @@ function ChatComponent({ groupId }) {
           messages.map((msg) => (
             <div key={msg.message_id} className="chat-message">
               <strong>
-                {msg.email.split('@')[0]}
+                {msg.email?.split('@')[0]|| 'Unknown'}
               </strong>
               <small>
                 {formatDate(msg.created_at)}
