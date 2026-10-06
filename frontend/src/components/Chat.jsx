@@ -19,6 +19,7 @@ function ChatComponent({ groupId }) {
   const [loading, setLoading] = useState(true);
   // Socket reference
   const socketRef = useRef(null);
+  const chatBoxRef = useRef(null);
 
   const fetchMessages = async () => {
     try {
@@ -78,6 +79,12 @@ function ChatComponent({ groupId }) {
     fetchMessages();
   }, [groupId, accessToken]);
 
+  // Keep the chat scrolled to the newest message
+  useEffect(() => {
+    const box = chatBoxRef.current;
+    if (box) box.scrollTop = box.scrollHeight;
+  }, [messages, loading]);
+
   const sendMessage = async (e) => {
     e.preventDefault();
 
@@ -116,7 +123,7 @@ function ChatComponent({ groupId }) {
     <div>
       <h3>Group Chat</h3>
 
-      <div className="chat-box">
+      <div className="chat-box" ref={chatBoxRef}>
         {messages.length === 0 ? (
           <p>No messages yet.</p>
         ) : (
