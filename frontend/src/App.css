@@ -213,6 +213,10 @@
   font-size: 20px;
 }
 
+.remove-favourite-button {
+  text-transform: uppercase;
+}
+
 .add-to-favourites {
   background-color: #7c3aed;
   color: white;
