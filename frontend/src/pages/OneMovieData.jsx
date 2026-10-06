@@ -48,7 +48,9 @@ export default function OneMovieData() {
 
   const handleAddToFavourites = async () => {
   if (!user) {
-    navigate("/login"); //if not sign in->login page
+    setFavouriteMessage(
+      <>You need to <Link to="/login">sign in</Link> to add movies to favourites.</>
+    );
     return;
   }
 
