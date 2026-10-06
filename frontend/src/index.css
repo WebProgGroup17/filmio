@@ -72,6 +72,7 @@ body {
     font-size: 0.9rem;
   }
 }
+/*favourites*/
 
 .favourites-header {
   display: flex;
@@ -93,6 +94,30 @@ body {
   font-weight: 600;
   cursor: pointer;
 }
+/* favourites, user not logged in */
+.signin-required {
+  margin-top: 120px;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.signin-required h1 {
+  margin-bottom: 40px;
+  color: #7b1fa2;
+  text-transform: uppercase;
+}
+
+.singin-required-button {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 30px;
+  background-color: #e8dcf5;
+  color: #7b1fa2;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
 
 /* Search page */
 
