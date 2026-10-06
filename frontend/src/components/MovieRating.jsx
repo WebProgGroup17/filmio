@@ -9,8 +9,6 @@ export default function StarRating({ rating, count }) {
       <span className={roundedNumber >= 3 ? "star filled" : "star"}>★</span>
       <span className={roundedNumber >= 4 ? "star filled" : "star"}>★</span>
       <span className={roundedNumber >= 5 ? "star filled" : "star"}>★</span>
-
-    
     </div>
   );
 }
