@@ -347,7 +347,7 @@ body {
   color: #ef4444;
   font-weight: 500;
   margin: 0;
-  text-align: left;
+  text-align: center;
 }
 
 /* sign up page */
@@ -452,8 +452,8 @@ body {
   margin: 0;
   text-align: left;
   font-size: 14px;
+  text-align: center;
 }
-
 
 /* Movie page on smaller screens */
 
