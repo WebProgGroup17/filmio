@@ -33,6 +33,9 @@ router.post('/signup', async (req, res, next) => {
 
     return res.status(201).json(result.rows[0])
   } catch (error) {
+    if (error.code === '23505'){
+      error.message = 'You already have an account. Please sign in.'
+    }
     return next(error)
   }
 })
