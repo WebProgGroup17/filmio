@@ -1,4 +1,4 @@
-export default function StarRating({ rating, count }) {
+export default function MovieRating ({ rating, count }) {
   //numbers should be integers, not decimals
   const roundedNumber = Math.round(rating);
 
