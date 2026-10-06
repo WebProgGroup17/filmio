@@ -17,6 +17,13 @@ router.post('/signup', async (req, res, next) => {
       error.status = 400
       return next(error)
     }
+    //check if this email is already registered->no need to check password
+    const existingUser = await pool.query(
+      'SELECT user_id from users WHERE email = $1', [email])
+    if (existingUser.rows.length > 0){
+      return res.status(409).json({error:{message: 'You already have an account. Please sign in.'}})
+    }
+
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/
     if (!passwordRegex.test(password)) {
       const error = new Error(
