@@ -56,7 +56,7 @@ export default function OneMovieData() {
     avgR= total / reviewCount;
   }
 
-  
+
   if (loading) return <p>Loading...</p>;
   if (!movie) return <p>Movie not found.</p>;
 
@@ -89,6 +89,7 @@ export default function OneMovieData() {
           <h1>{movie.title}</h1>
           <p className="movie-year">{movie.releaseYear}</p>
           <p className="movie-genres">{movie.genres.join(", ")}</p>
+          <MovieRating rating={avgR} />
 
           {!fromSharedFavourites && (
   <>
