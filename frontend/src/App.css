@@ -213,6 +213,21 @@
   font-size: 20px;
 }
 
+.movie-rating {
+  display: flex;
+  gap: 4px;
+  margin: 20px 0;
+}
+
+.star {
+  font-size: 2.6rem;
+  color: #d1d1d1;
+}
+
+.star.filled {
+  color: #9b4dca;
+}
+
 .add-to-favourites {
   background-color: #7c3aed;
   color: white;
