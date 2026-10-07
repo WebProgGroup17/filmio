@@ -11,6 +11,7 @@ import { pool } from './helper/db.js'
 import groupRouter from './routes/groupRouter.js'
 import oneGroupRouter from './routes/oneGroupRouter.js'
 import favouritesRouter from './routes/favouritesRouter.js'
+import cookieParser from 'cookie-parser'
 
 if (fs.existsSync('../.env')) {
   dotenv.config({ path: '../.env' }) //.env from root of the main folder
@@ -19,8 +20,16 @@ const app = express()
 const server = http.createServer(app)
 const port = process.env.PORT || 3001
 
-app.use(cors())
+app.use(cors({
+  //allow frontend or 3000 to make requests to the server
+  origin: `http://localhost:${process.env.FRONTEND_PORT || 3000}`,
+  //allow to send cookie
+  credentials: true,
+}))
+//parse incoming JSON request bodies (req.body.email)
 app.use(express.json())
+//parse cookies from incoming requests (const refreshToken = req.cookies.refreshToken)
+app.use(cookieParser())
 
 //Set up Socket.io
 const io = new Server(server, {
