@@ -268,13 +268,21 @@ router.patch('/invites/:inviteId/reject', auth, async (req, res, next) => {
       return next(error)
       }
 
+      // Insert and join users in one query so the message includes the sender's email
       const messageResult = await pool.query(
-        `INSERT INTO chat
-         (group_id, user_id, text, created_at)
-         VALUES ($1, $2, $3, NOW())
-         RETURNING *`,
+        `WITH inserted AS (
+           INSERT INTO chat (group_id, user_id, text, created_at)
+           VALUES ($1, $2, $3, NOW())
+           RETURNING *
+         )
+         SELECT i.message_id, i.group_id, i.text, i.created_at, u.user_id, u.email
+         FROM inserted i
+         JOIN users u ON u.user_id = i.user_id`,
          [groupId, userId, text]
       );
+
+      const io =req.app.get('io');
+      io.to(`group-${groupId}`).emit('newMessage', messageResult.rows[0]);
       res.status(201).json(messageResult.rows[0]);
     }catch(error){
       next(error);
@@ -323,90 +331,5 @@ router.get('/:groupId/chat', auth, async (req, res, next) => {
   }
 });
 
-
-
-
-  // create a chat message
-  router.post('/:groupId/chat', auth,async (req,res,next) => {
-    try {
-      const { groupId} =req.params;
-      const { text } =req.body;
-      const userId = req.user.userId;
-
-      if (!text?.trim()) {
-      const error = new Error('Message cannot be empty');
-      error.status = 400;
-      return next(error);
-      } 
-      
-      // Check membership
-      const memberResult = await pool.query(
-      `SELECT *
-       FROM group_members
-       WHERE group_id = $1
-       AND user_id = $2`,
-      [groupId, userId]
-      );
-
-      if (memberResult.rows.length === 0) {
-      const error = new Error('You are not a member of this group')
-      error.status = 403
-      return next(error)
-      }
-
-      const messageResult = await pool.query(
-        `INSERT INTO chat
-         (group_id, user_id, text, created_at)
-         VALUES ($1, $2, $3, NOW())
-         RETURNING *`,
-         [groupId, userId, text]
-      );
-      res.status(201).json(messageResult.rows[0]);
-    }catch(error){
-      next(error);
-    }
-})
-
-//get a message 
-router.get('/:groupId/chat', auth, async (req, res, next) => {
-  try {
-    const { groupId } = req.params;
-    const userId = req.user.userId;
-
-    // Check membership
-    const memberResult = await pool.query(
-      `SELECT *
-       FROM group_members
-       WHERE group_id = $1
-       AND user_id = $2`,
-      [groupId, userId]
-    );
-
-    if (memberResult.rows.length === 0) {
-      const error = new Error('You are not a member of this group');
-      error.status = 403;
-      return next(error);
-    }
-
-    const messageResult = await pool.query(
-      `SELECT
-          c.message_id,
-          c.text,
-          c.created_at,
-          u.user_id,
-          u.email
-       FROM chat c
-       JOIN users u
-         ON c.user_id = u.user_id
-       WHERE c.group_id = $1
-       ORDER BY c.created_at ASC`,
-      [groupId]
-    );
-
-    res.json(messageResult.rows);
-  } catch (error) {
-    next(error);
-  }
-});
 
 export default router

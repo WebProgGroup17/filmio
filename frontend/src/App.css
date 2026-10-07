@@ -217,6 +217,21 @@
   text-transform: uppercase;
 }
 
+.movie-rating {
+  display: flex;
+  gap: 4px;
+  margin: 20px 0;
+}
+
+.star {
+  font-size: 2.6rem;
+  color: #d1d1d1;
+}
+
+.star.filled {
+  color: #9b4dca;
+}
+
 .add-to-favourites {
   background-color: #7c3aed;
   color: white;
@@ -1064,4 +1079,64 @@
     width: 42px;
     height: 42px;
   }
+}
+
+/*Footer*/
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.app-layout > * {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer {
+  margin-top: auto;
+  background: #f4eafa;
+  border-top: 1px solid #d9c2ea;
+  padding: 30px 40px 12px;
+  text-align: center;
+}
+
+.footer-logo {
+  width: 230px;
+  height: 85px;
+  display: block;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 0 0 12px;
+}
+
+.footer-links a {
+  color: #7c3aed;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-text {
+  margin: 4px 0;
+  color: #4a1d6e;
+  font-size: 14px;
+}
+
+.footer-mandatory {
+  margin: 16px 0 0;
+  color: #888888;
+  font-size: 12px;
+}
+/*the second from the end (it is always before footer)*/
+.app-layout > :nth-last-child(2) {
+  padding-bottom: 50px;
 }
