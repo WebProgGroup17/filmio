@@ -24,6 +24,19 @@ const cookieSettings = {
   maxAge: 10 * 60 * 1000,                        
 }
 
+//create access token
+function createAccessToken(user) {
+  return sign(
+    //put into sign-variable user's id and email from db
+    { userId: user.user_id, email: user.email },
+    //take the jws secret from env to sign this token
+    process.env.JWT_SECRET,
+    //lifetime: 5 minutes
+    { expiresIn: ACCESS_TIME }
+  )
+}
+
+
 
 //users/signup
 router.post('/signup', async (req, res, next) => {
