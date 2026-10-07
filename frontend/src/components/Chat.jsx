@@ -19,6 +19,7 @@ function ChatComponent({ groupId }) {
   const [loading, setLoading] = useState(true);
   // Socket reference
   const socketRef = useRef(null);
+  const chatBoxRef = useRef(null);
 
   const fetchMessages = async () => {
     try {
@@ -73,10 +74,46 @@ function ChatComponent({ groupId }) {
     };
   }, [groupId, accessToken]);
 
+  // Socket connection
+  // One authenticated socket per group; disconnecting on cleanup also leaves the old room
+  useEffect(() => {
+    if (!accessToken) return;
+
+    const socket = io(API_URL, { auth: { token: accessToken } });
+    socketRef.current = socket;
+
+    // 'connect' fires again after a reconnect, so the room is re-joined too
+    socket.on('connect', () => {
+      socket.emit('joinGroup', groupId, (res) => {
+        if (!res?.ok) console.error('Could not join group:', res?.error);
+      });
+    });
+    socket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error.message);
+    });
+    socket.on('newMessage', (message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+    socket.on('disconnect', () => {
+      console.log('Socket disconnected');
+    });
+
+    return () => {
+      socket.disconnect();
+      socketRef.current = null;
+    };
+  }, [groupId, accessToken]);
+
   useEffect(() => {
     if (!accessToken) return;
     fetchMessages();
   }, [groupId, accessToken]);
+
+  // Keep the chat scrolled to the newest message
+  useEffect(() => {
+    const box = chatBoxRef.current;
+    if (box) box.scrollTop = box.scrollHeight;
+  }, [messages, loading]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -102,7 +139,6 @@ function ChatComponent({ groupId }) {
 
       setText('');
 
-      //fetchMessages();
     } catch (error) {
       console.error('Error sending message:', error);
     }
@@ -116,7 +152,7 @@ function ChatComponent({ groupId }) {
     <div>
       <h3>Group Chat</h3>
 
-      <div className="chat-box">
+      <div className="chat-box" ref={chatBoxRef}>
         {messages.length === 0 ? (
           <p>No messages yet.</p>
         ) : (
