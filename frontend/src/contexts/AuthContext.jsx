@@ -1,8 +1,11 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
 
 const AuthContext = createContext(null);
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
+const REFRESH_TIME = 4 * 60 * 1000; //4mins
+const IDLE_TIME = 10 * 60 * 1000;   //10mins
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
