@@ -36,6 +36,15 @@ function createAccessToken(user) {
   )
 }
 
+//create refresh token
+function createRefreshToken(user) {
+  return sign(
+    { userId: user.user_id },
+    //use a separate secret for signing the refresh token
+    process.env.JWT_REFRESH_SECRET,
+    { expiresIn: REFRESH_TIME }
+  )
+}
 
 
 //users/signup
