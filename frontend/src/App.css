@@ -213,6 +213,10 @@
   font-size: 20px;
 }
 
+.remove-favourite-button {
+  text-transform: uppercase;
+}
+
 .movie-rating {
   display: flex;
   gap: 4px;
