@@ -10,7 +10,6 @@ const router = Router()
 const ACCESS_TIME = '5m' 
 //refresh token 
 const REFRESH_TIME = '10m'
-
 //settings for the refresh token
 const cookieSettings = { 
   //javascript cannot access the cookie (protection against cookie theft)
@@ -24,7 +23,7 @@ const cookieSettings = {
   maxAge: 10 * 60 * 1000,                        
 }
 
-//create access token
+//create access token function
 function createAccessToken(user) {
   return sign(
     //put into sign-variable user's id and email from db
@@ -36,7 +35,7 @@ function createAccessToken(user) {
   )
 }
 
-//create refresh token
+//create refresh token function
 function createRefreshToken(user) {
   return sign(
     { userId: user.user_id },
@@ -107,12 +106,22 @@ router.post('/login', async (req, res, next) => {
       error.status = 401
       return next(error)
     }
-    const token = sign(
-      { userId: dbUser.user_id, email: dbUser.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' },
+    
+    //create both tokens
+    const accessToken = createAccessToken(dbUser)
+    const refreshToken = createRefreshToken(dbUser)
+
+    //add refresh token to db
+    await pool.query(
+      'UPDATE users SET refresh_token = $1 WHERE user_id = $2',
+      [refreshToken, dbUser.user_id],
     )
-    return res.status(200).json({ id: dbUser.user_id, email: dbUser.email, token })
+    //put refresh token to cookie
+    res.cookie('refreshToken', refreshToken, cookieSettings)
+
+    //send access token
+    return res.status(200).json({ id: dbUser.user_id, email: dbUser.email, token: accessToken })
+    
   } catch (error) {
     return next(error)
   }
