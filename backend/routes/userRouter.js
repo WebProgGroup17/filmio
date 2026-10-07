@@ -177,8 +177,24 @@ return res.status(200).json({ id: dbUser.user_id, email: dbUser.email, token: ac
 })
   
 //users/logout
-router.post('/logout', auth, (req, res) => {
-  return res.status(200).json({ message: 'Logged out successfully' })
+router.post('/logout', async (req, res, next) => {
+  try {
+    //take refreshToken from cookie
+    const refreshToken = req.cookies.refreshToken
+
+    //delete refresh token from db
+    if (refreshToken) {
+      await pool.query(
+        'UPDATE users SET refresh_token = NULL WHERE refresh_token = $1',
+        [refreshToken],
+      )
+    }
+    //delete cookie from browser
+    res.clearCookie('refreshToken', { httpOnly: true, sameSite: 'strict' })
+    return res.status(200).json({ message: 'Logged out successfully' })
+  } catch (error) {
+    return next(error)
+  }
 })
 
 //users/me -> deleting
