@@ -1,8 +1,6 @@
 import { useEffect, useState,useRef } from 'react';
-import { useEffect, useState,useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import '../App.css';
-import {io} from 'socket.io-client';
 import {io} from 'socket.io-client';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
@@ -141,8 +139,6 @@ function ChatComponent({ groupId }) {
 
       setText('');
 
-      //fetchMessages();
-      //fetchMessages();
     } catch (error) {
       console.error('Error sending message:', error);
     }
@@ -163,7 +159,6 @@ function ChatComponent({ groupId }) {
           messages.map((msg) => (
             <div key={msg.message_id} className="chat-message">
               <strong>
-                {msg.email?.split('@')[0]|| 'Unknown'}
                 {msg.email?.split('@')[0]|| 'Unknown'}
               </strong>
               <small>
