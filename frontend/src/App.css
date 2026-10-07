@@ -1154,3 +1154,9 @@
 .app-layout > :nth-last-child(2) {
   padding-bottom: 50px;
 }
+
+/*scroll-bar*/
+html {
+  scrollbar-color: #f4eafa #7c3aed; 
+  scrollbar-width: auto;
+}
