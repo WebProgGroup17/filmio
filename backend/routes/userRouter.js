@@ -6,6 +6,24 @@ import { auth } from '../helper/auth.js'
 
 const { sign } = jwt
 const router = Router()
+//access token
+const ACCESS_TIME = '5m' 
+//refresh token 
+const REFRESH_TIME = '10m'
+
+//settings for the refresh token
+const cookieSettings = { 
+  //javascript cannot access the cookie (protection against cookie theft)
+  httpOnly: true,                        
+  //enabled in production - disabled in development
+  //cookie is sent only over a secure https connection  
+  secure: process.env.NODE_ENV === 'production',
+  //cookie can be used only for this site
+  sameSite: 'strict',   
+  //cookie lifetime: 10 minutes(in ms)                       
+  maxAge: 10 * 60 * 1000,                        
+}
+
 
 //users/signup
 router.post('/signup', async (req, res, next) => {
