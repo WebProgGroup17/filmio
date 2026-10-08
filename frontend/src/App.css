@@ -1155,6 +1155,12 @@
   padding-bottom: 50px;
 }
 
+/*scroll-bar*/
+html {
+  scrollbar-color: #f4eafa #7c3aed; 
+  scrollbar-width: auto;
+}
+
 /*footer responsiveness*/
 @media (max-width: 700px) {
   .footer {
@@ -1190,4 +1196,4 @@
   .footer-mandatory {
     font-size: 8px;
   }
-}
+
