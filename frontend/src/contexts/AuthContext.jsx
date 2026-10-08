@@ -10,10 +10,20 @@ const IDLE_TIME = 10 * 60 * 1000;   //10mins
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
+  //wait for the server response before showing the app
+  //when the response is received, loading becomes false
+  const [loading, setLoading] = useState(true); 
+  //React may run useEffect twice in development mode to detect potential problems
+  //this can cause the token to be refreshed twice, so we need to prevent that
+  const started = useRef(false); 
+
+
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
+
+    
     if (token && userData) {
       setAccessToken(token);
       setUser(JSON.parse(userData));
