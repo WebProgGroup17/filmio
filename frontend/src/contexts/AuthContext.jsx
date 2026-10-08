@@ -17,6 +17,20 @@ export function AuthProvider({ children }) {
   //this can cause the token to be refreshed twice, so we need to prevent that
   const started = useRef(false); 
 
+  //remember user and token
+  const saveSession = (data) => {
+    setAccessToken(data.token);
+    setUser({ id: data.id, email: data.email });
+  };
+
+  //delete user and token
+  const clearSession = () => {
+    setAccessToken(null);
+    setUser(null);
+  };
+
+  
+
 
 
   useEffect(() => {
