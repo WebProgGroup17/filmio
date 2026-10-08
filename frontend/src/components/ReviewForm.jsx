@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+const { accessToken } = useAuth();
+import { useAuth } from '../contexts/AuthContext.jsx';
 import '../App.css';
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
@@ -24,8 +26,8 @@ const ReviewForm = ({ id, onReviewAdded }) => {
       return;
     }
 
-    // Retrieve the auth token from localStorage 
-    const token = localStorage.getItem('token');
+    // Retrieve the auth token from access token
+    const token = accessToken;
     if (!token) {
       setError('You must be logged in to submit a review.');
       return;
