@@ -6,6 +6,45 @@ import { auth } from '../helper/auth.js'
 
 const { sign } = jwt
 const router = Router()
+//access token
+const ACCESS_TIME = '5m' 
+//refresh token 
+const REFRESH_TIME = '10m'
+//settings for the refresh token
+const cookieSettings = { 
+  //javascript cannot access the cookie (protection against cookie theft)
+  httpOnly: true,                        
+  //enabled in production - disabled in development
+  //cookie is sent only over a secure https connection  
+  secure: process.env.NODE_ENV === 'production',
+  //cookie can be used only for this site
+  sameSite: 'strict',   
+  //cookie lifetime: 10 minutes(in ms)                       
+  maxAge: 10 * 60 * 1000,                        
+}
+
+//create access token function
+function createAccessToken(user) {
+  return sign(
+    //put into sign-variable user's id and email from db
+    { userId: user.user_id, email: user.email },
+    //take the jws secret from env to sign this token
+    process.env.JWT_SECRET,
+    //lifetime: 5 minutes
+    { expiresIn: ACCESS_TIME }
+  )
+}
+
+//create refresh token function
+function createRefreshToken(user) {
+  return sign(
+    { userId: user.user_id },
+    //use a separate secret for signing the refresh token
+    process.env.JWT_REFRESH_SECRET,
+    { expiresIn: REFRESH_TIME }
+  )
+}
+
 
 //users/signup
 router.post('/signup', async (req, res, next) => {
@@ -67,20 +106,95 @@ router.post('/login', async (req, res, next) => {
       error.status = 401
       return next(error)
     }
-    const token = sign(
-      { userId: dbUser.user_id, email: dbUser.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' },
+    
+    //create both tokens
+    const accessToken = createAccessToken(dbUser)
+    const refreshToken = createRefreshToken(dbUser)
+
+    //add refresh token to db
+    await pool.query(
+      'UPDATE users SET refresh_token = $1 WHERE user_id = $2',
+      [refreshToken, dbUser.user_id],
     )
-    return res.status(200).json({ id: dbUser.user_id, email: dbUser.email, token })
+    //put refresh token to cookie
+    res.cookie('refreshToken', refreshToken, cookieSettings)
+
+    //send access token
+    return res.status(200).json({ id: dbUser.user_id, email: dbUser.email, token: accessToken })
+
   } catch (error) {
     return next(error)
   }
 })
 
+//users/refresh
+//it gives new tokens if refresh token is alive
+router.post('/refresh', async (req, res, next) => {
+  try {
+    //get refresh token from cookie
+    const oldToken = req.cookies.refreshToken
+    if (!oldToken) {
+      return res.status(401).json({ error: { message: 'No refresh token' } })
+    }
+  //variable for cheking token  
+  let checkedToken;
+
+  try {
+    //check info about token using refresh_secret from env
+    checkedToken = jwt.verify(oldToken, process.env.JWT_REFRESH_SECRET)
+  } catch {
+    return res.status(403).json({ error: { message: 'Invalid or expired refresh token' } })
+  }
+
+  //check if there is a user with this id and this token (checkedToken) in the db
+
+  //this check is neccesary because the token might give info that it is valid and not expired,
+  //but the db can show that this token is not anymore in useage (for example, because the user has logged out)
+  const checkedTokenDB = await pool.query(
+      'SELECT user_id, email FROM users WHERE user_id = $1 AND refresh_token = $2',
+      [checkedToken.userId, oldToken],
+    )
+  //if the db returned 0 rows, no matching user and refresh token were found -> error
+  const dbUser = checkedTokenDB.rows[0]
+  if (!dbUser) {
+    return res.status(403).json({ error: { message: 'Refresh token not found' } })
+  }
+
+  //if everything is ok -> new tokens generated:
+  const accessToken = createAccessToken(dbUser)
+  const newRefreshToken = createRefreshToken(dbUser)
+  //add to db newRefreshToken
+  await pool.query(
+      'UPDATE users SET refresh_token = $1 WHERE user_id = $2',
+      [newRefreshToken, dbUser.user_id],
+    )
+    //add to cookie newRefreshToken
+    res.cookie('refreshToken', newRefreshToken, cookieSettings)
+return res.status(200).json({ id: dbUser.user_id, email: dbUser.email, token: accessToken })
+  } catch (error) {
+    return next(error)
+  }
+})
+  
 //users/logout
-router.post('/logout', auth, (req, res) => {
-  return res.status(200).json({ message: 'Logged out successfully' })
+router.post('/logout', async (req, res, next) => {
+  try {
+    //take refreshToken from cookie
+    const refreshToken = req.cookies.refreshToken
+
+    //delete refresh token from db
+    if (refreshToken) {
+      await pool.query(
+        'UPDATE users SET refresh_token = NULL WHERE refresh_token = $1',
+        [refreshToken],
+      )
+    }
+    //delete cookie from browser
+    res.clearCookie('refreshToken', { httpOnly: true, sameSite: 'strict' })
+    return res.status(200).json({ message: 'Logged out successfully' })
+  } catch (error) {
+    return next(error)
+  }
 })
 
 //users/me -> deleting
