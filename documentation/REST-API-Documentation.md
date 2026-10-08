@@ -16,13 +16,14 @@ Filmio is a collaborative full-stack web application designed for movie reviews,
 | Endpoint | Method | Description | Parameters | Request Body | Status Codes | Auth Required | Error Statuses |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | `/users/signup` | `POST` | Register a new user account | None | `{ "user": { "email": "string", "password": "string" } }` | `201 Created`, `400 Bad Request`, `409 Conflict` | None | `400` (Missing fields or password too weak: min 8 chars, 1 uppercase, 1 number), `409` (Email already registered) |
-| `/users/login` | `POST` | Authenticate user and issue JWT token | None | `{ "user": { "email": "string", "password": "string" } }` | `200 OK`, `400 Bad Request`, `401 Unauthorized` | None | `400` (Email or password missing), `401` (Invalid email or password) |
-| `/users/logout` | `POST` | Terminate user session | None | None | `200 OK`, `401 Unauthorized` | Bearer Token | `401` |
+| `/users/login` | `POST` | Authenticate user, return a short-lived access token (5 min) and set a `refreshToken` HttpOnly cookie (10 min) | None | `{ "user": { "email": "string", "password": "string" } }` | `200 OK`, `400 Bad Request`, `401 Unauthorized` | None | `400` (Email or password missing), `401` (Invalid email or password) |
+| `/users/refresh` | `POST` | Exchange a valid `refreshToken` cookie for a new access token and a rotated refresh cookie | None | None (token is read from the `refreshToken` cookie) | `200 OK`, `401 Unauthorized`, `403 Forbidden` | Refresh cookie | `401` (`No refresh token`), `403` (`Invalid or expired refresh token`, or `Refresh token not found` when it does not match the one stored in the database) |
+| `/users/logout` | `POST` | Terminate user session: clears the stored refresh token and the `refreshToken` cookie | None | None | `200 OK` | None (uses the refresh cookie if present) | None. Always returns `200`, even without a cookie |
 | `/users/me` | `DELETE` | Permanently delete user account | None | None | `200 OK`, `401 Unauthorized` | Bearer Token | `401` |
 
 ### Authentication Example
 
-Protected endpoints require a JWT obtained from `POST /users/login`. The token is valid for **1 hour**.
+Protected endpoints require an access token obtained from `POST /users/login`. The access token is valid for **5 minutes**. Login also sets a `refreshToken` cookie (HttpOnly, `SameSite=Strict`, `Secure` in production, valid for **10 minutes**). When the access token expires, call `POST /users/refresh` (send requests with credentials so the cookie is included) to get a new access token. Each refresh rotates the refresh token.
 
 **1. Sign up**
 ```json
@@ -43,11 +44,24 @@ Protected endpoints require a JWT obtained from `POST /users/login`. The token i
 ```
 The first is returned when the `Authorization` header is missing or is not in the form `Bearer <token>`. The second is returned when the token is invalid or has expired.
 
-> **Note:** `POST /users/logout` does not invalidate the token. It only returns a success message, so the client must discard the token itself.
+**Refresh errors** (`POST /users/refresh`)
+```json
+{ "error": { "message": "No refresh token" } }
+```
+```json
+{ "error": { "message": "Invalid or expired refresh token" } }
+```
+```json
+{ "error": { "message": "Refresh token not found" } }
+```
+The first is returned with `401`, the other two with `403`. These responses have no `status` field.
+
+> **Note:** `POST /users/logout` invalidates only the refresh token (removed from the database and the cookie). The access token already issued stays valid until it expires (max 5 minutes), so the client should discard it.
 
 Most errors use the format `{ "error": { "message": "string", "status": 400 } }`. There are two exceptions:
 * `/movies` routes return the error as a plain string: `{ "error": "Failed to fetch movies" }`.
 * The `409` response from `POST /users/signup` has no `status` field: `{ "error": { "message": "You already have an account. Please sign in." } }`.
+* The `401`/`403` responses from `POST /users/refresh` also have no `status` field.
 
 ---
 
