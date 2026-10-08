@@ -29,9 +29,23 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
-  
-
-
+  //ask backend to refresh the session
+  const refreshSession = async () => {
+    try {
+      const res = await fetch(`${API_URL}/users/refresh`, {
+        method: "POST",
+        credentials: "include", //send the refresh token from the cookie
+      });
+      if (!res.ok) {
+        clearSession(); //clear the session -> user null, accessToken null
+        return;
+      }
+      const data = await res.json();
+      saveSession(data);
+    } catch (error) {
+      console.error("Refresh failed:", error);
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
