@@ -143,50 +143,50 @@ export default function OneGroup() {
     /////MOVIES
 
     async function handleMovieSearch(event) {
-    event.preventDefault();
+        event.preventDefault();
 
-    if (!movieSearch.trim()) return;
+        if (!movieSearch.trim()) return;
 
-    setMovieSearchLoading(true);
+        setMovieSearchLoading(true);
 
-    try {
-        const results = await searchMovies({
-            title: movieSearch,
-            genre: "",
-            year: ""
-        });
+        try {
+            const results = await searchMovies({
+                title: movieSearch,
+                genre: "",
+                year: ""
+            });
 
-        setMovieSearchResults(results);
-    } catch (err) {
-        alert(err.message);
-    } finally {
-        setMovieSearchLoading(false);
+            setMovieSearchResults(results);
+        } catch (err) {
+            alert(err.message);
+        } finally {
+            setMovieSearchLoading(false);
+        }
     }
-}
 
-function handleCloseMovieSearch() {
-    setShowMovieSearch(false);
-    setMovieSearch("");
-    setMovieSearchResults([]);
-}
-
-async function handleAddMovie(movie) {
-    try {
-        await addGroupMovie(groupId, movie.id, accessToken);
-
-        setMovies((previousMovies) => [
-            ...previousMovies,
-            movie
-        ]);
-
+    function handleCloseMovieSearch() {
         setShowMovieSearch(false);
         setMovieSearch("");
         setMovieSearchResults([]);
-
-    } catch (err) {
-        alert(err.message);
     }
-}
+
+    async function handleAddMovie(movie) {
+        try {
+            await addGroupMovie(groupId, movie.id, accessToken);
+
+            setMovies((previousMovies) => [
+                ...previousMovies,
+                movie
+            ]);
+
+            setShowMovieSearch(false);
+            setMovieSearch("");
+            setMovieSearchResults([]);
+
+        } catch (err) {
+            alert(err.message);
+        }
+    }
 
     async function handleRemoveMovie(movieId) {
         try {
@@ -204,10 +204,11 @@ async function handleAddMovie(movie) {
         return (
             <>
                 <Header />
-                <div className="group-page">
-                    <p>
-                        You need to <Link to="/login">log in</Link> to see this group.
-                    </p>
+                <div className="signin-required">
+                    <h1>You need to sign in to see this group</h1>
+                    <Link to="/login" className="singin-required-button">
+                        Sign in
+                    </Link>
                 </div>
             </>
         );
@@ -298,83 +299,49 @@ async function handleAddMovie(movie) {
 
                         <h2 className="group-movies-title">Movies:</h2>
 
-                            <button
-                                className="big-light-button"
-                                onClick={() => setShowMovieSearch(true)}
-                            >
-                                ADD MOVIE
-                            </button>
+                        <button
+                            className="big-light-button"
+                            onClick={() => setShowMovieSearch(true)}
+                        >
+                            ADD MOVIE
+                        </button>
 
-                            {showMovieSearch && (
-                                <div className="group-movie-search">
+                        {showMovieSearch && (
+                            <div className="group-movie-search">
 
-                                    <form onSubmit={handleMovieSearch}>
-                                        <input
-                                            type="text"
-                                            placeholder="Search movie"
-                                            value={movieSearch}
-                                            onChange={(e) => setMovieSearch(e.target.value)}
-                                        />
+                                <form onSubmit={handleMovieSearch}>
+                                    <input
+                                        type="text"
+                                        placeholder="Search movie"
+                                        value={movieSearch}
+                                        onChange={(e) => setMovieSearch(e.target.value)}
+                                    />
 
-                                        <button
-                                            type="submit"
-                                            className="small-button"
+                                    <button
+                                        type="submit"
+                                        className="small-button"
+                                    >
+                                        FIND
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        className="small-button"
+                                        onClick={handleCloseMovieSearch}
+                                    >
+                                        CANCEL
+                                    </button>
+
+                                </form>
+
+                                {movieSearchLoading && <p>Loading...</p>}
+
+                                <div className="group-movie-search-results">
+                                    {movieSearchResults.map((movie) => (
+                                        <div
+                                            key={movie.id}
+                                            className="group-movie-search-card"
                                         >
-                                            FIND
-                                        </button>
-
-                                        <button
-                                            type="button"
-                                            className="small-button"
-                                            onClick={handleCloseMovieSearch}
-                                        >
-                                            CANCEL
-                                        </button>
-
-                                    </form>
-
-                                    {movieSearchLoading && <p>Loading...</p>}
-
-                                    <div className="group-movie-search-results">
-                                        {movieSearchResults.map((movie) => (
-                                            <div
-                                                key={movie.id}
-                                                className="group-movie-search-card"
-                                            >
-                                                {movie.posterUrl ? (
-                                                    <img
-                                                        src={movie.posterUrl}
-                                                        alt={movie.title}
-                                                    />
-                                                ) : (
-                                                    <div className="poster-placeholder" />
-                                                )}
-
-                                                <div className="group-movie-title">
-                                                    {movie.title}
-                                                </div>
-
-                                                <button
-                                                    type="button"
-                                                    className="small-button"
-                                                    onClick={() => handleAddMovie(movie)}
-                                                >
-                                                    ADD
-                                                </button>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                </div>
-                            )}
-                                                    
-                                                        
-
-                            <div className="group-movie-grid">
-                                {movies.map((movie) => (
-                                    <div key={movie.id} className="group-movie-card">
-
-                                        <div className="group-movie-poster">
                                             {movie.posterUrl ? (
                                                 <img
                                                     src={movie.posterUrl}
@@ -383,23 +350,57 @@ async function handleAddMovie(movie) {
                                             ) : (
                                                 <div className="poster-placeholder" />
                                             )}
+
+                                            <div className="group-movie-title">
+                                                {movie.title}
+                                            </div>
+
+                                            <button
+                                                type="button"
+                                                className="small-button"
+                                                onClick={() => handleAddMovie(movie)}
+                                            >
+                                                ADD
+                                            </button>
                                         </div>
+                                    ))}
+                                </div>
 
-                                        <div className="group-movie-title">
-                                            {movie.title}
-                                        </div>
-
-                                        <button
-                                            type="button"
-                                            className="small-button"
-                                            onClick={() => handleRemoveMovie(movie.id)}
-                                        >
-                                            REMOVE
-                                        </button>
-
-                                    </div>
-                                ))}
                             </div>
+                        )}
+
+
+
+                        <div className="group-movie-grid">
+                            {movies.map((movie) => (
+                                <div key={movie.id} className="group-movie-card">
+
+                                    <div className="group-movie-poster">
+                                        {movie.posterUrl ? (
+                                            <img
+                                                src={movie.posterUrl}
+                                                alt={movie.title}
+                                            />
+                                        ) : (
+                                            <div className="poster-placeholder" />
+                                        )}
+                                    </div>
+
+                                    <div className="group-movie-title">
+                                        {movie.title}
+                                    </div>
+
+                                    <button
+                                        type="button"
+                                        className="small-button"
+                                        onClick={() => handleRemoveMovie(movie.id)}
+                                    >
+                                        REMOVE
+                                    </button>
+
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     {/* requests to join (owner) */}
