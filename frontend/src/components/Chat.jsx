@@ -74,36 +74,6 @@ function ChatComponent({ groupId }) {
     };
   }, [groupId, accessToken]);
 
-  // Socket connection
-  // One authenticated socket per group; disconnecting on cleanup also leaves the old room
-  useEffect(() => {
-    if (!accessToken) return;
-
-    const socket = io(API_URL, { auth: { token: accessToken } });
-    socketRef.current = socket;
-
-    // 'connect' fires again after a reconnect, so the room is re-joined too
-    socket.on('connect', () => {
-      socket.emit('joinGroup', groupId, (res) => {
-        if (!res?.ok) console.error('Could not join group:', res?.error);
-      });
-    });
-    socket.on('connect_error', (error) => {
-      console.error('Socket connection error:', error.message);
-    });
-    socket.on('newMessage', (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
-    socket.on('disconnect', () => {
-      console.log('Socket disconnected');
-    });
-
-    return () => {
-      socket.disconnect();
-      socketRef.current = null;
-    };
-  }, [groupId, accessToken]);
-
   useEffect(() => {
     if (!accessToken) return;
     fetchMessages();
