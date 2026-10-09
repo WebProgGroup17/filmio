@@ -15,10 +15,10 @@ Filmio is a collaborative full-stack web application designed for movie reviews,
 
 | Endpoint | Method | Description | Parameters | Request Body | Status Codes | Auth Required | Error Statuses |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| `/users/signup` | `POST` | Register a new user account | None | `{ "user": { "email": "string", "password": "string" } }` | `201 Created`, `400 Bad Request`, `409 Conflict` | None | `400` (Missing fields or password too weak: min 8 chars, 1 uppercase, 1 number), `409` (Email already registered) |
+| `/users/signup` | `POST` | Register a new user account,and email is trimmed and lowercased before being stored or checked. | None | `{ "user": { "email": "string", "password": "string" } }` | `201 Created`, `400 Bad Request`, `409 Conflict` | None | `400` (Missing fields or password too weak: min 8 chars, 1 uppercase, 1 number), `409` (Email already registered) |
 | `/users/login` | `POST` | Authenticate user, return a short-lived access token (5 min) and set a `refreshToken` HttpOnly cookie (10 min) | None | `{ "user": { "email": "string", "password": "string" } }` | `200 OK`, `400 Bad Request`, `401 Unauthorized` | None | `400` (Email or password missing), `401` (Invalid email or password) |
 | `/users/refresh` | `POST` | Exchange a valid `refreshToken` cookie for a new access token and a rotated refresh cookie | None | None (token is read from the `refreshToken` cookie) | `200 OK`, `401 Unauthorized`, `403 Forbidden` | Refresh cookie | `401` (`No refresh token`), `403` (`Invalid or expired refresh token`, or `Refresh token not found` when it does not match the one stored in the database) |
-| `/users/logout` | `POST` | Terminate user session: clears the stored refresh token and the `refreshToken` cookie | None | None | `200 OK` | None (uses the refresh cookie if present) | None. Always returns `200`, even without a cookie |
+| `/users/logout` | `POST` | Terminate user session: clears the stored refresh token and the `refreshToken` cookie | None | None | `200 OK` | None (uses the refresh cookie if present) | None. Returns `200 OK`, even without a cookie |
 | `/users/me` | `DELETE` | Permanently delete user account | None | None | `200 OK`, `401 Unauthorized` | Bearer Token | `401` |
 
 ### Authentication Example
@@ -114,8 +114,8 @@ Most errors use the format `{ "error": { "message": "string", "status": 400 } }`
 | `/groups/join-requests/:requestId/reject` | `PATCH` | Reject a user's join request | `requestId` (Path, integer) | None | `200 OK`, `404 Not Found` | Bearer Token | Owner | `404` |
 | `/groups/invites/:inviteId/accept` | `PATCH` | User accepts an invitation to join a group | `inviteId` (Path, integer) | None | `200 OK`, `404 Not Found` | Bearer Token | Invitee | `404` (Invitation not found) |
 | `/groups/invites/:inviteId/reject` | `PATCH` | User declines an invitation to join a group | `inviteId` (Path, integer) | None | `200 OK`, `404 Not Found` | Bearer Token | Invitee | `404` |
-| `/groups/:groupId/chat` | `POST` | Post a chat message in group | `groupId` (Path, integer) | `{ "text": "string" }` | `201 Created`, `400 Bad Request`, `403 Forbidden` | Bearer Token | Member | `400` (Empty message), `403` (Not a member) |
-| `/groups/:groupId/chat` | `GET` | Retrieve chat messages for a group | `groupId` (Path, integer) | None | `200 OK`, `403 Forbidden` | Bearer Token | Member | `403` (Not a member) |
+| `/groups/:groupId/chat` | `POST` | Post a chat message in group | `groupId` (Path, integer) | `{ "text": "string" }` | `201 Created`, `400 Bad Request`, `403 Forbidden` | Bearer Token | Member | `400` (Empty message), `403` (Not a member or group does not exist) |
+| `/groups/:groupId/chat` | `GET` | Retrieve chat messages for a group | `groupId` (Path, integer) | None | `200 OK`, `403 Forbidden` | Bearer Token | Member | `403` (Not a member or group does not exist) |
 
 ### Response Examples (Groups)
 
