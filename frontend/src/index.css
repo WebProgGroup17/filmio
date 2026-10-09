@@ -72,28 +72,110 @@ body {
     font-size: 0.9rem;
   }
 }
-/*favourites*/
+/*favourites and shared favourites*/
+
+.favourites-page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 2.5rem 3rem 3rem;
+  background-image: url('./assets/backgroundFavourites.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
 
 .favourites-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 100px;
-  width: 100%;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  max-width: 900px;
+  margin: 0 0 2.5rem;
 }
 
 .favourites-header h1 {
   margin: 0;
+  color: #7b1fa2;
+  font-size: 2.5rem;
+  font-weight: 800;
 }
 
 .share-favourites-button {
-  padding: 0.7rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  background-color: #7c3aed;
-  color: white;
+  padding: 0.8rem 2.2rem;
+  border: 1.5px solid #ffffff;
+  border-radius: 999px;
+  background-color: #7b1fa2;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.share-favourites-button:hover {
+  background-color: #6a1b9a;
+}
+
+.favourites-page .movie-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem 2rem;
+  max-width: 900px;
+  margin: 0;
+  padding: 0;
+}
+
+.favourites-page .movie-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+}
+
+.favourites-page .movie-poster img,
+.favourites-page .poster-placeholder {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(123, 31, 162, 0.2);
+}
+
+.favourites-page .movie-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0.9rem;
+}
+
+.favourites-page .movie-title {
+  margin-top: 0;
+  color: #8329eae2;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.favourites-page .remove-favourite-button {
+  margin-top: auto;
+  padding: 0.4rem 1.5rem;
+  border: 1px solid #7b1fa239;
+  border-radius: 999px;
+  background-color: #eab3f16c;
+  color: #7b1fa2;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
 }
+
+.favourites-page .remove-favourite-button:hover {
+  background-color: #9102f8;
+  color: white;
+}
+
 /* favourites, user not logged in */
 .signin-required {
   margin-top: 120px;
@@ -116,8 +198,6 @@ body {
   text-decoration: none;
   text-transform: uppercase;
 }
-
-
 
 /* Search page */
 
