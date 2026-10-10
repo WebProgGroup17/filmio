@@ -1197,3 +1197,14 @@ html {
     font-size: 8px;
   }
 }
+
+/* Login link in the review message */
+.review-section a {
+  color: #7c3aed;
+  text-decoration: none;
+}
+
+.review-section a:hover {
+  color: #6b21d3;
+  text-decoration: underline;
+}
