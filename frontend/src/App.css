@@ -1208,3 +1208,68 @@ html {
   color: #6b21d3;
   text-decoration: underline;
 }
+
+
+/* Responsive movie details */
+
+@media (max-width: 900px) {
+  .movie-page {
+    padding: 0 20px;
+  }
+
+  .movie-top {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .movie-details-poster {
+    width: 180px;
+    max-width: 100%;
+  }
+
+  .movie-details-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .movie-details-info h1 {
+    font-size: 28px;
+    overflow-wrap: anywhere;
+  }
+
+  .movie-year,
+  .movie-genres {
+    font-size: 18px;
+  }
+
+  .movie-rating {
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 15px 0;
+  }
+
+  .star {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 901px) {
+  .movie-top {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .movie-details-poster {
+    width: 220px;
+    flex-shrink: 0;
+  }
+
+  .movie-details-info {
+    flex: 1;
+    min-width: 0;
+  }
+}
