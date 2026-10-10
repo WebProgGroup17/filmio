@@ -153,76 +153,70 @@ const handleJoinGroup = async (groupId) => {
   }
 };
 
-
-//if user is not logged in->this message
-  if (!user) {
-    return (
-      <>
-        <Header />
-        <div className="groups-page">
-          <p>
-            You need to <Link to="/login">log in</Link> to see your groups page.
-          </p>
-        </div>
-      </>
-    );
-  }
-  
-
-//working page:
-  return (
+return (
   <>
     <Header />
 
     <div className="groups-page">
-      <div className="groups-header">
-        <h1>MY GROUPS:</h1>
 
-        <button className="create-group-button"
-        onClick={() => setShowCreateGroup(true)}
-        >
-          CREATE NEW GROUP
-        </button>
-      </div>
-
-      {showCreateGroup && (
-        <div className="create-group-form">
-            <div className="group-name-field">
-             <label>GROUP NAME:</label>
-             <input 
-             type="text" 
-             value={groupName}
-             onChange={(e) => setGroupName(e.target.value)}
-             />
-            </div>
-
-            <div className="create-group-actions">
-            <button className="confirm-create-button"
-             onClick={handleCreateGroup}
-            >
-                CREATE
-            </button>
+      {user && (
+        <>
+          <div className="groups-header">
+            <h1>MY GROUPS:</h1>
 
             <button
-              className="cancel-create-button"
-              onClick={handleCancelCreate}
+              className="create-group-button"
+              onClick={() => setShowCreateGroup(true)}
             >
-              CANCEL
+              CREATE NEW GROUP
             </button>
           </div>
-        </div>
-      )}
-      <div className="my-groups">
-        {myGroups.map((group) => (
-          <div key={group.group_id} className="group-item">
-             <Link to={`/groups/${group.group_id}`}>{group.name}</Link>
+
+          {showCreateGroup && (
+            <div className="create-group-form">
+              <div className="group-name-field">
+                <label>GROUP NAME:</label>
+
+                <input
+                  type="text"
+                  value={groupName}
+                  onChange={(e) => setGroupName(e.target.value)}
+                />
+              </div>
+
+              <div className="create-group-actions">
+                <button
+                  className="confirm-create-button"
+                  onClick={handleCreateGroup}
+                >
+                  CREATE
+                </button>
+
+                <button
+                  className="cancel-create-button"
+                  onClick={handleCancelCreate}
+                >
+                  CANCEL
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="my-groups groups-scroll-box">
+            {myGroups.map((group) => (
+              <div key={group.group_id} className="group-item">
+                <Link to={`/groups/${group.group_id}`}>
+                  {group.name}
+                </Link>
+              </div>
+            ))}
           </div>
-        ))}  
-      </div>
+        </>
+      )}
 
       <h2>ALL GROUPS:</h2>
 
-      <div className="all-groups">
+      <div className="all-groups groups-scroll-box">
         {allGroups.map((group) => {
             const isMember = myGroups.some(
               (myGroup) => myGroup.group_id === group.group_id
@@ -237,7 +231,7 @@ const handleJoinGroup = async (groupId) => {
             <div key={group.group_id} className="group-item">
                  <Link to={`/groups/${group.group_id}`}>{group.name}</Link>
 
-                {!isMember && (
+                {user && !isMember && (
                   <>
                     {hasPendingRequest ? (
                         <span className="pending-request">PENDING</span>

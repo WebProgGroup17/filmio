@@ -41,7 +41,7 @@ export default function MovieCard({
             className="remove-favourite-button"
             onClick={() => onRemove(id)}
           >
-            DELETE
+            Remove
           </button>
         )}
 
