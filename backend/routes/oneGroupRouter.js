@@ -27,11 +27,10 @@ router.get('/:groupId/members', auth, async (req, res, next) => {
         await checkMember(groupId, req.user.userId)
         const membersResult = await pool.query(
             `SELECT u.user_id, u.email
-       FROM group_members gm
-       JOIN users u ON u.user_id = gm.user_id
-       WHERE gm.group_id = $1`,
-            [groupId]
-        )
+        FROM users u 
+        WHERE u.user_id IN (SELECT user_id FROM group_members WHERE group_id = $1)
+                        OR user_id = (SELECT owner_id FROM groups WHERE group_id = $1)`,
+            [groupId]);
         return res.status(200).json(membersResult.rows)
     } catch (error) {
         return next(error)
