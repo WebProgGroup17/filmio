@@ -198,18 +198,37 @@ router.post('/logout', async (req, res, next) => {
 })
 
 //users/me -> deleting
+//db transaction
 router.delete('/me', auth, async (req, res, next) => {
-  try {
-    const userId = req.user.userId
+    const client = await pool.connect()
 
-    const result = await pool.query(
-      'DELETE FROM users WHERE user_id = $1 RETURNING user_id',
-      [userId],
+    try {
+      const userId = req.user.userId
+      await client.query('BEGIN')
+
+    // find "deleted user" from db
+    const result = await client.query(
+      "SELECT user_id FROM users WHERE email = 'deleted user'",
     )
+    const deletedUserId = result.rows[0].user_id
 
+    // groups, chat messages and group movies are transmitted to "deleted user"
+    await client.query('UPDATE groups SET owner_id = $1 WHERE owner_id = $2', [deletedUserId, userId])
+    await client.query('UPDATE chat SET user_id = $1 WHERE user_id = $2', [deletedUserId, userId])
+    await client.query('UPDATE group_movies SET added_by = $1 WHERE added_by = $2', [deletedUserId, userId])
+
+    // delete the user's mandatory data
+    // (reviews, favourites and shared favourites are deleted automatically)
+    await client.query('DELETE FROM users WHERE user_id = $1', [userId])
+
+    await client.query('COMMIT')
+    res.clearCookie('refreshToken', { httpOnly: true, sameSite: 'strict' })
     return res.status(200).json({ message: 'Account deleted successfully' })
   } catch (error) {
+    await client.query('ROLLBACK')
     return next(error)
+  } finally {
+    client.release()
   }
 })
 
