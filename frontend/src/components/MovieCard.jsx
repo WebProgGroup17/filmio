@@ -8,6 +8,7 @@ export default function MovieCard({
   genres,
   showYear = false,
   onRemove,
+  onRemove,
 }) {
   return (
     <div className="movie-card">
@@ -33,6 +34,7 @@ export default function MovieCard({
         )}
         {genres?.length > 0 && ( /*protection for empty list */
           <p className="movie-genres">
+            {genres.join(", ")}
             {genres.join(", ")}
           </p>
         )}
