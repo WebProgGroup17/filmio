@@ -72,6 +72,7 @@ body {
     font-size: 0.9rem;
   }
 }
+
 /*favourites and shared favourites*/
 
 .favourites-page {
@@ -88,8 +89,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem 2rem;
+  gap: 1rem;
   max-width: 900px;
   margin: 0 0 2.5rem;
 }
@@ -111,6 +111,7 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .share-favourites-button:hover {
@@ -124,6 +125,8 @@ body {
   max-width: 900px;
   margin: 0;
   padding: 0;
+  overflow-wrap: anywhere;
+
 }
 
 .favourites-page .movie-card {
@@ -174,6 +177,51 @@ body {
 .favourites-page .remove-favourite-button:hover {
   background-color: #9102f8;
   color: white;
+}
+
+/* favourites and shared favourites responsiveness */
+
+/* tablet */
+@media (max-width: 700px) {
+  .favourites-page {
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  .favourites-page .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .favourites-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .share-favourites-button {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* phone */
+@media (max-width: 480px) {
+  .favourites-page .movie-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .favourites-page .movie-card {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .favourites-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .share-favourites-button {
+    padding: 0.3rem 1.1rem;
+    font-size: 0.85rem;
+  }
 }
 
 /* favourites, user not logged in */
@@ -423,7 +471,7 @@ body {
 }
 
 /* error message styles */
-.login-page form > p {
+.login-page form>p {
   color: #ef4444;
   font-weight: 500;
   margin: 0;
@@ -599,6 +647,7 @@ body {
 /* responsiveness log in, sign up*/
 
 @media (max-width: 700px) {
+
   .login-page,
   .signup-page {
     box-sizing: border-box;
@@ -608,6 +657,7 @@ body {
 }
 
 @media (max-width: 480px) {
+
   .login-page,
   .signup-page {
     margin: 24px auto;
@@ -620,7 +670,7 @@ body {
   }
 
   .login-page button,
-  .signup-page button{
+  .signup-page button {
     width: 100%;
   }
 }
