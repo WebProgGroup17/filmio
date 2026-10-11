@@ -115,6 +115,35 @@ export default function MyAccount() {
   )}
 </div>
 
+        <div className="account-join-requests">
+          {invites.map((invite) => (
+            <div 
+            key={invite.invite_id} 
+            className="account-join-request"
+            >
+              <span>
+                You are invited to join {invite.group_name}
+              </span>
+
+              <div className="join-request-actions">
+                <button
+                  className="accept-request-button"
+                  onClick={() => handleAcceptInvite(invite.invite_id)}
+                >
+                  ACCEPT
+                </button>
+
+                <button
+                  className="decline-request-button"
+                  onClick={() => handleDeclineInvite(invite.invite_id)}
+                >
+                  DECLINE
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
         {error && <p className="account-error">{error}</p>}
 
         <button className="logout-button" onClick={handleLogout}>

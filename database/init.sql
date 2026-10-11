@@ -125,3 +125,7 @@ CREATE TABLE chat (
         REFERENCES users(user_id)
         ON DELETE CASCADE
 );
+
+-- deleted user is needed when users delete their accounts to keep groups alive
+INSERT INTO users (email, password_hash)
+VALUES ('deleted user', '!');
