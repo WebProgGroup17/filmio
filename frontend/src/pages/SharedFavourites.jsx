@@ -52,8 +52,9 @@ export default function SharedFavourites() {
       <Header />
 
       <div className="favourites-page">
-        <h1>SHARED FAVOURITE MOVIES:</h1>
-
+        <div className="favourites-header">
+          <h1>SHARED FAVOURITE MOVIES:</h1>
+        </div>
         <div className="movie-grid">
           {movies.map((movie) => (
             <SharedMovieCard
@@ -85,13 +86,15 @@ function SharedMovieCard({ movie }) {
           )}
         </div>
       </Link>
-
-      <Link
-        to={`/movies/${movie.id}`}
-        state={{ fromSharedFavourites: true }}
-      >
-        {movie.title}
-      </Link>
+      <div className="movie-info">
+        <Link
+          to={`/movies/${movie.id}`}
+          state={{ fromSharedFavourites: true }}
+          className="movie-title"
+        >
+          {movie.title}
+        </Link>
+      </div>
     </div>
   );
 }

@@ -27,11 +27,10 @@ router.get('/:groupId/members', auth, async (req, res, next) => {
         await checkMember(groupId, req.user.userId)
         const membersResult = await pool.query(
             `SELECT u.user_id, u.email
-       FROM group_members gm
-       JOIN users u ON u.user_id = gm.user_id
-       WHERE gm.group_id = $1`,
-            [groupId]
-        )
+        FROM users u 
+        WHERE u.user_id IN (SELECT user_id FROM group_members WHERE group_id = $1)
+                        OR user_id = (SELECT owner_id FROM groups WHERE group_id = $1)`,
+            [groupId]);
         return res.status(200).json(membersResult.rows)
     } catch (error) {
         return next(error)
@@ -58,6 +57,41 @@ router.get('/:groupId/movies', auth, async (req, res, next) => {
         return next(error)
     }
 })
+
+//add a movie (any member of the group)
+router.post('/:groupId/movies', auth, async (req, res, next) => {
+    try {
+        const { groupId } = req.params;
+        const { tmdbMovieId } = req.body;
+        const userId = req.user.userId;
+
+        // Check that the user is a member of the group
+        await checkMember(groupId, userId);
+
+        if (!tmdbMovieId) {
+            const error = new Error('Movie id is required');
+            error.status = 400;
+            return next(error);
+        }
+
+        const result = await pool.query(
+            `INSERT INTO group_movies (group_id, tmdb_movie_id, added_by)
+             VALUES ($1, $2, $3)
+             RETURNING group_movie_id, group_id, tmdb_movie_id, added_by`,
+            [groupId, tmdbMovieId, userId]
+        );
+
+        return res.status(201).json(result.rows[0]);
+
+    } catch (error) {
+        if (error.code === '23505') {
+            error.message = 'Movie is already in the group';
+            error.status = 400;
+        }
+
+        return next(error);
+    }
+});
 
 //remove a movie (any member of the group)
 router.delete('/:groupId/movies/:tmdbMovieId', auth, async (req, res, next) => {

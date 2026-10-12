@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext.jsx';
 import '../App.css';
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const ReviewForm = ({ id, onReviewAdded }) => {
+  const { accessToken } = useAuth();
   // State for the review text input
   const [reviewText, setReviewText] = useState('');
   // State for the star rating (1 to 5)
@@ -24,8 +26,8 @@ const ReviewForm = ({ id, onReviewAdded }) => {
       return;
     }
 
-    // Retrieve the auth token from localStorage 
-    const token = localStorage.getItem('token');
+    // Retrieve the auth token from access token
+    const token = accessToken;
     if (!token) {
       setError('You must be logged in to submit a review.');
       return;

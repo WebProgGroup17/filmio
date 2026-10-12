@@ -3,10 +3,10 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext.jsx";
 import Header from "../components/Header";
 import Chat from "../components/Chat";
-import { getMovieDetails } from "../api/movies";
+import { getMovieDetails, searchMovies } from "../api/movies";
 import {
     getGroup, getGroupMembers, addGroupMember, removeGroupMember, getGroupJoinRequests, acceptJoinRequest,
-    rejectJoinRequest, getGroupMovies, removeGroupMovie, deleteGroup, leaveGroup
+    rejectJoinRequest, getGroupMovies, addGroupMovie, removeGroupMovie, deleteGroup, leaveGroup
 } from "../api/groups";
 
 
@@ -22,6 +22,12 @@ export default function OneGroup() {
     const [movies, setMovies] = useState([]); //info about movies
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+
+    // add movie
+    const [showMovieSearch, setShowMovieSearch] = useState(false);
+    const [movieSearch, setMovieSearch] = useState("");
+    const [movieSearchResults, setMovieSearchResults] = useState([]);
+    const [movieSearchLoading, setMovieSearchLoading] = useState(false);
 
     //add member
     const [showAddMember, setShowAddMember] = useState(false);
@@ -136,6 +142,52 @@ export default function OneGroup() {
 
     /////MOVIES
 
+    async function handleMovieSearch(event) {
+        event.preventDefault();
+
+        if (!movieSearch.trim()) return;
+
+        setMovieSearchLoading(true);
+
+        try {
+            const results = await searchMovies({
+                title: movieSearch,
+                genre: "",
+                year: ""
+            });
+
+            setMovieSearchResults(results);
+        } catch (err) {
+            alert(err.message);
+        } finally {
+            setMovieSearchLoading(false);
+        }
+    }
+
+    function handleCloseMovieSearch() {
+        setShowMovieSearch(false);
+        setMovieSearch("");
+        setMovieSearchResults([]);
+    }
+
+    async function handleAddMovie(movie) {
+        try {
+            await addGroupMovie(groupId, movie.id, accessToken);
+
+            setMovies((previousMovies) => [
+                ...previousMovies,
+                movie
+            ]);
+
+            setShowMovieSearch(false);
+            setMovieSearch("");
+            setMovieSearchResults([]);
+
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
     async function handleRemoveMovie(movieId) {
         try {
             await removeGroupMovie(groupId, movieId, accessToken);
@@ -152,10 +204,11 @@ export default function OneGroup() {
         return (
             <>
                 <Header />
-                <div className="group-page">
-                    <p>
-                        You need to <Link to="/login">log in</Link> to see this group.
-                    </p>
+                <div className="signin-required">
+                    <h1>You need to sign in to see this group</h1>
+                    <Link to="/login" className="singin-required-button">
+                        Sign in
+                    </Link>
                 </div>
             </>
         );
@@ -206,7 +259,7 @@ export default function OneGroup() {
                         {members.map((member) => (
                             <div key={member.user_id} className="member-row">
                                 <span className="member-name">
-                                    {member.email}
+                                    {member.email?.split("@")[0]}
                                     {member.user_id === group.owner_id && (
                                         <span title="Owner"> 👑</span>
                                     )}
@@ -245,30 +298,106 @@ export default function OneGroup() {
                         )}
 
                         <h2 className="group-movies-title">Movies:</h2>
-                        {/* ADD MOVIE (not done yet) */}
-                        <button className="big-light-button" disabled>
+
+                        <button
+                            className="big-light-button"
+                            onClick={() => setShowMovieSearch(true)}
+                        >
                             ADD MOVIE
                         </button>
 
-                        <div className="group-movies">
+                        {showMovieSearch && (
+                            <div className="group-movie-search">
+
+                                <form onSubmit={handleMovieSearch}>
+                                    <input
+                                        type="text"
+                                        placeholder="Search movie"
+                                        value={movieSearch}
+                                        onChange={(e) => setMovieSearch(e.target.value)}
+                                    />
+
+                                    <button
+                                        type="submit"
+                                        className="small-button"
+                                    >
+                                        FIND
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        className="small-button"
+                                        onClick={handleCloseMovieSearch}
+                                    >
+                                        CANCEL
+                                    </button>
+
+                                </form>
+
+                                {movieSearchLoading && <p>Loading...</p>}
+
+                                <div className="group-movie-search-results">
+                                    {movieSearchResults.map((movie) => (
+                                        <div
+                                            key={movie.id}
+                                            className="group-movie-search-card"
+                                        >
+                                            {movie.posterUrl ? (
+                                                <img
+                                                    src={movie.posterUrl}
+                                                    alt={movie.title}
+                                                />
+                                            ) : (
+                                                <div className="poster-placeholder" />
+                                            )}
+
+                                            <div className="group-movie-title">
+                                                {movie.title}
+                                            </div>
+
+                                            <button
+                                                type="button"
+                                                className="small-button"
+                                                onClick={() => handleAddMovie(movie)}
+                                            >
+                                                ADD
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+
+                            </div>
+                        )}
+
+
+
+                        <div className="group-movie-grid">
                             {movies.map((movie) => (
-                                <div key={movie.id} className="group-movie">
-                                    <Link to={`/movies/${movie.id}`}>
+                                <div key={movie.id} className="group-movie-card">
+
+                                    <div className="group-movie-poster">
                                         {movie.posterUrl ? (
-                                            <img src={movie.posterUrl} alt={movie.title} />
+                                            <img
+                                                src={movie.posterUrl}
+                                                alt={movie.title}
+                                            />
                                         ) : (
                                             <div className="poster-placeholder" />
                                         )}
-                                    </Link>
-                                    <Link to={`/movies/${movie.id}`} className="movie-title">
+                                    </div>
+
+                                    <div className="group-movie-title">
                                         {movie.title}
-                                    </Link>
+                                    </div>
+
                                     <button
+                                        type="button"
                                         className="small-button"
                                         onClick={() => handleRemoveMovie(movie.id)}
                                     >
                                         REMOVE
                                     </button>
+
                                 </div>
                             ))}
                         </div>

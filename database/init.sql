@@ -1,7 +1,8 @@
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL
+    password_hash VARCHAR(255) NOT NULL,
+    refresh_token TEXT
 );
 
 
@@ -124,3 +125,7 @@ CREATE TABLE chat (
         REFERENCES users(user_id)
         ON DELETE CASCADE
 );
+
+-- deleted user is needed when users delete their accounts to keep groups alive
+INSERT INTO users (email, password_hash)
+VALUES ('deleted user', '!');

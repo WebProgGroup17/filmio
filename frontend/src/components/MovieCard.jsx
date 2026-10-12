@@ -8,6 +8,7 @@ export default function MovieCard({
   genres,
   showYear = false,
   onRemove,
+  onRemove,
 }) {
   return (
     <div className="movie-card">
@@ -34,6 +35,7 @@ export default function MovieCard({
         {genres?.length > 0 && ( /*protection for empty list */
           <p className="movie-genres">
             {genres.join(", ")}
+            {genres.join(", ")}
           </p>
         )}
         {onRemove && (
@@ -41,7 +43,7 @@ export default function MovieCard({
             className="remove-favourite-button"
             onClick={() => onRemove(id)}
           >
-            DELETE
+            Remove
           </button>
         )}
 

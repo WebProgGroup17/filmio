@@ -6,6 +6,7 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 import ReviewList from "../components/ReviewList";
 import ReviewForm from "../components/ReviewForm";
 import { addFavourite } from "../api/favourites";
+import MovieRating from "../components/MovieRating";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -41,6 +42,21 @@ export default function OneMovieData() {
     setReviews([newReview, ...reviews]);
   };
 
+  //rating logic
+  //count reviews
+  const reviewCount = reviews.length;
+  //sum all review ratings
+  let total = 0;
+  for (const review of reviews) {
+    total = total + review.stars;
+  }
+  //calc avg
+  let avgR = 0;
+  if (reviewCount > 0) {
+    avgR= total / reviewCount;
+  }
+
+
   if (loading) return <p>Loading...</p>;
   if (!movie) return <p>Movie not found.</p>;
 
@@ -48,7 +64,9 @@ export default function OneMovieData() {
 
   const handleAddToFavourites = async () => {
   if (!user) {
-    navigate("/login"); //if not sign in->login page
+    setFavouriteMessage(
+      <>You need to <Link to="/login">sign in</Link> to add movies to favourites.</>
+    );
     return;
   }
 
@@ -73,6 +91,7 @@ export default function OneMovieData() {
           <h1>{movie.title}</h1>
           <p className="movie-year">{movie.releaseYear}</p>
           <p className="movie-genres">{movie.genres.join(", ")}</p>
+          <MovieRating rating={avgR} />
 
           {!fromSharedFavourites && (
   <>
