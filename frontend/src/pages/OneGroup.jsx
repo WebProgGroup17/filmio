@@ -397,7 +397,6 @@ export default function OneGroup() {
                                     >
                                         REMOVE
                                     </button>
-
                                 </div>
                             ))}
                         </div>

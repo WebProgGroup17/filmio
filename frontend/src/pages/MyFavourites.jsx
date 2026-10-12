@@ -4,7 +4,6 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 import { getFavourites, removeFavourite, createFavouriteShare } from "../api/favourites";
 import Header from "../components/Header";
 import MovieCard from "../components/MovieCard";
-import MovieCard from "../components/MovieCard";
 
 export default function MyFavourites() {
   const { user, accessToken } = useAuth(); //get user and token
@@ -23,33 +22,15 @@ export default function MyFavourites() {
     }
     loadFavourites();
   }, [accessToken]);
-    loadFavourites();
-  }, [accessToken]);
 
-  //function for deleting movie from favourites
-  async function handleRemove(movieId) {
-    await removeFavourite(movieId, accessToken);
   //function for deleting movie from favourites
   async function handleRemove(movieId) {
     await removeFavourite(movieId, accessToken);
 
     //update list(create new), all movies remain but not deleted
     const updatedMovies = movies.filter((movie) => movie.id !== movieId);
-    const updatedMovies = movies.filter((movie) => movie.id !== movieId);
     setMovies(updatedMovies);
   }
-
-  async function handleShare() {
-    try {
-      const data = await createFavouriteShare(accessToken);
-      const shareUrl = `${window.location.origin}/shared-favourites/${data.shareToken}`;
-      alert(shareUrl);
-    } catch (error) {
-      console.error("Share failed:", error);
-      alert("Sharing failed.");
-    }
-  }
-
 
   async function handleShare() {
     try {
@@ -92,20 +73,9 @@ export default function MyFavourites() {
             SHARE
           </button>
         </div>
-          <button className="share-favourites-button" onClick={handleShare}>
-            SHARE
-          </button>
-        </div>
 
         <div className="movie-grid">
           {movies.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              id={movie.id}
-              title={movie.title}
-              posterUrl={movie.posterUrl}
-              onRemove={handleRemove}
-            />
             <MovieCard
               key={movie.id}
               id={movie.id}
