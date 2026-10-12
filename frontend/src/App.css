@@ -856,7 +856,7 @@
 }
 
 .all-groups {
-  margin-top: 0x;
+  margin-top: 0;
 }
 
 .all-groups .group-item {
@@ -1047,6 +1047,104 @@
   border-radius: 12px;
 }
 
+/* GROUPS PAGE RESPONSIVENESS */
+
+/* Tablet */
+@media (max-width: 700px) {
+  .groups-page {
+    padding: 25px 20px;
+  }
+
+  .groups-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .groups-page h1,
+  .groups-page h2 {
+    font-size: 26px;
+  }
+
+  .groups-scroll-box {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .create-group-form {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 20px 0;
+    padding: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .groups-page {
+    padding: 20px 15px;
+  }
+
+  .groups-page h1,
+  .groups-page h2 {
+    font-size: 22px;
+  }
+
+  .create-group-button {
+    width: 100%;
+  }
+
+  .groups-scroll-box {
+    padding: 12px;
+    height: 220px;
+  }
+
+  .all-groups .group-item {
+    justify-content: space-between;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .group-name-field {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .group-name-field input {
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .create-group-actions {
+    gap: 10px;
+  }
+
+  .confirm-create-button,
+  .cancel-create-button {
+    flex: 1;
+    padding: 10px;
+  }
+
+  .groups-scroll-box .group-item a {
+    min-width: 0;
+    flex: 1;
+    padding: 14px 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .groups-scroll-box .group-item {
+    min-width: 0;
+  }
+
+  .join-group-button {
+    flex-shrink: 0;
+  }
+}
+
 /* Responsive header */
 
 
@@ -1206,6 +1304,7 @@ html {
   .footer-mandatory {
     font-size: 8px;
   }
+
 }
 
 /* Login link in the review message */
