@@ -1,3 +1,13 @@
+.now-in-cinemas {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 2.5rem 3rem 3rem;
+  background-image: url('./assets/backgroundMain.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
 .now-in-cinemas h1 {
   text-align: center;
   color: #7c3aed;
