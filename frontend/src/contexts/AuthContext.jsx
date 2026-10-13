@@ -5,8 +5,8 @@ const AuthContext = createContext(null);
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 // refresh session every 4 mins
 const REFRESH_TIME = 4 * 60 * 1000;
-// log out after 10 mins of inactivity
-const IDLE_TIME = 10 * 60 * 1000;
+// log out after 10 mins of inactivity (DEMO - change back to 10!)
+const IDLE_TIME = 30 * 60 * 1000;
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
