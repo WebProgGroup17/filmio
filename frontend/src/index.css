@@ -237,7 +237,7 @@ body {
   text-transform: uppercase;
 }
 
-.singin-required-button {
+.signin-required-button {
   display: inline-block;
   padding: 14px 28px;
   border-radius: 30px;
@@ -673,4 +673,12 @@ body {
   .signup-page button {
     width: 100%;
   }
+}
+
+/* Uppercase is applied visually; the markup keeps regular capitalization for screen readers */
+.now-in-cinemas h1,
+.search-bar button,
+.search-filter option[value=""],
+.search-page h2 {
+  text-transform: uppercase;
 }

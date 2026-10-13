@@ -1372,3 +1372,25 @@ html {
     min-width: 0;
   }
 }
+/* Uppercase is applied visually; the markup keeps regular capitalization for screen readers */
+.now-in-cinemas h1,
+.groups-page h1,
+.groups-page h2,
+.group-name-field label,
+.pending-request,
+.no-invitations,
+.create-group-button,
+.confirm-create-button,
+.cancel-create-button,
+.accept-request-button,
+.decline-request-button,
+.logout-button,
+.delete-account-button,
+.modal-yes,
+.modal-no,
+.add-to-favourites,
+.group-main-button,
+.small-button,
+.big-light-button {
+  text-transform: uppercase;
+}

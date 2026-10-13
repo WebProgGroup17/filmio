@@ -53,7 +53,7 @@ export default function SharedFavourites() {
 
       <div className="favourites-page">
         <div className="favourites-header">
-          <h1>SHARED FAVOURITE MOVIES:</h1>
+          <h1>Shared favourite movies:</h1>
         </div>
         <div className="movie-grid">
           {movies.map((movie) => (
