@@ -287,6 +287,16 @@
   padding: 40px 20px;
 }
 
+.account-welcome {
+  width: 100%;
+  max-width: 750px;
+  align-self: center;
+  margin: 0 0 30px 0px;
+  color: #7b1fa2;
+  text-transform: uppercase;
+  text-align: center;
+}
+
 /* Group invitations */
 
 .account-join-requests {
@@ -346,7 +356,8 @@
 /* Message when there are no invitations */
 
 .no-invitations {
-  margin: 0;
+  width: 100%;
+  margin: 0 auto;
   color: #666;
   font-size: 18px;
   font-weight: 600;
@@ -473,6 +484,11 @@
 
   .logout-button {
     margin-top: 60px;
+  }
+  
+  .account-welcome {
+    margin-left: 0;
+    font-size: 26px;
   }
 }
 
