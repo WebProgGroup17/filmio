@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function MyAccount() {
 
-  const { logout, accessToken, deleteAccount } = useAuth();
+  const { user,logout, accessToken, deleteAccount } = useAuth();
   const navigate = useNavigate();
 
   const [showConfirm, setShowConfirm] = useState(false);
@@ -74,11 +74,17 @@ export default function MyAccount() {
     setInvites(invites.filter((invite) => invite.invite_id !== inviteId));
   }
 
+  const username = user?.email?.split("@")[0]
+
   return (
     <>
       <Header />
 
       <div className="account-page">
+
+      {user && (
+          <h1 className="account-welcome">Welcome, {username}!</h1>
+        )}
 
 <div className="account-join-requests">
   {invites.length === 0 ? (
