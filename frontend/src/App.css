@@ -729,8 +729,16 @@
 /* GROUPS PAGE */
 
 .groups-page {
-  padding: 40px 60px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 2.5rem 3rem 3rem;
+  color: #7b1fa2;
+  background-image: url('./assets/backgroundGroups.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
+
 
 .groups-header {
   display: flex;
@@ -892,6 +900,8 @@
   padding: 15px 20px;
 
   box-sizing: border-box;
+
+  background-color: white;
 }
 
 /* GROUP PAGE FOR ONE GROUP */
