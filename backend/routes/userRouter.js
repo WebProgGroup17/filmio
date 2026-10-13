@@ -20,7 +20,7 @@ const cookieSettings = {
   //cookie can be used only for this site
   sameSite: 'strict',   
   //cookie lifetime: 10 minutes(in ms)                       
-  maxAge: 10 * 60 * 1000,                        
+  maxAge: 30 * 60 * 1000,  // DEMO - change back to 10 * 60 * 1000                    
 }
 
 //create access token function
