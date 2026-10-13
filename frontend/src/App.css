@@ -173,8 +173,13 @@
 
 /* movie details*/
 .movie-page {
-  margin: 40px auto;
-  padding: 0 60px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 2.5rem 3rem 3rem;
+  background-image: url('./assets/backgroundOneMovie.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .movie-top {
@@ -269,6 +274,9 @@
 }
 
 .movie-description {
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
   color: #666;
 }
 
