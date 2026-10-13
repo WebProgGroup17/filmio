@@ -140,7 +140,8 @@ router.post('/:groupId/join', auth, async (req, res, next) => {
        FROM join_requests
        WHERE group_id = $1
        AND user_id = $2
-       AND status = 'pending'`,
+       AND status = 'pending'
+       AND type = 'request'`,
       [groupId, userId]
     );
 
