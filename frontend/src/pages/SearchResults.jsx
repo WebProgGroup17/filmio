@@ -50,7 +50,7 @@ export default function SearchResults() {
               onChange={(event) => setTitle(event.target.value)}
             />
 
-            <button type="submit">FIND</button>
+            <button type="submit">Find</button>
           </div>
 
           <div className="search-filter">
@@ -60,7 +60,7 @@ export default function SearchResults() {
               value={year}
               onChange={(event) => setYear(event.target.value)}
             >
-              <option value="">YEAR</option>
+              <option value="">Year</option>
 
               {years.map((item) => (
                 <option key={item} value={item}>
@@ -77,7 +77,7 @@ export default function SearchResults() {
               value={genre}
               onChange={(event) => setGenre(event.target.value)}
             >
-              <option value="">GENRE</option>
+              <option value="">Genre</option>
               <option value="28">Action</option>
               <option value="12">Adventure</option>
               <option value="16">Animation</option>
@@ -102,7 +102,7 @@ export default function SearchResults() {
           </div>
         </form>
 
-        <h2>RESULTS:</h2>
+        <h2>Results:</h2>
 
         {loading && <p>Loading...</p>}
 

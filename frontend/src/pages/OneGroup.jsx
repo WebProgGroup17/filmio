@@ -206,7 +206,7 @@ export default function OneGroup() {
                 <Header />
                 <div className="signin-required">
                     <h1>You need to sign in to see this group</h1>
-                    <Link to="/login" className="singin-required-button">
+                    <Link to="/login" className="signin-required-button">
                         Sign in
                     </Link>
                 </div>
@@ -240,14 +240,14 @@ export default function OneGroup() {
                     <h1 className="group-title">{group.name}</h1>
                     {isOwner ? (
                         <button className="group-main-button" onClick={handleDeleteGroup}>
-                            DELETE
+                            Delete
                         </button>
                     ) : (
                         <button
                             className="group-main-button group-leave-button"
                             onClick={handleLeaveGroup}
                         >
-                            LEAVE GROUP
+                            Leave group
                         </button>
                     )}
                 </div>
@@ -269,7 +269,7 @@ export default function OneGroup() {
                                         className="small-button"
                                         onClick={() => handleRemoveMember(member.user_id)}
                                     >
-                                        REMOVE
+                                        Remove
                                     </button>
                                 )}
                             </div>
@@ -280,7 +280,7 @@ export default function OneGroup() {
                             className="big-light-button"
                             onClick={() => setShowAddMember(!showAddMember)}
                         >
-                            ADD MEMBER
+                            Add member
                         </button>
 
                         {showAddMember && (
@@ -292,7 +292,7 @@ export default function OneGroup() {
                                     onChange={(e) => setNewMemberEmail(e.target.value)}
                                 />
                                 <button className="small-button" onClick={handleAddMember}>
-                                    ADD
+                                    Add
                                 </button>
                             </div>
                         )}
@@ -303,7 +303,7 @@ export default function OneGroup() {
                             className="big-light-button"
                             onClick={() => setShowMovieSearch(true)}
                         >
-                            ADD MOVIE
+                            Add movie
                         </button>
 
                         {showMovieSearch && (
@@ -321,7 +321,7 @@ export default function OneGroup() {
                                         type="submit"
                                         className="small-button"
                                     >
-                                        FIND
+                                        Find
                                     </button>
 
                                     <button
@@ -329,7 +329,7 @@ export default function OneGroup() {
                                         className="small-button"
                                         onClick={handleCloseMovieSearch}
                                     >
-                                        CANCEL
+                                        Cancel
                                     </button>
 
                                 </form>
@@ -360,7 +360,7 @@ export default function OneGroup() {
                                                 className="small-button"
                                                 onClick={() => handleAddMovie(movie)}
                                             >
-                                                ADD
+                                                Add
                                             </button>
                                         </div>
                                     ))}
@@ -395,7 +395,7 @@ export default function OneGroup() {
                                         className="small-button"
                                         onClick={() => handleRemoveMovie(movie.id)}
                                     >
-                                        REMOVE
+                                        Remove
                                     </button>
 
                                 </div>
@@ -416,13 +416,13 @@ export default function OneGroup() {
                                             className="small-button"
                                             onClick={() => handleAccept(request)}
                                         >
-                                            ACCEPT
+                                            Accept
                                         </button>
                                         <button
                                             className="small-button"
                                             onClick={() => handleDecline(request.request_id)}
                                         >
-                                            DECLINE
+                                            Decline
                                         </button>
                                     </div>
                                 </div>

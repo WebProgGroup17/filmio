@@ -22,16 +22,15 @@ export default function MyFavourites() {
       setMovies(data);
       setLoading(false);
     }
-
     loadFavourites();
   }, [accessToken]);
 
+  //function for deleting movie from favourites
   async function handleRemove(movieId) {
     await removeFavourite(movieId, accessToken);
 
-    const updatedMovies = movies.filter(
-      (movie) => movie.id !== movieId
-    );
+    //update list(create new), all movies remain but not deleted
+    const updatedMovies = movies.filter((movie) => movie.id !== movieId);
     setMovies(updatedMovies);
   }
 
@@ -46,19 +45,20 @@ export default function MyFavourites() {
     }
   }
 
+  //if user is not logged in->this message
   if (!user) {
-    return (
-      <>
-        <Header />
-        <div className="signin-required">
-          <h1>You need to sign in to see this page</h1>
-          <Link to="/login" className="singin-required-button">
-            Sign in
-          </Link>
-        </div>
-      </>
-    );
-  }
+  return (
+    <>
+      <Header />
+      <div className="signin-required">
+        <h1>You need to sign in to see this page</h1>
+        <Link to="/login" className="signin-required-button">
+          Sign in
+        </Link>
+      </div>
+    </>
+  );
+}
 
   if (loading) {
     return <p>Loading...</p>;
@@ -69,12 +69,9 @@ export default function MyFavourites() {
       <Header />
       <div className="favourites-page">
         <div className="favourites-header">
-          <h1>MY FAVOURITE MOVIES:</h1>
-          <button
-            className="share-favourites-button"
-            onClick={handleShare}
-          >
-            SHARE
+          <h1>My favourite movies:</h1>
+          <button className="share-favourites-button" onClick={handleShare}>
+            Share
           </button>
         </div>
 

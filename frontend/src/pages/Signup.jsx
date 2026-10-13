@@ -52,7 +52,7 @@ function Signup() {
             />
           </div>
 
-          {error && <p className="error-message">{error}</p>}
+          {error && <p>{error}</p>}
 
           <button type="submit">Sign Up</button>
         </form>
