@@ -8,7 +8,6 @@ export default function MovieCard({
   genres,
   showYear = false,
   onRemove,
-  onRemove,
 }) {
   return (
     <div className="movie-card">

@@ -1,7 +1,7 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../api/auth.js";
-import Header from "../components/Header";
 import Header from "../components/Header";
 
 function Signup() {
@@ -17,8 +17,6 @@ function Signup() {
 
     try {
       await signup({ email, password });
-      await signup({ email, password });
-
       navigate("/login");
     } catch (error) {
       setError(error.message);
@@ -30,35 +28,19 @@ function Signup() {
       <Header />
       <div className="signup-page">
         <h1>Sign Up</h1>
-    <>
-      <Header />
-      <div className="signup-page">
-        <h1>Sign Up</h1>
 
-      <form onSubmit={handleSignup}>
-      
-      
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-          />
-        </div>
-
+        <form onSubmit={handleSignup}>
           <div>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="email">Email</label>
             <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              id="email"
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
               required
             />
           </div>
+
           <div>
             <label htmlFor="password">Password</label>
             <input
@@ -72,20 +54,9 @@ function Signup() {
 
           {error && <p className="error-message">{error}</p>}
 
-          <button type="submit">
-            Sign Up
-          </button>
-        </form>
-          <button type="submit">
-            Sign Up
-          </button>
+          <button type="submit">Sign Up</button>
         </form>
 
-        <p>
-          Already have an account? <Link to="/login">Log in</Link>
-        </p>
-      </div>
-    </>
         <p>
           Already have an account? <Link to="/login">Log in</Link>
         </p>

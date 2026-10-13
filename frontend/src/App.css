@@ -728,7 +728,7 @@
 
 /* GROUPS PAGE */
 
-.groups-page {
+
 .groups-page {
   padding: 40px 60px;
 }
@@ -748,6 +748,8 @@
 .groups-page h2 {
   margin-bottom: 20px;
   color: #7b1fa2;
+}
+
 .groups-page h1 {
   margin-top: 0;
   margin-bottom: 30px;

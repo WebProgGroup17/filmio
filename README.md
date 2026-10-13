@@ -46,11 +46,12 @@ The application consists of three layers: a **React** frontend, a **Node.js/Expr
 - Open individual movie pages with details from TMDB.
 
 ### Accounts and Security
-- Register with an email address and password.
+- Register with an email address and a password that is at least 8 characters long.
 - Log in and log out.
 - Passwords are stored as bcrypt hashes.
 - Short-lived access tokens and rotating refresh tokens.
 - Delete a user account.
+- Automatic logout after 10 minutes of inactivity.
 
 ### Reviews and Favourites
 - Write movie reviews with text and a star rating from 1 to 5.
@@ -64,9 +65,10 @@ The application consists of three layers: a **React** frontend, a **Node.js/Expr
 - Group owners can manage membership requests and members.
 - Group members can add and remove movies in group.
 - Group chat uses Socket.IO for real-time communication.
+- If a group owner deletes their account, the group stays alive and the owner becomes "deleted user".
 
 ### Responsive Interface
-- CSS layouts adapt to different screen sizes; mobile and desktop views can be tested using browser developer tools.
+- CSS layouts adapt to different screen sizes. Mobile and desktop views can be tested using browser developer tools.
 
 [⬆️ Back to top](#table-of-contents)
 
@@ -90,7 +92,7 @@ The React application communicates with the backend over HTTP. The backend fetch
 
 ### Database Diagram
 
-![Filmio database ER diagram](documentation/database_er_diagram.png)
+![Filmio database ER diagram](documentation/ER-diagram.png)
 
 [⬆️ Back to top](#table-of-contents)
 
@@ -136,7 +138,7 @@ filmio/
 ### 1. Clone the repository
 
 ```bash
-git clone < https://github.com/WebProgGroup17/filmio.git >
+git clone  https://github.com/WebProgGroup17/filmio.git 
 cd filmio
 ```
 
@@ -247,6 +249,7 @@ Backend route tests use **Jest** and **Supertest**. Test files included in this 
 - `backend/test/logout.test.js`
 - `backend/test/register.test.js`
 - `backend/test/review.test.js`
+- `backend/test/account-deletation.test.js`
 
 
 Run tests from the backend directory (requires Node.js and installed dependencies):
@@ -261,7 +264,7 @@ npm test
 
 ## Project Documentation
 
-- [Database ER diagram](documentation/database_er_diagram.png)
+- [Database ER diagram](documentation/ER-diagram.png)
 - [REST API documentation](documentation/REST-API-Documentation.md)
 - [User interface design (PDF)](documentation/User%20interface%20design.pdf)
 - [Timesheet (PDF)](documentation/Timesheet.pdf)

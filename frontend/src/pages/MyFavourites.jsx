@@ -1,41 +1,37 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext.jsx";
 import { getFavourites, removeFavourite, createFavouriteShare } from "../api/favourites";
 import Header from "../components/Header";
 import MovieCard from "../components/MovieCard";
-import MovieCard from "../components/MovieCard";
 
 export default function MyFavourites() {
-  const { user, accessToken } = useAuth(); //get user and token
-  const [movies, setMovies] = useState([]); //get list of favourites
-  const [loading, setLoading] = useState(true); //loading
+  const { user, accessToken } = useAuth();
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!accessToken) { //if user is not signed in-nothin to load
+    if (!accessToken) {
       setLoading(false);
       return;
     }
-    async function loadFavourites() { //function for loadin data from server
+
+    async function loadFavourites() {
       const data = await getFavourites(accessToken);
       setMovies(data);
       setLoading(false);
     }
-    loadFavourites();
-  }, [accessToken]);
+
     loadFavourites();
   }, [accessToken]);
 
-  //function for deleting movie from favourites
-  async function handleRemove(movieId) {
-    await removeFavourite(movieId, accessToken);
-  //function for deleting movie from favourites
   async function handleRemove(movieId) {
     await removeFavourite(movieId, accessToken);
 
-    //update list(create new), all movies remain but not deleted
-    const updatedMovies = movies.filter((movie) => movie.id !== movieId);
-    const updatedMovies = movies.filter((movie) => movie.id !== movieId);
+    const updatedMovies = movies.filter(
+      (movie) => movie.id !== movieId
+    );
     setMovies(updatedMovies);
   }
 
@@ -50,34 +46,20 @@ export default function MyFavourites() {
     }
   }
 
-
-  async function handleShare() {
-    try {
-      const data = await createFavouriteShare(accessToken);
-      const shareUrl = `${window.location.origin}/shared-favourites/${data.shareToken}`;
-      alert(shareUrl);
-    } catch (error) {
-      console.error("Share failed:", error);
-      alert("Sharing failed.");
-    }
+  if (!user) {
+    return (
+      <>
+        <Header />
+        <div className="signin-required">
+          <h1>You need to sign in to see this page</h1>
+          <Link to="/login" className="singin-required-button">
+            Sign in
+          </Link>
+        </div>
+      </>
+    );
   }
 
-  //if user is not logged in->this message
-  if (!user) {
-  return (
-    <>
-      <Header />
-      <div className="signin-required">
-        <h1>You need to sign in to see this page</h1>
-        <Link to="/login" className="singin-required-button">
-          Sign in
-        </Link>
-      </div>
-    </>
-  );
-}
-
-  //when data is loading->this message
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -88,24 +70,16 @@ export default function MyFavourites() {
       <div className="favourites-page">
         <div className="favourites-header">
           <h1>MY FAVOURITE MOVIES:</h1>
-          <button className="share-favourites-button" onClick={handleShare}>
-            SHARE
-          </button>
-        </div>
-          <button className="share-favourites-button" onClick={handleShare}>
+          <button
+            className="share-favourites-button"
+            onClick={handleShare}
+          >
             SHARE
           </button>
         </div>
 
         <div className="movie-grid">
           {movies.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              id={movie.id}
-              title={movie.title}
-              posterUrl={movie.posterUrl}
-              onRemove={handleRemove}
-            />
             <MovieCard
               key={movie.id}
               id={movie.id}
