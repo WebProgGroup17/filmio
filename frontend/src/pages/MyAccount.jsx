@@ -83,7 +83,7 @@ export default function MyAccount() {
 <div className="account-join-requests">
   {invites.length === 0 ? (
     <p className="no-invitations">
-      YOU DO NOT HAVE ANY INVITATION YET
+      You do not have any invitation yet
     </p>
   ) : (
     invites.map((invite) => (
@@ -100,14 +100,14 @@ export default function MyAccount() {
             className="accept-request-button"
             onClick={() => handleAcceptInvite(invite.invite_id)}
           >
-            ACCEPT
+            Accept
           </button>
 
           <button
             className="decline-request-button"
             onClick={() => handleDeclineInvite(invite.invite_id)}
           >
-            DECLINE
+            Decline
           </button>
         </div>
       </div>
@@ -118,11 +118,11 @@ export default function MyAccount() {
         {error && <p className="account-error">{error}</p>}
 
         <button className="logout-button" onClick={handleLogout}>
-          LOGOUT
+          Logout
         </button>
 
         <button className="delete-account-button" onClick={() => setShowConfirm(true)}>
-          DELETE MY ACCOUNT
+          Delete my account
         </button>
 
         {showConfirm && (
@@ -136,10 +136,10 @@ export default function MyAccount() {
               </p>
               <div className="delete-modal-actions">
                 <button className="modal-yes" onClick={handleDelete}>
-                  YES
+                  Yes
                 </button>
                 <button className="modal-no" onClick={() => setShowConfirm(false)}>
-                  NO
+                  No
                 </button>
               </div>
             </div>
