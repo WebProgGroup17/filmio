@@ -10,6 +10,8 @@ export default function MyFavourites() {
   const { user, accessToken } = useAuth(); //get user and token
   const [movies, setMovies] = useState([]); //get list of favourites
   const [loading, setLoading] = useState(true); //loading
+  const [shareModal, setShareModal] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!accessToken) { //if user is not signed in-nothin to load
@@ -37,27 +39,37 @@ export default function MyFavourites() {
     try {
       const data = await createFavouriteShare(accessToken);
       const shareUrl = `${window.location.origin}/shared-favourites/${data.shareToken}`;
-      alert(shareUrl);
+      setCopied(false);
+      setShareModal({ text: "Share this link with your friends:", url: shareUrl });
     } catch (error) {
       console.error("Share failed:", error);
-      alert("Sharing failed.");
+      setShareModal({ text: "Sharing failed." });
+    }
+  }
+
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(shareModal.url);
+      setCopied(true);
+    } catch (error) {
+      console.error("Copy failed:", error);
     }
   }
 
   //if user is not logged in->this message
   if (!user) {
-  return (
-    <>
-      <Header />
-      <div className="signin-required">
-        <h1>You need to sign in to see this page</h1>
-        <Link to="/login" className="signin-required-button">
-          Sign in
-        </Link>
-      </div>
-    </>
-  );
-}
+    return (
+      <>
+        <Header />
+        <div className="signin-required">
+          <h1>You need to sign in to see this page</h1>
+          <Link to="/login" className="signin-required-button">
+            Sign in
+          </Link>
+        </div>
+      </>
+    );
+  }
 
   //when data is loading->this message
   if (loading) {
@@ -87,6 +99,42 @@ export default function MyFavourites() {
           ))}
         </div>
       </div>
+      {shareModal && (
+        <div className="fav-modal-overlay">
+          <div className="fav-modal">
+            <p className="fav-modal-title">{shareModal.text}</p>
+
+            {shareModal.url && (
+              <input
+                className="fav-modal-link"
+                type="text"
+                value={shareModal.url}
+                readOnly
+                onFocus={(e) => e.target.select()}
+              />
+            )}
+
+            <div className="fav-modal-actions">
+              {shareModal.url && (
+                <button
+                  type="button"
+                  className="fav-modal-copy"
+                  onClick={handleCopy}
+                >
+                  {copied ? "Copied" : "Copy"}
+                </button>
+              )}
+              <button
+                type="button"
+                className="fav-modal-close"
+                onClick={() => setShareModal(null)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
