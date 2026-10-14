@@ -3,6 +3,8 @@ import { useAuth } from '../../contexts/AuthContext.jsx';
 import './ReviewForm.css';
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+// Maximum review length, must match the backend limit
+const MAX_TEXT_LENGTH = 1000;
 
 const ReviewForm = ({ id, onReviewAdded }) => {
   const { accessToken } = useAuth();
@@ -23,6 +25,12 @@ const ReviewForm = ({ id, onReviewAdded }) => {
     // Basic validation: check if review text is empty
     if (!reviewText.trim()) {
       setError('Review text is required.');
+      return;
+    }
+
+    // Block submission when the review is longer than the allowed maximum
+    if (reviewText.length > MAX_TEXT_LENGTH) {
+      setError(`Review text must be ${MAX_TEXT_LENGTH} characters or fewer.`);
       return;
     }
 
@@ -105,6 +113,9 @@ const ReviewForm = ({ id, onReviewAdded }) => {
             placeholder="Write your thoughts about the movie here..."
             disabled={isSubmitting}
           />
+          <small className={`char-helper ${reviewText.length > MAX_TEXT_LENGTH ? 'char-helper-over' : ''}`}>
+            Maximum {MAX_TEXT_LENGTH} characters ({reviewText.length} / {MAX_TEXT_LENGTH})
+          </small>
         </div>
 
         {/* Submit Button */}

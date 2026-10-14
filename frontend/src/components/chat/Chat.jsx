@@ -4,6 +4,8 @@ import './Chat.css';
 import {io} from 'socket.io-client';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+// Maximum message length, must match the backend limit
+const MAX_TEXT_LENGTH = 1000;
 
 
 const formatDate = (dateString) => {
@@ -16,6 +18,7 @@ function ChatComponent({ groupId }) {
   const { accessToken } = useAuth();
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
+  const [sendError, setSendError] = useState(null);
   const [loading, setLoading] = useState(true);
   // Socket reference
   const socketRef = useRef(null);
@@ -90,6 +93,14 @@ function ChatComponent({ groupId }) {
 
     if (!text.trim()) return;
 
+    // Block sending when the message is longer than the allowed maximum
+    if (text.length > MAX_TEXT_LENGTH) {
+      setSendError(`Message must be ${MAX_TEXT_LENGTH} characters or fewer.`);
+      return;
+    }
+
+    setSendError(null);
+
     try {
       const response = await fetch(
         `${API_URL}/groups/${groupId}/chat`,
@@ -104,13 +115,16 @@ function ChatComponent({ groupId }) {
       );
 
       if (!response.ok) {
-        throw new Error('Failed to send message');
+        // Backend errors are shaped as { error: { message, status } }
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.error?.message || 'Failed to send message');
       }
 
       setText('');
 
     } catch (error) {
       console.error('Error sending message:', error);
+      setSendError(error.message);
     }
   };
 
@@ -142,6 +156,8 @@ function ChatComponent({ groupId }) {
         )}
       </div>
 
+      {sendError && <p className="chat-error">{sendError}</p>}
+
       <form onSubmit={sendMessage} className="chat-form">
         <input
           type="text"
@@ -153,6 +169,10 @@ function ChatComponent({ groupId }) {
         <button type="submit">
           Send
         </button>
+
+        <small className={`chat-helper ${text.length > MAX_TEXT_LENGTH ? 'chat-helper-over' : ''}`}>
+          Maximum {MAX_TEXT_LENGTH} characters ({text.length} / {MAX_TEXT_LENGTH})
+        </small>
       </form>
     </div>
   );
