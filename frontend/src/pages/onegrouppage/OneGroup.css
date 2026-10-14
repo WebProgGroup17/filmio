@@ -145,3 +145,84 @@
 .big-light-button {
   text-transform: uppercase;
 }
+
+/* ONE GROUP PAGE RESPONSIVENESS */
+
+/* Phone */
+@media (max-width: 700px) {
+  .group-page {
+    padding: 10px 15px;
+  }
+
+  .group-top {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .group-title {
+    padding: 20px 25px;
+    font-size: 1.5rem;
+    overflow-wrap: anywhere;
+  }
+
+  .group-leave-button {
+    margin-right: 0;
+  }
+
+  .group-movie-grid {
+    gap: 1.5rem;
+  }
+
+  .group-movie-card {
+    width: calc(50% - 0.75rem);
+  }
+
+  .group-movie-search-card {
+    width: calc(50% - 0.75rem);
+  }
+}
+
+/* Small phone */
+@media (max-width: 480px) {
+  .group-title {
+    padding: 15px 18px;
+    font-size: 1.3rem;
+  }
+
+  .group-main-button,
+  .big-light-button {
+    width: 100%;
+    padding: 12px 20px;
+  }
+
+  .group-movie-grid,
+  .group-movie-search-results {
+    gap: 1rem;
+  }
+
+  .group-movie-card,
+  .group-movie-search-card {
+    width: calc(50% - 0.5rem);
+  }
+
+  .group-movie-search form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .group-movie-search form input {
+    width: 100%;
+  }
+
+  .group-inline-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .group-inline-form input {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+}
