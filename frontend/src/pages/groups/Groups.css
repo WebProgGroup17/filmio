@@ -13,6 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .groups-page h1 {
@@ -195,6 +196,8 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
+    margin-bottom: 25px;
+    
   }
 
   .groups-page h1,
