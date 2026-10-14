@@ -148,22 +148,6 @@
 
 /* ONE GROUP PAGE RESPONSIVENESS */
 
-/* Tablet / small laptop: stack members-movies and requests columns */
-@media (max-width: 900px) {
-  .group-columns {
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  .group-right {
-    width: 100%;
-  }
-
-  .member-row {
-    max-width: 100%;
-  }
-}
-
 /* Phone */
 @media (max-width: 700px) {
   .group-page {
