@@ -223,9 +223,9 @@ export default function OneGroup() {
         return (
             <>
                 <Header />
-                <div className="group-page">
-                    <p>{error}</p>
-                    <Link to="/groups">Back to groups</Link>
+                <div className="signin-required">
+                    <h1>{error}</h1>
+                    <Link to="/groups" className="signin-required-button">Back to groups</Link>
                 </div>
             </>
         );
