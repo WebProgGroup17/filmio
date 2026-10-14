@@ -1,16 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NowInCinemas from "./pages/NowInCinemas";
-import SearchResults from "./pages/SearchResults";
-import OneMovieData from "./pages/OneMovieData";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import MyAccount from "./pages/MyAccount";
-import MyFavourites from "./pages/MyFavourites";
-import Groups from "./pages/Groups";
-import SharedFavourites from "./pages/SharedFavourites";
-import OneGroup from "./pages/OneGroup";
-import Footer from "./components/Footer";
-import "./App.css";
+import NowInCinemas from "./pages/nowincinemas/NowInCinemas";
+import SearchResults from "./pages/searchresults/SearchResults";
+import OneMovieData from "./pages/onemoviepage/OneMovieData";
+import Login from "./pages/login/Login";
+import Signup from "./pages/signup/Signup";
+import MyAccount from "./pages/myaccount/MyAccount";
+import MyFavourites from "./pages/myfavourites/MyFavourites";
+import Groups from "./pages/groups/Groups";
+import SharedFavourites from "./pages/sharedfavourites/SharedFavourites";
+import OneGroup from "./pages/onegrouppage/OneGroup";
+import Footer from "./components/footer/Footer";
 
 function App() {
   return (

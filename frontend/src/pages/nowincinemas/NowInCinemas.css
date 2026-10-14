@@ -1,0 +1,49 @@
+.now-in-cinemas h1 {
+    text-align: center;
+    color: #7c3aed;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    margin: 2rem 0 2.5rem;
+    font-size: 70px;
+}
+
+.now-in-cinemas {
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 2.5rem 3rem 3rem;
+    background-image: url('../../assets/backgrounds/backgroundMain.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Uppercase is applied visually; the markup keeps regular capitalization for screen readers */
+.now-in-cinemas h1 {
+  text-transform: uppercase;
+}
+
+/* Responsiveness */
+@media (max-width: 700px) {
+    .movie-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+
+    .now-in-cinemas h1 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 2rem;
+    }
+
+    .movie-title {
+        font-size: 0.9rem;
+    }
+}

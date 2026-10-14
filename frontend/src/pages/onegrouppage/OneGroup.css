@@ -1,0 +1,265 @@
+.group-page {
+  padding: 10px;
+  color: #7b1fa2;
+}
+
+.group-top {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.group-title {
+  margin: 0;
+  padding: 30px 40px;
+  background: #e8dcf5;
+  color: #7b1fa2;
+}
+
+.group-main-button {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 25px;
+  background: #7b1fa2;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.group-leave-button {
+  margin-left: auto;
+  margin-right: 60px;
+}
+
+.group-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  margin-top: 30px;
+}
+
+.group-left {
+  flex: 1;
+}
+
+.group-right {
+  width: 400px;
+}
+
+.group-page h2 {
+  color: #7b1fa2;
+}
+
+.group-movies-title {
+  margin-top: 50px;
+}
+
+.member-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  max-width: 400px;
+  margin: 12px 0;
+}
+
+.small-button {
+  padding: 2px 12px;
+  margin-left: 6px;
+  border: 1px solid #b388d6;
+  border-radius: 12px;
+  background: #e8dcf5;
+  color: #7b1fa2;
+  cursor: pointer;
+}
+
+.big-light-button {
+  display: block;
+  margin: 20px 0;
+  padding: 18px 28px;
+  border: none;
+  border-radius: 25px;
+  background: #e8dcf5;
+  color: #7b1fa2;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.member-name {
+  color: rgb(77, 71, 78);
+}
+
+.group-movie-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 25px;
+}
+
+.group-movie-card {
+  width: 180px;
+  text-align: center;
+}
+
+.group-movie-poster {
+  display: block;
+  width: 100%;
+}
+
+.group-movie-poster img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.group-movie-title {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 10px;
+  color: #7c3aed;
+  font-weight: 600;
+}
+
+.group-movie-title:hover {
+  text-decoration: underline;
+}
+
+.group-movie-search-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 25px;
+}
+
+.group-movie-search-card {
+  width: 150px;
+  text-align: center;
+}
+
+.group-movie-search-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+.request-email {
+  color: rgb(77, 71, 78);
+}
+
+.group-inline-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+.group-movie-search {
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+.group-movie-search form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.group-inline-form .small-button,
+.group-movie-search .small-button {
+  margin-left: 0;
+  padding: 6px 16px;
+}
+
+/* Uppercase is applied visually; the markup keeps regular capitalization for screen readers */
+.group-main-button,
+.small-button,
+.big-light-button {
+  text-transform: uppercase;
+}
+
+/* ONE GROUP PAGE RESPONSIVENESS */
+
+/* Phone */
+@media (max-width: 700px) {
+  .group-page {
+    padding: 10px 15px;
+  }
+
+  .group-top {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .group-title {
+    padding: 20px 25px;
+    font-size: 1.5rem;
+    overflow-wrap: anywhere;
+  }
+
+  .group-leave-button {
+    margin-right: 0;
+  }
+
+  .group-movie-grid {
+    gap: 1.5rem;
+  }
+
+  .group-movie-card {
+    width: calc(50% - 0.75rem);
+  }
+
+  .group-movie-search-card {
+    width: calc(50% - 0.75rem);
+  }
+}
+
+/* Small phone */
+@media (max-width: 480px) {
+  .group-title {
+    padding: 15px 18px;
+    font-size: 1.3rem;
+  }
+
+  .group-main-button,
+  .big-light-button {
+    width: 100%;
+    padding: 12px 20px;
+  }
+
+  .group-movie-grid,
+  .group-movie-search-results {
+    gap: 1rem;
+  }
+
+  .group-movie-card,
+  .group-movie-search-card {
+    width: calc(50% - 0.5rem);
+  }
+
+  .group-movie-search form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .group-movie-search form input {
+    width: 100%;
+  }
+
+  .group-inline-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .group-inline-form input {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+}

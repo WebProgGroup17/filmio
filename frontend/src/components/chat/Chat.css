@@ -1,0 +1,152 @@
+.chat-title {
+  font-size: 1.5em;
+  margin: 0.83em 0;
+  color: #7b1fa2;
+}
+
+.chat-box {
+    height: 300px;
+    overflow-y: auto;
+
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.chat-message {
+    display: grid;
+    grid-template-columns: 110px 150px 1fr;
+    align-items: baseline;
+    gap: 10px;
+
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+}
+.chat-message strong {
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+}
+
+.chat-message small {
+    color: gray;
+    white-space: nowrap;
+}
+
+.chat-text {
+    min-width: 0;
+    text-align: left;
+    word-break: break-word;
+}
+.chat-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.chat-form input {
+    flex: 1;
+    min-width: 0;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border: 1px solid #c77bdb;
+    border-radius: 20px;
+    font-size: 16px;
+    outline: none;
+}
+
+.chat-form input:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.chat-form button {
+    flex-shrink: 0;
+    height: 40px;
+    padding: 0 25px;
+    border: none;
+    border-radius: 20px;
+    background: #7c3aed;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.chat-form button:hover {
+    background: rgba(124, 58, 237, 0.15);
+}
+
+.chat-helper {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: gray;
+}
+
+.chat-helper-over,
+.chat-error {
+    color: #d63031;
+}
+
+.chat-error {
+    font-size: 0.9rem;
+    margin: 0 0 5px;
+}
+
+/* responsiveness */
+@media (max-width: 700px) {
+    .chat-message {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 4px 10px;
+        align-items: start;
+    }
+
+    .chat-message strong {
+        grid-column: 1;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .chat-message small {
+        grid-column: 2;
+        text-align: right;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        font-size: 0.75rem;
+    }
+
+    .chat-text {
+        grid-column: 1 / -1;
+    }
+
+    .chat-form {
+        gap: 8px;
+        align-items: stretch;
+    }
+
+    .chat-form input {
+        width: 0;
+        flex: 1 1 auto;
+    }
+
+    .chat-form button {
+        padding: 0 18px;
+    }
+}
+
+@media (max-width: 420px) {
+    .chat-title {
+        font-size: 1.25rem;
+    }
+
+    .chat-box {
+        padding: 8px;
+    }
+
+    .chat-form button {
+        padding: 0 14px;
+        font-size: 14px;
+    }
+}

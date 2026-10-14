@@ -1,0 +1,112 @@
+.header {
+  height: 80px;
+  background: #f4eafa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  border-bottom: 1px solid #d9c2ea;
+  
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin-left: -45px;
+}
+
+.logo img {
+  width: 230px;
+  height: 85px;
+  display: block;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header-icon img {
+  width: 64px;
+  height: 64px;
+  display: block;
+}
+
+/* Uppercase is applied visually; the markup keeps regular capitalization for screen readers */
+.groups-page h1,
+.groups-page h2,
+.group-name-field label,
+.pending-request,
+.create-group-button,
+.confirm-create-button,
+.cancel-create-button {
+  text-transform: uppercase;
+}
+
+/* Responsiveness */
+
+
+@media (max-width: 700px) {
+  .header {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .logo {
+    margin-left: 0;
+    flex-shrink: 1;
+  }
+
+  .logo img {
+    width: 150px;
+    height: auto;
+  }
+
+  .header-nav {
+    flex-shrink: 0;
+    gap: 0;
+  }
+
+  .header-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .header-icon img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0 5px;
+  }
+
+  .logo img {
+    width: 110px;
+  }
+
+  .header-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .header-icon img {
+    width: 42px;
+    height: 42px;
+  }
+}

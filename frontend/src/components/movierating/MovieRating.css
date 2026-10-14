@@ -1,0 +1,32 @@
+.movie-rating {
+    display: flex;
+    gap: 4px;
+    margin: 20px 0;
+}
+
+.star {
+    font-size: 2.6rem;
+    color: #d1d1d1;
+}
+
+.star.filled {
+    color: #9b4dca;
+}
+
+@media (max-width: 700px) {
+    .movie-rating {
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 15px 0;
+    }
+
+    .star {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .star {
+        font-size: 1.6rem;
+    }
+}

@@ -4,6 +4,9 @@ import { auth } from '../helper/auth.js'
 
 const router = express.Router()
 
+// Maximum length for review text
+const MAX_TEXT_LENGTH = 1000
+
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p/w500'
 
@@ -259,6 +262,12 @@ router.post('/:id/reviews', auth, async (req, res) => {
     if (!review_text?.trim()) {
       return res.status(400).json({
         error: 'Review text is required',
+      })
+    }
+
+    if (review_text.length > MAX_TEXT_LENGTH) {
+      return res.status(400).json({
+        error: `Review text must be ${MAX_TEXT_LENGTH} characters or fewer`,
       })
     }
 

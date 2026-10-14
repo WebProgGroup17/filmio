@@ -1,0 +1,136 @@
+.login-page {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 40px;
+    background: #ffffff;
+    border: 1px solid #d9c2ea;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.08);
+}
+
+.login-page h1 {
+    text-align: center;
+    color: #7c3aed;
+    font-weight: 800;
+    font-size: 32px;
+    margin-bottom: 24px;
+    letter-spacing: 0.03em;
+}
+
+.login-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.login-page form div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.login-page label {
+    color: #4b5563;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.login-page input {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border: 1px solid #c77bdb;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333333;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-page input:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.login-page button[type="submit"] {
+    background-color: #7c3aed;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 25px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.login-page button[type="submit"]:hover {
+    background-color: #6b21d3;
+}
+
+.login-page p {
+    text-align: center;
+    margin-top: 20px;
+    color: #666666;
+    font-size: 14px;
+}
+
+.login-page p a {
+    color: #7c3aed;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-page p a:hover {
+    text-decoration: underline;
+}
+
+/* error message styles */
+.login-page form>p {
+    color: #ef4444;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
+}
+
+.signin-required h1 {
+  margin-bottom: 40px;
+  color: #7b1fa2;
+  text-transform: uppercase;
+}
+
+.signin-required-button {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 30px;
+  background-color: #e8dcf5;
+  color: #7b1fa2;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* Responsiveness */
+@media (max-width: 700px) {
+  .login-page {
+    box-sizing: border-box;
+    width: 90%;
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-page {
+    margin: 24px auto;
+    padding: 24px 16px;
+  }
+
+  .login-page h1 {
+    font-size: 1.5rem;
+  }
+
+  .login-page button {
+    width: 100%;
+  }
+}

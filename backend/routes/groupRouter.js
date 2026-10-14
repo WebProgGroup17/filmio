@@ -6,6 +6,9 @@ import { checkGroupId } from '../helper/group.js'
 
 const router = Router()
 
+// Maximum length for chat messages
+const MAX_TEXT_LENGTH = 1000
+
 router.param('groupId', checkGroupId)
 router.param('groupId', checkGroupId)
 
@@ -410,6 +413,13 @@ router.patch('/invites/:inviteId/reject', auth, async (req, res, next) => {
       return next(error);
       } 
       
+      // Reject messages longer than the allowed maximum
+      if (text.length > MAX_TEXT_LENGTH) {
+      const error = new Error(`Message must be ${MAX_TEXT_LENGTH} characters or fewer`);
+      error.status = 400;
+      return next(error);
+      }
+
       // Check membership
       const memberResult = await pool.query(
     const result = await pool.query(
