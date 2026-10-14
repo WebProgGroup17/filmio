@@ -78,6 +78,23 @@
     background: rgba(124, 58, 237, 0.15);
 }
 
+.chat-helper {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: gray;
+}
+
+.chat-helper-over,
+.chat-error {
+    color: #d63031;
+}
+
+.chat-error {
+    font-size: 0.9rem;
+    margin: 0 0 5px;
+}
+
 /* responsiveness */
 @media (max-width: 700px) {
     .chat-message {

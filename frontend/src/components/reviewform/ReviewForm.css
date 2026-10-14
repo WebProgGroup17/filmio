@@ -61,6 +61,17 @@
     resize: vertical;
 }
 
+.review-form .char-helper {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: #718096;
+}
+
+.review-form .char-helper-over {
+    color: #d63031;
+}
+
 .submit-review-btn {
     background-color: #7c3aed;
     color: white;
