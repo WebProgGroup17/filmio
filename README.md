@@ -109,6 +109,8 @@ filmio/
 ├── database/
 │   └── init.sql             # Initial PostgreSQL schema
 ├── documentation/
+    ├── presentation/        # data.sql, presentation and speech demos
+    ├── screenshots/         # screenshots of the aplication
 │   ├── database_er_diagram.png
 │   ├── REST-API-Documentation.md
 │   ├── Timesheet.pdf
@@ -249,7 +251,7 @@ Backend route tests use **Jest** and **Supertest**. Test files included in this 
 - `backend/test/logout.test.js`
 - `backend/test/register.test.js`
 - `backend/test/review.test.js`
-- `backend/test/account-deletation.test.js`
+- `backend/test/account-delete.test.js`
 
 
 Run tests from the backend directory (requires Node.js and installed dependencies):
