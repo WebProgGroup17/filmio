@@ -102,6 +102,7 @@
 }
 
 .group-movie-poster {
+  display: block;
   width: 100%;
 }
 
@@ -114,10 +115,15 @@
 }
 
 .group-movie-title {
+  display: block;
   margin-top: 12px;
   margin-bottom: 10px;
   color: #7c3aed;
   font-weight: 600;
+}
+
+.group-movie-title:hover {
+  text-decoration: underline;
 }
 
 .group-movie-search-results {
@@ -137,6 +143,37 @@
   height: auto;
   display: block;
   border-radius: 12px;
+}
+
+.request-email {
+  color: rgb(77, 71, 78);
+}
+
+.group-inline-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+.group-movie-search {
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+.group-movie-search form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.group-inline-form .small-button,
+.group-movie-search .small-button {
+  margin-left: 0;
+  padding: 6px 16px;
 }
 
 /* Uppercase is applied visually; the markup keeps regular capitalization for screen readers */

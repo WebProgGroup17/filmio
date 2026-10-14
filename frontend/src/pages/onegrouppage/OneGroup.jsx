@@ -223,9 +223,9 @@ export default function OneGroup() {
         return (
             <>
                 <Header />
-                <div className="group-page">
-                    <p>{error}</p>
-                    <Link to="/groups">Back to groups</Link>
+                <div className="signin-required">
+                    <h1>{error}</h1>
+                    <Link to="/groups" className="signin-required-button">Back to groups</Link>
                 </div>
             </>
         );
@@ -375,7 +375,7 @@ export default function OneGroup() {
                             {movies.map((movie) => (
                                 <div key={movie.id} className="group-movie-card">
 
-                                    <div className="group-movie-poster">
+                                    <Link to={`/movies/${movie.id}`} className="group-movie-poster">
                                         {movie.posterUrl ? (
                                             <img
                                                 src={movie.posterUrl}
@@ -384,11 +384,11 @@ export default function OneGroup() {
                                         ) : (
                                             <div className="poster-placeholder" />
                                         )}
-                                    </div>
+                                    </Link>
 
-                                    <div className="group-movie-title">
+                                    <Link to={`/movies/${movie.id}`} className="group-movie-title">
                                         {movie.title}
-                                    </div>
+                                    </Link>
 
                                     <button
                                         type="button"
@@ -410,7 +410,7 @@ export default function OneGroup() {
                             {requests.length === 0 && <p>No requests</p>}
                             {requests.map((request) => (
                                 <div key={request.request_id} className="member-row">
-                                    <span>{request.email}</span>
+                                    <span className="request-email">{request.email}</span>
                                     <div>
                                         <button
                                             className="small-button"

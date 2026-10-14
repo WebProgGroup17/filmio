@@ -25,6 +25,11 @@
     min-width: 0;
 }
 
+.movie-details-info .movie-year,
+.movie-details-info .movie-genres {
+  color: #3e454f;
+}
+
 .movie-down {
     margin-top: 30px;
 }
@@ -33,7 +38,7 @@
     width: 100%;
     max-width: 800px;
     box-sizing: border-box;
-    color: #666;
+    color: #3e454f;
 }
 
 .movie-details-info h1 {
@@ -130,8 +135,8 @@
 /* Responsive movie details */
 @media (max-width: 700px) {
     .movie-page {
-        margin: 20px auto;
-        padding: 0 20px;
+        margin: 0;
+        padding: 20px 20px 3rem;
     }
 
     .movie-top {
@@ -166,7 +171,7 @@
 
 @media (max-width: 480px) {
     .movie-page {
-        padding: 0 15px;
+        padding: 20px 15px 3rem;
     }
 
     .movie-details-poster {
