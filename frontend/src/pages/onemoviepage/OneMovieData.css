@@ -1,0 +1,184 @@
+.movie-page {
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 2.5rem 3rem 3rem;
+    background-image: url('../../assets/backgrounds/backgroundOneMovie.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.movie-top {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.movie-details-poster {
+    width: 220px;
+    flex-shrink: 0;
+}
+
+.movie-details-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.movie-down {
+    margin-top: 30px;
+}
+
+.movie-description {
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
+    color: #666;
+}
+
+.movie-details-info h1 {
+  color: #7c3aed;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 40px;
+}
+
+.add-to-favourites {
+    background-color: #7c3aed;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.add-review {
+    background-color: #7c3aed;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.add-to-favourites:hover {
+    background-color: #6b21d3;
+}
+
+.add-review:hover {
+    background-color: #6b21d3;
+}
+
+.movie-down h2 {
+    color: #7c3aed;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.movie-reviews {
+    color: #666;
+}
+
+.movie-details-poster img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.login-prompt {
+  background-color: #f7fafc;
+  border: 1px dashed #cbd5e0;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  color: #4a5568;
+  font-size: 0.95rem;
+  max-width: 800px;
+}
+
+.login-prompt a {
+  color: #3182ce;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-prompt a:hover {
+  text-decoration: underline;
+}
+/* Login link in the review message */
+.review-section a {
+  color: #7c3aed;
+  text-decoration: none;
+}
+
+.review-section a:hover {
+  color: #6b21d3;
+  text-decoration: underline;
+}
+
+/* Uppercase is applied visually; the markup keeps regular capitalization for screen readers */
+.add-to-favourites {
+  text-transform: uppercase;
+}
+
+
+/* Responsive movie details */
+@media (max-width: 700px) {
+    .movie-page {
+        margin: 20px auto;
+        padding: 0 20px;
+    }
+
+    .movie-top {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .movie-details-poster {
+        width: 200px;
+        max-width: 100%;
+    }
+
+    .movie-details-info {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .movie-details-info h1 {
+        font-size: 30px;
+        overflow-wrap: anywhere;
+    }
+
+    .movie-year,
+    .movie-genres {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-page {
+        padding: 0 15px;
+    }
+
+    .movie-details-poster {
+        width: 160px;
+    }
+
+    .movie-details-info h1 {
+        font-size: 24px;
+    }
+
+    .movie-year,
+    .movie-genres {
+        font-size: 16px;
+    }
+}
