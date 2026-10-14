@@ -77,3 +77,59 @@
 .chat-form button:hover {
     background: rgba(124, 58, 237, 0.15);
 }
+
+/* responsiveness */
+@media (max-width: 700px) {
+    .chat-message {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 4px 10px;
+        align-items: start;
+    }
+
+    .chat-message strong {
+        grid-column: 1;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .chat-message small {
+        grid-column: 2;
+        text-align: right;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        font-size: 0.75rem;
+    }
+
+    .chat-text {
+        grid-column: 1 / -1;
+    }
+
+    .chat-form {
+        gap: 8px;
+        align-items: stretch;
+    }
+
+    .chat-form input {
+        width: 0;
+        flex: 1 1 auto;
+    }
+
+    .chat-form button {
+        padding: 0 18px;
+    }
+}
+
+@media (max-width: 420px) {
+    .chat-title {
+        font-size: 1.25rem;
+    }
+
+    .chat-box {
+        padding: 8px;
+    }
+
+    .chat-form button {
+        padding: 0 14px;
+        font-size: 14px;
+    }
+}
