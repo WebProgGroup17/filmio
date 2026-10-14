@@ -139,6 +139,10 @@
   border-radius: 12px;
 }
 
+.request-email {
+  color: rgb(77, 71, 78);
+}
+
 /* Uppercase is applied visually; the markup keeps regular capitalization for screen readers */
 .group-main-button,
 .small-button,

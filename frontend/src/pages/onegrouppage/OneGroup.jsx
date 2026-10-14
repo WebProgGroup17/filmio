@@ -410,7 +410,7 @@ export default function OneGroup() {
                             {requests.length === 0 && <p>No requests</p>}
                             {requests.map((request) => (
                                 <div key={request.request_id} className="member-row">
-                                    <span>{request.email}</span>
+                                    <span className="request-email">{request.email}</span>
                                     <div>
                                         <button
                                             className="small-button"
