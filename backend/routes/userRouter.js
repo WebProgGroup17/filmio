@@ -7,9 +7,9 @@ import { auth } from '../helper/auth.js'
 const { sign } = jwt
 const router = Router()
 //access token
-const ACCESS_TIME = '5m' 
+const ACCESS_TIME = '15m' // DEMO - change back to '5m'
 //refresh token 
-const REFRESH_TIME = '10m'
+const REFRESH_TIME = '30m' // DEMO - change back to '10m'
 //settings for the refresh token
 const cookieSettings = { 
   //javascript cannot access the cookie (protection against cookie theft)
@@ -20,7 +20,7 @@ const cookieSettings = {
   //cookie can be used only for this site
   sameSite: 'strict',   
   //cookie lifetime: 10 minutes(in ms)                       
-  maxAge: 10 * 60 * 1000,                        
+  maxAge: 30 * 60 * 1000,  // DEMO - change back to 10 * 60 * 1000                    
 }
 
 //create access token function

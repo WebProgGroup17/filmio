@@ -99,7 +99,7 @@ export default function OneMovieData() {
       className="add-to-favourites"
       onClick={handleAddToFavourites}
     >
-      ADD TO FAVOURITES
+      Add to favourites
     </button>
 
     <p className="favourite-message">{favouriteMessage}</p>

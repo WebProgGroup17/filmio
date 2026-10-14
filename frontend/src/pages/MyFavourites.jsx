@@ -69,7 +69,7 @@ export default function MyFavourites() {
       <Header />
       <div className="signin-required">
         <h1>You need to sign in to see this page</h1>
-        <Link to="/login" className="singin-required-button">
+        <Link to="/login" className="signin-required-button">
           Sign in
         </Link>
       </div>
@@ -87,13 +87,9 @@ export default function MyFavourites() {
       <Header />
       <div className="favourites-page">
         <div className="favourites-header">
-          <h1>MY FAVOURITE MOVIES:</h1>
+          <h1>My favourite movies:</h1>
           <button className="share-favourites-button" onClick={handleShare}>
-            SHARE
-          </button>
-        </div>
-          <button className="share-favourites-button" onClick={handleShare}>
-            SHARE
+            Share
           </button>
         </div>
 

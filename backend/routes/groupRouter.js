@@ -196,7 +196,8 @@ router.post('/:groupId/join', auth, async (req, res, next) => {
        FROM join_requests
        WHERE group_id = $1
        AND user_id = $2
-       AND status = 'pending'`,
+       AND status = 'pending'
+       AND type = 'request'`,
       [groupId, userId]
     );
 
@@ -227,7 +228,8 @@ router.post('/:groupId/join', auth, async (req, res, next) => {
        FROM join_requests
        WHERE group_id = $1
        AND user_id = $2
-       AND status = 'pending'`,
+       AND status = 'pending'
+       AND type = 'request'`,
       [groupId, userId]
     );
 
@@ -494,30 +496,6 @@ router.get('/:groupId/chat', auth, async (req, res, next) => {
        WHERE group_id = $1
        AND user_id = $2`,
       [groupId, userId]
-    );
-
-    if (memberResult.rows.length === 0) {
-      const error = new Error('You are not a member of this group');
-      error.status = 403;
-      return next(error);
-    }
-
-    const messageResult = await pool.query(
-      `SELECT
-          c.message_id,
-          c.text,
-          c.created_at,
-          u.user_id,
-          u.email
-       FROM chat c
-       JOIN users u
-         ON c.user_id = u.user_id
-       WHERE c.group_id = $1
-       ORDER BY c.created_at ASC`,
-      [groupId]
-    );
-
-    res.json(messageResult.rows);
     );
 
     if (memberResult.rows.length === 0) {

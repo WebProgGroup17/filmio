@@ -224,7 +224,7 @@ body {
   }
 }
 
-/* favourites, user not logged in */
+/* favourites and one group, user not logged in */
 .signin-required {
   margin-top: 120px;
   padding: 0 1rem;
@@ -237,7 +237,7 @@ body {
   text-transform: uppercase;
 }
 
-.singin-required-button {
+.signin-required-button {
   display: inline-block;
   padding: 14px 28px;
   border-radius: 30px;
@@ -245,6 +245,41 @@ body {
   color: #7b1fa2;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+/* favourites and one group, user not logged in, responsiveness*/
+/* Tablet */
+@media (max-width: 700px) {
+  .signin-required {
+    margin-top: 90px;
+  }
+
+  .signin-required h1 {
+    font-size: 1.3rem;
+    margin-bottom: 35px;
+  }
+
+  .signin-required-button {
+    padding: 12px 24px;
+    font-size: 0.7rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .signin-required {
+    margin-top: 60px;
+  }
+
+  .signin-required h1 {
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+  }
+
+  .signin-required-button {
+    padding: 10px 20px;
+    font-size: 0.5rem;
+  }
 }
 
 /* Search page */
@@ -343,7 +378,8 @@ body {
 }
 
 .search-page .movie-card {
-  width: 700px;
+  width: 100%;
+  max-width: 700px;
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -378,6 +414,102 @@ body {
   color: #323131;
   font-size: 1.2rem;
 }
+/* search page responsiveness */
+
+/* Tablet */
+@media (max-width: 700px) {
+  .search-page {
+    padding: 25px 20px;
+  }
+
+  .search-bar input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .search-form {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .search-filter {
+    flex: 1;
+    max-width: 170px;
+  }
+
+  .search-filter select {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .search-page h2 {
+    margin: 2rem 0 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  .search-page .movie-card {
+    gap: 1rem;
+  }
+
+  .search-page .movie-poster {
+    width: 110px;
+  }
+
+  .search-page .movie-info {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .search-page .movie-title {
+    font-size: 1.3rem;
+  }
+
+  .search-page .movie-year,
+  .search-page .movie-genres {
+    font-size: 1rem;
+  }
+
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .search-page {
+    padding: 20px 15px;
+  }
+
+  .search-bar {
+    gap: 0.5rem;
+  }
+
+  .search-bar button {
+    padding: 0 1rem;
+  }
+
+  .search-page .movie-grid {
+    gap: 1.5rem;
+  }
+
+  .search-page .movie-poster {
+    width: 80px;
+  }
+
+  .search-page .movie-title {
+    font-size: 1.1rem;
+  }
+
+  .search-page .movie-year {
+    font-size: 0.95rem;
+  }
+
+  .search-page .movie-genres {
+    font-size: 0.85rem;
+  }
+}
+
 
 /* log in page */
 
@@ -673,4 +805,12 @@ body {
   .signup-page button {
     width: 100%;
   }
+}
+
+/* Uppercase is applied visually; the markup keeps regular capitalization for screen readers */
+.now-in-cinemas h1,
+.search-bar button,
+.search-filter option[value=""],
+.search-page h2 {
+  text-transform: uppercase;
 }

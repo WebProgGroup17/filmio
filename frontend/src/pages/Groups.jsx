@@ -163,20 +163,20 @@ return (
       {user && (
         <>
           <div className="groups-header">
-            <h1>MY GROUPS:</h1>
+            <h1>My groups:</h1>
 
             <button
               className="create-group-button"
               onClick={() => setShowCreateGroup(true)}
             >
-              CREATE NEW GROUP
+              Create new group
             </button>
           </div>
 
           {showCreateGroup && (
             <div className="create-group-form">
               <div className="group-name-field">
-                <label>GROUP NAME:</label>
+                <label>Group name:</label>
 
                 <input
                   type="text"
@@ -190,14 +190,14 @@ return (
                   className="confirm-create-button"
                   onClick={handleCreateGroup}
                 >
-                  CREATE
+                  Create
                 </button>
 
                 <button
                   className="cancel-create-button"
                   onClick={handleCancelCreate}
                 >
-                  CANCEL
+                  Cancel
                 </button>
               </div>
             </div>
@@ -215,7 +215,7 @@ return (
         </>
       )}
 
-      <h2>ALL GROUPS:</h2>
+      <h2>All groups:</h2>
 
       <div className="all-groups groups-scroll-box">
         {allGroups.map((group) => {
@@ -235,7 +235,7 @@ return (
                 {user && !isMember && (
                   <>
                     {hasPendingRequest ? (
-                        <span className="pending-request">PENDING</span>
+                        <span className="pending-request">Pending</span>
         ) : (
           <button
             className="join-group-button"

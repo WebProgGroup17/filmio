@@ -1,3 +1,13 @@
+.now-in-cinemas {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 2.5rem 3rem 3rem;
+  background-image: url('./assets/backgroundMain.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
 .now-in-cinemas h1 {
   text-align: center;
   color: #7c3aed;
@@ -173,8 +183,13 @@
 
 /* movie details*/
 .movie-page {
-  margin: 40px auto;
-  padding: 0 60px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 2.5rem 3rem 3rem;
+  background-image: url('./assets/backgroundOneMovie.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .movie-top {
@@ -269,6 +284,9 @@
 }
 
 .movie-description {
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
   color: #666;
 }
 
@@ -285,6 +303,20 @@
   flex-direction: column;
   align-items: center;
   padding: 40px 20px;
+  background-image: url('./assets/backgroundMyAccount.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.account-welcome {
+  width: 100%;
+  max-width: 750px;
+  align-self: center;
+  margin: 0 0 30px 0px;
+  color: #7b1fa2;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 /* Group invitations */
@@ -346,7 +378,8 @@
 /* Message when there are no invitations */
 
 .no-invitations {
-  margin: 0;
+  width: 100%;
+  margin: 0 auto;
   color: #666;
   font-size: 18px;
   font-weight: 600;
@@ -473,6 +506,11 @@
 
   .logout-button {
     margin-top: 60px;
+  }
+  
+  .account-welcome {
+    margin-left: 0;
+    font-size: 26px;
   }
 }
 
@@ -730,8 +768,16 @@
 
 .groups-page {
 .groups-page {
-  padding: 40px 60px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 2.5rem 3rem 3rem;
+  color: #7b1fa2;
+  background-image: url('./assets/backgroundGroups.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
+
 
 .groups-header {
   display: flex;
@@ -856,7 +902,7 @@
 }
 
 .all-groups {
-  margin-top: 0x;
+  margin-top: 0;
 }
 
 .all-groups .group-item {
@@ -902,6 +948,8 @@
   padding: 15px 20px;
 
   box-sizing: border-box;
+
+  background-color: white;
 }
 
 /* GROUP PAGE FOR ONE GROUP */
@@ -1045,6 +1093,104 @@
   height: auto;
   display: block;
   border-radius: 12px;
+}
+
+/* GROUPS PAGE RESPONSIVENESS */
+
+/* Tablet */
+@media (max-width: 700px) {
+  .groups-page {
+    padding: 25px 20px;
+  }
+
+  .groups-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .groups-page h1,
+  .groups-page h2 {
+    font-size: 26px;
+  }
+
+  .groups-scroll-box {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .create-group-form {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 20px 0;
+    padding: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .groups-page {
+    padding: 20px 15px;
+  }
+
+  .groups-page h1,
+  .groups-page h2 {
+    font-size: 22px;
+  }
+
+  .create-group-button {
+    width: 100%;
+  }
+
+  .groups-scroll-box {
+    padding: 12px;
+    height: 220px;
+  }
+
+  .all-groups .group-item {
+    justify-content: space-between;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .group-name-field {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .group-name-field input {
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .create-group-actions {
+    gap: 10px;
+  }
+
+  .confirm-create-button,
+  .cancel-create-button {
+    flex: 1;
+    padding: 10px;
+  }
+
+  .groups-scroll-box .group-item a {
+    min-width: 0;
+    flex: 1;
+    padding: 14px 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .groups-scroll-box .group-item {
+    min-width: 0;
+  }
+
+  .join-group-button {
+    flex-shrink: 0;
+  }
 }
 
 /* Responsive header */
@@ -1206,4 +1352,103 @@ html {
   .footer-mandatory {
     font-size: 8px;
   }
+
+}
+
+/* Login link in the review message */
+.review-section a {
+  color: #7c3aed;
+  text-decoration: none;
+}
+
+.review-section a:hover {
+  color: #6b21d3;
+  text-decoration: underline;
+}
+
+
+/* Responsive movie details */
+
+@media (max-width: 900px) {
+  .movie-page {
+    padding: 0 20px;
+  }
+
+  .movie-top {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .movie-details-poster {
+    width: 180px;
+    max-width: 100%;
+  }
+
+  .movie-details-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .movie-details-info h1 {
+    font-size: 28px;
+    overflow-wrap: anywhere;
+  }
+
+  .movie-year,
+  .movie-genres {
+    font-size: 18px;
+  }
+
+  .movie-rating {
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 15px 0;
+  }
+
+  .star {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 901px) {
+  .movie-top {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .movie-details-poster {
+    width: 220px;
+    flex-shrink: 0;
+  }
+
+  .movie-details-info {
+    flex: 1;
+    min-width: 0;
+  }
+}
+/* Uppercase is applied visually; the markup keeps regular capitalization for screen readers */
+.now-in-cinemas h1,
+.groups-page h1,
+.groups-page h2,
+.group-name-field label,
+.pending-request,
+.no-invitations,
+.create-group-button,
+.confirm-create-button,
+.cancel-create-button,
+.accept-request-button,
+.decline-request-button,
+.logout-button,
+.delete-account-button,
+.modal-yes,
+.modal-no,
+.add-to-favourites,
+.group-main-button,
+.small-button,
+.big-light-button {
+  text-transform: uppercase;
 }
