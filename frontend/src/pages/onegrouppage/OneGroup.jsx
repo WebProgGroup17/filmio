@@ -375,7 +375,7 @@ export default function OneGroup() {
                             {movies.map((movie) => (
                                 <div key={movie.id} className="group-movie-card">
 
-                                    <div className="group-movie-poster">
+                                    <Link to={`/movies/${movie.id}`} className="group-movie-poster">
                                         {movie.posterUrl ? (
                                             <img
                                                 src={movie.posterUrl}
@@ -384,11 +384,11 @@ export default function OneGroup() {
                                         ) : (
                                             <div className="poster-placeholder" />
                                         )}
-                                    </div>
+                                    </Link>
 
-                                    <div className="group-movie-title">
+                                    <Link to={`/movies/${movie.id}`} className="group-movie-title">
                                         {movie.title}
-                                    </div>
+                                    </Link>
 
                                     <button
                                         type="button"
