@@ -251,7 +251,7 @@ Backend route tests use **Jest** and **Supertest**. Test files included in this 
 - `backend/test/logout.test.js`
 - `backend/test/register.test.js`
 - `backend/test/review.test.js`
-- `backend/test/account-delete.test.js`
+- `backend/test/delete.test.js`
 
 
 Run tests from the backend directory (requires Node.js and installed dependencies):
