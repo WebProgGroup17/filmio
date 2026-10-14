@@ -1,3 +1,9 @@
+.chat-title {
+  font-size: 1.5em;
+  margin: 0.83em 0;
+  color: #7b1fa2;
+}
+
 .chat-box {
     height: 300px;
     overflow-y: auto;
@@ -8,20 +14,66 @@
 }
 
 .chat-message {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 110px 150px 1fr;
+    align-items: baseline;
     gap: 10px;
 
     padding: 6px 0;
     border-bottom: 1px solid #eee;
 }
+.chat-message strong {
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+}
 
 .chat-message small {
     color: gray;
-    min-width: 140px;
+    white-space: nowrap;
 }
 
 .chat-text {
-    flex: 1;
+    min-width: 0;
+    text-align: left;
     word-break: break-word;
+}
+.chat-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.chat-form input {
+    flex: 1;
+    min-width: 0;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border: 1px solid #c77bdb;
+    border-radius: 20px;
+    font-size: 16px;
+    outline: none;
+}
+
+.chat-form input:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.chat-form button {
+    flex-shrink: 0;
+    height: 40px;
+    padding: 0 25px;
+    border: none;
+    border-radius: 20px;
+    background: #7c3aed;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.chat-form button:hover {
+    background: rgba(124, 58, 237, 0.15);
 }

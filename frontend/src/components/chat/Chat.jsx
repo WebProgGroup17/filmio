@@ -120,7 +120,7 @@ function ChatComponent({ groupId }) {
 
   return (
     <div>
-      <h3>Group Chat</h3>
+      <h3 className="chat-title">Group Chat</h3>
 
       <div className="chat-box" ref={chatBoxRef}>
         {messages.length === 0 ? (
@@ -142,7 +142,7 @@ function ChatComponent({ groupId }) {
         )}
       </div>
 
-      <form onSubmit={sendMessage}>
+      <form onSubmit={sendMessage} className="chat-form">
         <input
           type="text"
           value={text}
