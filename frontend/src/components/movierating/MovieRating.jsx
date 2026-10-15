@@ -1,6 +1,6 @@
 import "./MovieRating.css";
 
-export default function MovieRating ({ rating, count }) {
+export default function MovieRating ({ rating }) {
   //numbers should be integers, not decimals
   const roundedNumber = Math.round(rating);
 

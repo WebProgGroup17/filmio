@@ -24,29 +24,6 @@ function ChatComponent({ groupId }) {
   const socketRef = useRef(null);
   const chatBoxRef = useRef(null);
 
-  const fetchMessages = async () => {
-    try {
-      const response = await fetch(
-        `${API_URL}/groups/${groupId}/chat`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch messages');
-      }
-
-      setMessages(await response.json());
-    } catch (error) {
-      console.error('Error fetching messages:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   // Socket connection
   // One authenticated socket per group; disconnecting on cleanup also leaves the old room
   useEffect(() => {
@@ -77,11 +54,35 @@ function ChatComponent({ groupId }) {
     };
   }, [groupId, accessToken]);
 
-  useEffect(() => {
+    useEffect(() => {
     if (!accessToken) return;
+
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch(
+          `${API_URL}/groups/${groupId}/chat`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch messages');
+        }
+
+        setMessages(await response.json());
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchMessages();
   }, [groupId, accessToken]);
-
+  
   // Keep the chat scrolled to the newest message
   useEffect(() => {
     const box = chatBoxRef.current;

@@ -14,10 +14,8 @@ export default function MyFavourites() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    if (!accessToken) { //if user is not signed in-nothin to load
-      setLoading(false);
-      return;
-    }
+    if (!accessToken) return;
+    
     async function loadFavourites() { //function for loadin data from server
       const data = await getFavourites(accessToken);
       setMovies(data);

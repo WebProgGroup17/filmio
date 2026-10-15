@@ -64,6 +64,7 @@ export function AuthProvider({ children }) {
 
     // check the user's session when the app starts
     refreshSession().finally(() => setLoading(false));
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // login
@@ -139,6 +140,7 @@ export function AuthProvider({ children }) {
     }, REFRESH_TIME);
     // stop the refresh timer when the user logs out
     return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
   useEffect(() => {
@@ -166,6 +168,7 @@ export function AuthProvider({ children }) {
       // remove event listeners
       events.forEach((event) => window.removeEventListener(event, resetTimer));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
   const value = { user, accessToken, loading, login, logout, deleteAccount };
@@ -179,6 +182,7 @@ export function AuthProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   return useContext(AuthContext);
 }
