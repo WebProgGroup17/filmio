@@ -13,7 +13,7 @@ Filmio is a full-stack web application for movie enthusiasts, developed as part 
 - [Automated Tests](#automated-tests)
 - [Linting](#linting)
 - [Project Documentation](#project-documentation)
-- [Team & Development](#team)
+- [Team](#team)
 - [License](#license)
 
 ## Project Introduction
