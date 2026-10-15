@@ -90,6 +90,7 @@ app.use('/groups', oneGroupRouter)
 app.use('/favourites', favouritesRouter)
 
 // Error middleware
+// eslint-disable-next-line no-unused-vars
 app.use((err,req,res,next) => {
   console.error(err)
   const statusCode = err.status || 500

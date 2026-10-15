@@ -16,7 +16,6 @@ console.log('DB config:', {
 })
 */
 
-const environment = process.env.NODE_ENV || 'development'
 const { Pool } = pkg
 const openDb = () => {
 const pool = new Pool({
