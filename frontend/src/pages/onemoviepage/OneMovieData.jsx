@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { getMovieDetails } from "../../api/movies.js";
 import Header from "../../components/header/Header";
 import { useAuth } from "../../contexts/AuthContext.jsx";
@@ -17,7 +17,6 @@ export default function OneMovieData() {
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
   const { user, accessToken } = useAuth();
-  const navigate = useNavigate();
   const location = useLocation();
   const fromSharedFavourites = location.state?.fromSharedFavourites;
   const [favouriteMessage, setFavouriteMessage] = useState("");
