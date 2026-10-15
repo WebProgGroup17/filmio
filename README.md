@@ -110,8 +110,8 @@ filmio/
 ├── database/
 │   └── init.sql             # Initial PostgreSQL schema
 ├── documentation/
-    ├── presentation/        # data.sql, presentation and speech demos
-    ├── screenshots/         # screenshots of the aplication
+│   ├── presentation/        # data.sql, presentation and speech demos
+│   ├── screenshots/         # screenshots of the aplication
 │   ├── database_er_diagram.png
 │   ├── REST-API-Documentation.md
 │   ├── Timesheet.pdf
