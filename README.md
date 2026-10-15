@@ -11,8 +11,9 @@ Filmio is a full-stack web application for movie enthusiasts, developed as part 
 - [Installation & Setup](#installation--setup)
 - [API Documentation](#api-documentation)
 - [Automated Tests](#automated-tests)
+- [Linting](#linting)
 - [Project Documentation](#project-documentation)
-- [Team & Development](#team--development)
+- [Team](#team)
 - [License](#license)
 
 ## Project Introduction
@@ -109,8 +110,8 @@ filmio/
 ├── database/
 │   └── init.sql             # Initial PostgreSQL schema
 ├── documentation/
-    ├── presentation/        # data.sql, presentation and speech demos
-    ├── screenshots/         # screenshots of the aplication
+│   ├── presentation/        # data.sql, presentation and speech demos
+│   ├── screenshots/         # screenshots of the aplication
 │   ├── database_er_diagram.png
 │   ├── REST-API-Documentation.md
 │   ├── Timesheet.pdf
@@ -251,7 +252,7 @@ Backend route tests use **Jest** and **Supertest**. Test files included in this 
 - `backend/test/logout.test.js`
 - `backend/test/register.test.js`
 - `backend/test/review.test.js`
-- `backend/test/account-delete.test.js`
+- `backend/test/delete.test.js`
 
 
 Run tests from the backend directory (requires Node.js and installed dependencies):
@@ -261,6 +262,24 @@ cd backend
 npm install
 npm test
 ```
+
+[⬆️ Back to top](#table-of-contents)
+
+## Linting
+
+ESLint is used in both the backend and the frontend to check code quality. The linting tools are installed together with the other dependencies, so no extra setup is needed.
+
+```bash
+cd backend
+npm install
+npm run lint
+
+cd ../frontend
+npm install
+npm run lint
+```
+
+If the command prints nothing, no problems were found.
 
 [⬆️ Back to top](#table-of-contents)
 
