@@ -11,6 +11,7 @@ Filmio is a full-stack web application for movie enthusiasts, developed as part 
 - [Installation & Setup](#installation--setup)
 - [API Documentation](#api-documentation)
 - [Automated Tests](#automated-tests)
+- [Linting](#linting)
 - [Project Documentation](#project-documentation)
 - [Team & Development](#team--development)
 - [License](#license)
@@ -261,6 +262,24 @@ cd backend
 npm install
 npm test
 ```
+
+[⬆️ Back to top](#table-of-contents)
+
+## Linting
+
+ESLint is used in both the backend and the frontend to check code quality. The linting tools are installed together with the other dependencies, so no extra setup is needed.
+
+```bash
+cd backend
+npm install
+npm run lint
+
+cd ../frontend
+npm install
+npm run lint
+```
+
+If the command prints nothing, no problems were found.
 
 [⬆️ Back to top](#table-of-contents)
 
